@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 23:55:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/26 21:32:49 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 05:22:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,46 +38,169 @@ t_point			get_intersect_dda(t_point b, t_point a, t_point c, t_point d)
 	return (inter);
 }
 
+void			draw_height_dda(double angle, double dist, t_data *data, unsigned int color)
+{
+	t_point a;
+	t_point b;
+
+	a.x = ((angle / FOV) * (int)data->r.x);
+	b.x = a.x;
+	a.y = (int)data->r.y/2 + (((int)data->r.y/2 / dist));
+	b.y = (int)data->r.y/2 - (((int)data->r.y/2 / dist));
+	draw_line(b, a, data, color);
+}
+
 double			get_angle_tan(double opp, double adj)
 {
 	return (atan(opp/adj) * (180 / PI));
 }
 
-int			get_walls_angle(double ray_angle, t_point dda, t_data *data)
+int			get_walls_270_0(double ray_angle, t_point *dda, t_data *data)
 {
-	double	angle[4];
+	double	angle;
 	double	opp;
 	double	adj;
 
-	printf("%f %f\n", data->player.pos.x, data->player.pos.y);
-	opp = (double)(int)data->player.pos.y + 1 - data->player.pos.y;
-	adj = (double)(int)data->player.pos.x + 1 - data->player.pos.x;
-	angle[0] = get_angle_tan(opp, adj); //bot_right
+	opp = (double)(int)data->player.pos.x + ((int)dda->x - (int)data->player.pos.x + 1) - data->player.pos.x;
+	adj = data->player.pos.y - (double)(int)dda->y;
+	angle = 270 + get_angle_tan(opp, adj); //top_right
 
-	opp = data->player.pos.x - (double)(int)data->player.pos.x;
-	adj = (double)(int)data->player.pos.y + 1 - data->player.pos.y;
-	angle[1] = 90 + get_angle_tan(opp, adj); //bot_left
-
-	opp = data->player.pos.y - (double)(int)data->player.pos.y;
-	adj = data->player.pos.x - (double)(int)data->player.pos.x;
-	angle[2] = 180 + get_angle_tan(opp, adj); //top_left
-
-	opp = (double)(int)data->player.pos.x + 1 - data->player.pos.x;
-	adj = data->player.pos.y - (double)(int)data->player.pos.y;
-	angle[3] = 270 + get_angle_tan(opp, adj); //top_right
-
-	if ((int)ray_angle >= (int)angle[0] && (int)ray_angle <= (int)angle[1])
-		printf("Player look bot\n");
-	if ((int)ray_angle >= (int)angle[1] && (int)ray_angle <= (int)angle[2])
-		printf("Player look left\n");
-	if ((int)ray_angle >= (int)angle[2] && (int)ray_angle <= (int)angle[3])
-		printf("Player look top\n");
-	if (((int)ray_angle >= (int)angle[3] && (int)ray_angle <= 360) || ((int)ray_angle >= 0 && (int)ray_angle <= (int)angle[0]))
-		printf("Player look right\n");
+	if ((int)ray_angle >= (int)(angle + 1))
+	{
+		dda->x++;
+		return (0);
+		//printf("Player look right\n");
+	}
+	else
+	{
+		dda->y--;
+		return (3);
+		//printf("Player look top\n");
+	}
 	return (1);
 }
 
-int			closest_wall_dda(t_point x, t_data *data)
+int			get_walls_180_270(double ray_angle, t_point *dda, t_data *data)
+{
+	double	angle;
+	double	opp;
+	double	adj;
+
+	opp = data->player.pos.y - (double)(int)dda->y;
+	adj = data->player.pos.x - (double)(int)dda->x;
+	angle = 180 + get_angle_tan(opp, adj); //top_left
+
+	if ((int)ray_angle >= (int)(angle + 1))
+	{
+		dda->y--;
+		return (3);
+		//printf("Player look top\n");
+	}
+	else
+	{
+		dda->x--;
+		return (2);
+		//printf("Player look left\n");
+	}
+	return (1);
+}
+
+int			get_walls_90_180(double ray_angle, t_point *dda, t_data *data)
+{
+	double	angle;
+	double	opp;
+	double	adj;
+
+	opp = data->player.pos.x - (double)(int)dda->x;
+	adj = (double)(int)data->player.pos.y + ((int)dda->y - (int)data->player.pos.y + 1) - data->player.pos.y;
+	angle = 90 + get_angle_tan(opp, adj); //bot_left
+
+	if ((int)ray_angle >= (int)(angle + 1))
+	{
+		dda->x--;
+		return (2);
+		//printf("Player look left\n");
+	}
+	else
+	{
+		dda->y++;
+		return (1);
+		//printf("Player look bot\n");
+	}
+	return (1);
+}
+
+void			get_walls_0_90(double ray_angle, t_point *dda, t_data *data)
+{
+	double	angle;
+	double	opp;
+	double	adj;
+	t_point	pt;
+
+	opp = (double)(int)data->player.pos.y + ((int)dda->y - (int)data->player.pos.y + 1) - data->player.pos.y;
+	adj = (double)(int)data->player.pos.x + ((int)dda->x - (int)data->player.pos.x + 1) - data->player.pos.x;
+	angle = get_angle_tan(opp, adj); //bot_right
+	if (ray_angle > (angle + 1))
+		dda->y++; //printf("Player look bot\n");
+	else
+		dda->x++; //printf("Player look right\n");
+	data->test[(int)dda->y][(int)dda->x] = data->game[(int)dda->y][(int)dda->x];
+	if (data->game[(int)dda->y][(int)dda->x] == '1')
+	{
+		pt.x = (ray_angle >= (angle + 1)) ? ((int)dda->x + 1 - data->player.pos.x) *
+		((angle / ray_angle)) + data->player.pos.x : (int)dda->x + 1;
+		pt.y = (ray_angle >= (angle + 1)) ? (int)dda->y + 1 : (((double)(int)data->player.pos.y
+		+ ((int)dda->y - (int)data->player.pos.y + 1) - data->player.pos.y)
+		* (ray_angle / angle)) + data->player.pos.y;
+		draw_height_dda(ray_angle - data->player.angle + (FOV / 2),
+		get_dist(data->player.pos, pt), data, (ray_angle >= (angle + 1)) ? NORTH : EAST);
+		return ;
+	}
+	else
+		get_walls_0_90(ray_angle, dda, data);
+}
+
+void			get_walls_angle(double ray_angle, t_point *dda, t_data *data)
+{
+	if (data->player.angle >= 0 && data->player.angle <= 90)
+		get_walls_0_90(ray_angle, dda, data);
+	/*else if (data->player.angle >= 90 && data->player.angle <= 180)
+		get_walls_90_180(ray_angle, dda, data);
+	else if (data->player.angle >= 180 && data->player.angle <= 270)
+		get_walls_180_270(ray_angle, dda, data);
+	else
+		get_walls_270_0(ray_angle, dda, data);*/
+	return ;
+}
+
+void		print_map(char *game[11])
+{
+	int trash;
+
+	trash = -1;
+	while (++trash < 11)
+		printf("%s\n", game[trash]);
+	printf("\n");
+}
+
+void		print_screen(char game[21][60])
+{
+	int y;
+	int	x;
+
+	y = 0;
+	printf("\n\n\n\n\n\n\n\n\n\n");
+	while (y <= 20)
+	{
+		x = -1;
+		while (++x < 60)
+			printf("%c", game[y][x]);
+		printf("\n");
+		y++;
+	}
+}
+
+int			closest_wall_dda(double angle, t_data *data)
 {
 	t_point	inter;
 	t_point dda;
@@ -85,8 +208,13 @@ int			closest_wall_dda(t_point x, t_data *data)
 
 	dda.x = data->player.pos.x;
 	dda.y = data->player.pos.y;
-	get_walls_angle(data->player.angle, dda, data);
-	//printf("\nPlayer  = %f %f\n", data->player.pos.x, data->player.pos.y);
+	//printf("Player  = %f %f %f\n", data->player.pos.x, data->player.pos.y, data->player.angle);
+	//print_map(data->game);
+	//printf("DDA = \n%c", data->game[(int)dda.y][(int)dda.x]);
+	get_walls_angle((data->player.angle - (FOV / 2) + angle), &dda, data);
+	//printf("%c", data->game[(int)dda.y][(int)dda.x]);
+	//data->screen[10][(int)angle] = texture + '0';
+	//printf("%d", texture);
 	/*printf("Angle 1 = %f %f\n", (double)(int)data->player.pos.x, (double)(int)data->player.pos.y);
 	printf("Angle 2 = %f %f\n", (double)(int)data->player.pos.x + 1, (double)(int)data->player.pos.y);
 	printf("Angle 3 = %f %f\n", (double)(int)data->player.pos.x + 1, (double)(int)data->player.pos.y + 1);

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/26 21:03:26 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 05:02:58 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,23 @@ int			main(void)
 		"1N000000000000010001",
 		"11111111111111111111"
 	};
+
+	data.test = malloc(sizeof(char *) * (11));
+	int	i = 0;
+	int	j = 0;
+	while (i < 11)
+	{
+		j = 0;
+		data.test[i] = malloc(sizeof(char) * (21));
+		while (j < 20)
+		{
+			data.test[i][j] = ' ';
+			j++;
+		}
+		data.test[i][j] = 0;
+		i++;
+	}
+
 	trash = -1;
 	while (++trash < 11)
 		data.game[trash] = game[trash];
@@ -255,6 +272,7 @@ int			main(void)
 	fd = open("map1.cub", 'r');
 	data.player.angle = 0;
 	data.mlx = mlx_init();
+	data.toggle = 1;
 	if (parsing(fd, &data) == 0)
 		exit(0);
 	data.win = mlx_new_window(data.mlx, (int)data.r.x, (int)data.r.y, "Cub3D");

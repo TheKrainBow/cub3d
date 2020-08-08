@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/26 20:27:26 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 05:02:42 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct			s_data
 	unsigned int		color[2];
 	int					update;
 	char				*game[11];
+	int					toggle;
+	char				**test;
 }						t_data;
 
 void					draw_pt(int x, int y, t_data *data, unsigned int color);
@@ -118,6 +120,6 @@ int						parsing(int fd, t_data *data);
 int						ft_atoi(const char *str);
 double					get_dist(t_point a, t_point b);
 
-int						closest_wall_dda(t_point x, t_data *data);
+int						closest_wall_dda(double angle, t_data *data);
 
 #endif

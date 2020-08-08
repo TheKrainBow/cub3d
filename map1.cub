@@ -1,7 +1,7 @@
 R 1920 1080
-NO ./texture/north_texture.xpm
-SO ./texture/south_texture.xpm
-WE ./texture/west_texture.xpm
+NO ./texture/east_texture.xpm
+SO ./texture/east_texture.xpm
+WE ./texture/east_texture.xpm
 EA ./texture/east_texture.xpm
 C 179,182,183
 F 95,106,106

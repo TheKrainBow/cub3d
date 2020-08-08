@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:19:46 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/26 01:06:41 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 04:54:30 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int			hook_keydown(int key_code, t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 		hook_close(data);
 	}
+	if (key_code == 102)
+		data->toggle = data->toggle == 1 ? 0 : 1;
 	if (key_code == ARR_L || key_code == ARR_R)
 	{
 		data->player.angle = key_code == ARR_L ? data->player.angle - 5 : data->player.angle + 5;

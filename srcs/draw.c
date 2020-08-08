@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/26 00:26:41 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 05:07:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,21 +164,42 @@ void			draw_screen(t_data *data)
 	t_point		a;
 	int			closest;
 
+
+	i = 0;
+	while (i < 11)
+	{
+		j = 0;
+		while (j < 20)
+		{
+			data->test[i][j] = ' ';
+			j++;
+		}
+		data->test[i][j] = 0;
+		i++;
+	}
 	f = 0;
+	while (f < FOV && data->toggle == 1)
+	{
+		closest_wall_dda(f, data);
+		//f++;
+		f += (double)FOV / 2000;
+	}
 
-
-	a.x = data->player.pos.x + (cosf((data->player.angle) * (PI / 180)));
-	a.y = data->player.pos.y + (sinf((data->player.angle) * (PI / 180)));
-	closest_wall_dda(a, data);
-
-
-	while (f < FOV)
+	f = 0;
+	while (f < FOV && data->toggle == 0)
 	{
 		a.x = data->player.pos.x + (cosf((data->player.angle - (FOV / 2) + f) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (FOV / 2) + f) * (PI / 180)));
 		closest = closest_wall(a, data);
 		draw_height(f, data->walls[closest], data);
 		f += (double)FOV / 2000;
+	}
+	f = 0;
+	printf("\n\n\n\n\n");
+	while ((int)f < 11)
+	{
+		printf("%s\n", data->test[(int)f]);
+		f++;
 	}
 	/*i = -1;
 	while (data->walls[++i].p[0].x != -42)

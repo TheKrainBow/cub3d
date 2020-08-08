@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/08/04 20:56:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/06 04:33:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ void			draw_screen(t_data *data)
 		//f += (double)FOV / 2000;
 	}
 
-	print_screen(data->screen);
 /*
 	while (f < FOV)
 	{
