@@ -1,8 +1,8 @@
-R 1920 1080
-NO ./texture/east_texture.xpm
-SO ./texture/east_texture.xpm
-WE ./texture/east_texture.xpm
-EA ./texture/east_texture.xpm
+R 1980 720
+NO ./texture/shrek.xpm
+SO ./texture/shrek.xpm
+WE ./texture/shrek.xpm
+EA ./texture/shrek.xpm
 C 179,182,183
 F 95,106,106
 

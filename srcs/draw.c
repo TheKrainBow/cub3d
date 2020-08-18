@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/08/06 05:07:00 by magostin         ###   ########.fr       */
+/*   Updated: 2020/08/16 19:06:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ void		get_texture(t_point a, t_point b, t_data *data, t_wall wall)
 	double		col;
 
 	if (wall.color == NORTH || wall.color == SOUTH)
-		col = (int)(wall.t->lth * ((wall.inter.y - wall.p[0].y)));
+		col = (int)(wall.t->wth * ((wall.inter.y - wall.p[0].y)));
 	else
-		col = (int)(wall.t->lth * ((wall.inter.x - wall.p[0].x)));
+		col = (int)(wall.t->wth * ((wall.inter.x - wall.p[0].x)));
 	i = -1;
 		while ((++i < b.y - a.y))
 			if (a.x + (i * (b.x - a.x)) / (b.y - a.y) < data->r.x && a.x + (i * (b.x - a.x)) / (b.y - a.y) > 0 && i + a.y < data->r.y && i + a.y > 0)
-				draw_pt(a.x + (i * (b.x - a.x)) / (b.y - a.y), i + a.y, data, wall.t->tab[(int)(col) + (wall.t->lth * (int)(i * (wall.t->lth / (b.y - a.y))))]);
+				draw_pt(a.x + (i * (b.x - a.x)) / (b.y - a.y), i + a.y, data, wall.t->tab[(int)(col) + (wall.t->wth * (int)(i * (wall.t->lth / (b.y - a.y))))]);
 }
 
 double			get_angle(t_point a, t_point player)
@@ -150,8 +150,8 @@ void			draw_height(double angle, t_wall wall, t_data *data)
 
 	a.x = ((angle/* - (data->player.angle + (FOV / 2))*/) / FOV) * (int)data->r.x;
 	b.x = a.x;
-	a.y = (int)data->r.y/2 + (((int)data->r.y/2 / wall.inter.dist));
-	b.y = (int)data->r.y/2 - (((int)data->r.y/2 / wall.inter.dist));
+	a.y = (int)data->r.y/2 + (((int)data->r.y / wall.inter.dist));
+	b.y = (int)data->r.y/2 - (((int)data->r.y / wall.inter.dist));
 	get_texture(b, a, data, wall);
 }
 
@@ -164,42 +164,14 @@ void			draw_screen(t_data *data)
 	t_point		a;
 	int			closest;
 
-
-	i = 0;
-	while (i < 11)
-	{
-		j = 0;
-		while (j < 20)
-		{
-			data->test[i][j] = ' ';
-			j++;
-		}
-		data->test[i][j] = 0;
-		i++;
-	}
 	f = 0;
-	while (f < FOV && data->toggle == 1)
-	{
-		closest_wall_dda(f, data);
-		//f++;
-		f += (double)FOV / 2000;
-	}
-
-	f = 0;
-	while (f < FOV && data->toggle == 0)
+	while (f < FOV)
 	{
 		a.x = data->player.pos.x + (cosf((data->player.angle - (FOV / 2) + f) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (FOV / 2) + f) * (PI / 180)));
 		closest = closest_wall(a, data);
 		draw_height(f, data->walls[closest], data);
 		f += (double)FOV / 2000;
-	}
-	f = 0;
-	printf("\n\n\n\n\n");
-	while ((int)f < 11)
-	{
-		printf("%s\n", data->test[(int)f]);
-		f++;
 	}
 	/*i = -1;
 	while (data->walls[++i].p[0].x != -42)
