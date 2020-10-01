@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/08/04 19:16:56 by magostin         ###   ########.fr       */
+/*   Updated: 2020/09/19 12:29:10 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct			s_player
 	t_point				pos;
 	double				angle;
 }						t_player;
+
 typedef struct			s_data
 {
 	t_player			player;

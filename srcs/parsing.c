@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/07/18 22:51:02 by magostin         ###   ########.fr       */
+/*   Updated: 2020/09/02 00:14:47 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,17 @@ int			detect_param(char (**line))
 
 int		reso(char *line, t_data *data)
 {
+	int		x;
+	int		y;
+
+	mlx_get_screen_size(data->mlx, &x, &y);
 	line++;
 	while (ft_whitespace(*line) && (*line))
 		line++;
 	if (!is_nb(*line))
 		return (ERR_RES);
 	data->r.x = ft_atoi(line);
+	data->r.x = data->r.x > x ? x : data->r.x;
 	while (is_nb(*line) && (*line))
 		line++;
 	if (!ft_whitespace(*line))
@@ -69,6 +74,7 @@ int		reso(char *line, t_data *data)
 	if (!is_nb(*line))
 		return (ERR_RES);
 	data->r.y = ft_atoi(line);
+	data->r.y = data->r.y > y ? y : data->r.y;
 	while (is_nb(*line) && (*line))
 		line++;
 	if (!ft_whitespace(*line) && (*line))

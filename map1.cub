@@ -1,8 +1,8 @@
-R 1980 720
-NO ./texture/shrek.xpm
-SO ./texture/shrek.xpm
-WE ./texture/shrek.xpm
-EA ./texture/shrek.xpm
+R 800 800
+WE ./texture/test.xpm
+SO ./texture/test.xpm
+NO ./texture/test.xpm
+EA ./texture/test.xpm
 C 179,182,183
 F 95,106,106
 
