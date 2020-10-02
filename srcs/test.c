@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 00:16:59 by magostin          #+#    #+#             */
-/*   Updated: 2020/09/30 02:19:14 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/01 17:26:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,26 @@ unsigned int		tessst(t_point p, t_point inc)
 	}
 }
 
+t_sprite	*new_sprite(t_point pos)
+{
+	t_sprite	*sprite;
+
+	if (!(sprite = (t_sprite *)malloc(sizeof(t_sprite))))
+		return (0);
+	sprite->pos.x = (int)pos.x + 0.5;
+	sprite->pos.y = (int)pos.y + 0.5;
+	sprite->next = NULL;
+	return (sprite);
+}
+
+void		sprite_push_front(t_sprite **first, t_sprite *new)
+{
+	if (!first || !new)
+		return ;
+	new->next = *first;
+	*first = new;
+}
+
 void		dda_test(double f, t_data *data)
 {
 	t_point		p;
@@ -76,20 +96,29 @@ void		dda_test(double f, t_data *data)
 	t_point		b;
 	int			steps;
 
+	data->sprites = NULL;
 	b.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 1000);
 	b.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 1000);
 	steps = abs((int)(b.x - data->player.pos.x)) > abs((int)(b.y - data->player.pos.y)) ? abs((int)(b.x - data->player.pos.x)) : abs((int)(b.y - data->player.pos.y));
-	inc.x = (b.x - data->player.pos.x) / (double)(steps * 1000);
-	inc.y = (b.y - data->player.pos.y) / (double)(steps * 1000);
+	inc.x = (b.x - data->player.pos.x) / (double)(steps);
+	inc.y = (b.y - data->player.pos.y) / (double)(steps);
 	p.x = data->player.pos.x;
 	p.y = data->player.pos.y;
 	while (data->game[(int)p.y][(int)p.x] != '1')
 	{
+		if (data->game[(int)p.y][(int)p.x] == '2')
+			sprite_push_front(&data->sprites, new_sprite(p));
 		p.x += inc.x;
 		p.y += inc.y;
 	}
+	printf("\n");
 	//printf("%f %f %c\n", x, y, data->game[(int)y][(int)x]);
-	//draw_circle(ray, 5, data, 0xFF0000);
-	
-	draw_wall(f, p, data, tessst(p, inc));
+	t_sprite *temp;
+	temp = data->sprites;
+	while (temp)
+	{
+		printf("%f\n", get_dist(data->player.pos, temp->pos));
+		temp = temp->next;
+	}
+	//draw_wall(f, p, data, tessst(p, inc));
 }

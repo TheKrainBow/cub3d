@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/09/29 23:08:05 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/02 21:58:20 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,7 +368,7 @@ int			main(void)
 		"10000000000010000001",
 		"10000200000010000001",
 		"10000000200010000001",
-		"10000002010010000001",
+		"10000002210010000001",
 		"10002000011110000001",
 		"10000000000000000001",
 		"10000000200000000001",
@@ -384,12 +384,23 @@ int			main(void)
 	fd = open("map1.cub", 'r');
 	data.fov = FOV;
 	data.player.angle = 0 - 9 * 3;
+	data.player.angle = 0;
 	data.mlx = mlx_init();
 	if (parsing(fd, &data) == 0)
 		exit(0);
+	void			*background;
+	unsigned int	*background_addr;
+	background = mlx_new_image(data.mlx, (int)data.r.x, (int)data.r.y);
+	background_addr = (unsigned int *)mlx_get_data_addr(background, &trash, &trash, &trash);
+	trash = -1;
+	while (++trash < (data.r.x * data.r.y) / 2)
+		background_addr[trash] = data.color[0];
+	while (++trash < (data.r.x * data.r.y))
+		background_addr[trash] = data.color[1];
 	data.win = mlx_new_window(data.mlx, (int)data.r.x, (int)data.r.y, "Cub3D");
 	data.img = mlx_new_image(data.mlx, (int)data.r.x, (int)data.r.y);
 	data.draw = (unsigned int *)mlx_get_data_addr(data.img, &trash, &trash, &trash);
+	mlx_put_image_to_window(data.mlx, data.win, background, 0, 0);
 	mlx_hook(data.win, 17, 1L << 17, hook_close, &data);
 	mlx_hook(data.win, 2, 1L << 0, hook_keydown, &data);
 	mlx_loop_hook(data.mlx, hook_loop, &data);

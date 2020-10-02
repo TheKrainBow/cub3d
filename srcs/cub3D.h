@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/09/30 00:21:40 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/01 17:11:19 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct			s_sprite
 {
 	t_point				pos;
 	t_texture			*t;
+	struct s_sprite		*next;
 }						t_sprite;
 
 typedef struct			s_player
