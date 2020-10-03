@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:19:46 by magostin          #+#    #+#             */
-/*   Updated: 2020/09/24 12:24:24 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 04:24:43 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			hook_keydown(int key_code, t_data *data)
 {
 	t_point a;
 
+	printf("%d\n", (key_code % 12));
 	if (key_code == 32)
 	{
 		mlx_destroy_window(data->mlx, data->win);
@@ -46,33 +47,32 @@ int			hook_keydown(int key_code, t_data *data)
 	if (key_code == KEY_Z)
 	{
 		if (data->game[(int)data->player.pos.y][(int)(data->player.pos.x + (cos(data->player.angle * (PI / 180)) / 5))] != '1')
-			data->player.pos.x += (cos(data->player.angle * (PI / 180)) / 10);
+			data->player.pos.x += (cos(data->player.angle * (PI / 180)) / 5);
 		if (data->game[(int)(data->player.pos.y + (sin(data->player.angle * (PI / 180)) / 5))][(int)data->player.pos.x] != '1')
-			data->player.pos.y += (sin(data->player.angle * (PI / 180)) / 10);
+			data->player.pos.y += (sin(data->player.angle * (PI / 180)) / 5);
 	}
 	if (key_code == KEY_S)
 	{
 		if (data->game[(int)data->player.pos.y][(int)(data->player.pos.x - (cos(data->player.angle * (PI / 180)) / 5))] != '1')
-			data->player.pos.x -= (cos(data->player.angle * (PI / 180)) / 10);
+			data->player.pos.x -= (cos(data->player.angle * (PI / 180)) / 5);
 		if (data->game[(int)(data->player.pos.y - (sin(data->player.angle * (PI / 180)) / 5))][(int)data->player.pos.x] != '1')
-			data->player.pos.y -= (sin(data->player.angle * (PI / 180)) / 10);
+			data->player.pos.y -= (sin(data->player.angle * (PI / 180)) / 5);
 	}
 	if (key_code == KEY_D)
 	{
 		if (data->game[(int)data->player.pos.y][(int)(data->player.pos.x + (cos((data->player.angle + 90) * (PI / 180)) / 5))] != '1')
-			data->player.pos.x += (cos((data->player.angle + 90) * (PI / 180)) / 10);
+			data->player.pos.x += (cos((data->player.angle + 90) * (PI / 180)) / 5);
 		if (data->game[(int)(data->player.pos.y + (sin((data->player.angle + 90) * (PI / 180)) / 5))][(int)data->player.pos.x] != '1')
-			data->player.pos.y += (sin((data->player.angle + 90) * (PI / 180)) / 10);
+			data->player.pos.y += (sin((data->player.angle + 90) * (PI / 180)) / 5);
 	}
 	if (key_code == KEY_Q)
 	{
 		if (data->game[(int)data->player.pos.y][(int)(data->player.pos.x - (cos((data->player.angle + 90) * (PI / 180)) / 5))] != '1')
-			data->player.pos.x -= (cos((data->player.angle + 90) * (PI / 180)) / 10);
+			data->player.pos.x -= (cos((data->player.angle + 90) * (PI / 180)) / 5);
 		if (data->game[(int)(data->player.pos.y - (sin((data->player.angle + 90) * (PI / 180)) / 5))][(int)data->player.pos.x] != '1')
-			data->player.pos.y -= (sin((data->player.angle + 90) * (PI / 180)) / 10);
+			data->player.pos.y -= (sin((data->player.angle + 90) * (PI / 180)) / 5);
 	}
 	if (data->update == 1)
 		update(data);
-	//printf("%f\n", data->player.angle);
 	return (1);
 }

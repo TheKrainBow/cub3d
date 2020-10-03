@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/09/02 00:14:47 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 18:14:41 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			detect_param(char (**line))
 		return (7);
 	if ((**line) == 'C' && ft_whitespace(*(*line + 1)))
 		return (8);
-	return (8);
+	return (9);
 }
 
 int		reso(char *line, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/01 17:11:19 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 03:01:30 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,12 @@ typedef struct			s_object
 
 typedef struct			s_sprite
 {
+	t_point				p[2];
 	t_point				pos;
+	t_point				inter;
+	int					x_slice;
+	double				angle;
+	double				dist;
 	t_texture			*t;
 	struct s_sprite		*next;
 }						t_sprite;
@@ -110,6 +115,7 @@ typedef struct			s_data
 	void				*img;
 	unsigned int		*draw;
 	unsigned int		color[2];
+	double					*distance;
 	int					update;
 	char				*game[11];
 	int					fov;
@@ -143,5 +149,6 @@ void					draw_square(int x, int y, double size, unsigned int color, t_data *data
 void					travel_algo(double f, t_point steps, t_data *data);
 
 void					dda_test(double f, t_data *data);
+double					fix_angle(double angle);
 
 #endif

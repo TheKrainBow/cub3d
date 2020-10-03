@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 00:16:59 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/01 17:26:31 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 03:20:05 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ unsigned int		tessst(t_point p, t_point inc)
 	}
 }
 
-t_sprite	*new_sprite(t_point pos)
+t_sprite	*new_sprite(t_point pos, t_data *data)
 {
 	t_sprite	*sprite;
 
@@ -77,6 +77,7 @@ t_sprite	*new_sprite(t_point pos)
 		return (0);
 	sprite->pos.x = (int)pos.x + 0.5;
 	sprite->pos.y = (int)pos.y + 0.5;
+	sprite->dist = get_dist(data->player.pos, sprite->pos);
 	sprite->next = NULL;
 	return (sprite);
 }
@@ -107,18 +108,48 @@ void		dda_test(double f, t_data *data)
 	while (data->game[(int)p.y][(int)p.x] != '1')
 	{
 		if (data->game[(int)p.y][(int)p.x] == '2')
-			sprite_push_front(&data->sprites, new_sprite(p));
+			sprite_push_front(&data->sprites, new_sprite(p, data));
 		p.x += inc.x;
 		p.y += inc.y;
 	}
-	printf("\n");
 	//printf("%f %f %c\n", x, y, data->game[(int)y][(int)x]);
-	t_sprite *temp;
-	temp = data->sprites;
-	while (temp)
-	{
-		printf("%f\n", get_dist(data->player.pos, temp->pos));
-		temp = temp->next;
-	}
 	//draw_wall(f, p, data, tessst(p, inc));
+}
+
+void		sprite_add_sorted(t_sprite **first, t_sprite *new)
+{
+	t_sprite		*temp;
+
+	if (!first || !new)
+		return ;
+	if (!(*first) || (*first)->dist < new->dist)
+	{
+		sprite_push_front(first, new);
+		return ;
+	}
+	temp = *first;
+	while (temp->next && temp->next->dist > new->dist)
+		temp = temp->next;
+	new->next = temp->next;
+	temp->next = new;
+}
+
+void		init_sprites(t_data *data)
+{
+	int			c[2];
+	t_point		p;
+
+	data->sprites = NULL;
+	c[0] = -1;
+	while (++c[0] < MAP_H)
+	{
+		c[1] = -1;
+		while (++c[1] < MAP_L)
+			if (data->game[c[0]][c[1]] == '2')
+			{
+				p.x = c[1];
+				p.y = c[0];
+				sprite_add_sorted(&data->sprites, new_sprite(p, data));
+			}
+	}
 }

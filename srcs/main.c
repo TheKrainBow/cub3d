@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/02 21:58:20 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 18:21:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 void					round_angle(double *f)
 {
-	while (*f > 360)
+	while (*f >= 360)
 		*f -= 360;
-	while (*f <= 0)
+	while (*f < 0)
 		*f += 360;
 	//return (f);
 }
@@ -80,7 +80,7 @@ double		fix_angle(double angle)
 {
 	while (angle < 0)
 		angle += 360;
-	while (angle > 360)
+	while (angle >= 360)
 		angle -= 360;
 	return (angle);
 }
@@ -293,9 +293,40 @@ t_object		*fill_wall(char *game[11], t_object *walls, t_data *data)
 			}
 		}
 	}
-	//walls[compteur].p[0].x = -42;
 	data->n_objs = compteur;
 	return (merge_wall(walls, data));
+}
+
+void			ft_init_player(t_data *data, int x, int y)
+{
+	char		c;
+
+	c = data->game[x][y];
+	if (c == 'N')
+	{
+		data->player.angle = -90;
+		data->player.pos.x = y + 0.5;
+		data->player.pos.y = x + 0.5;
+	}
+	if (c == 'S')
+	{
+		data->player.angle = 90;
+		data->player.pos.x = y + 0.5;
+		data->player.pos.y = x + 0.5;
+	}
+	if (c == 'E')
+	{
+		data->player.angle = 0;
+		data->player.pos.x = y + 0.5;
+		data->player.pos.y = x + 0.5;
+	}
+	if (c == 'W')
+	{
+		data->player.angle = 180;
+		data->player.pos.x = y + 0.5;
+		data->player.pos.y = x + 0.5;
+	}
+	return ;
 }
 
 t_object		*create_wall(char *game[11], t_data *data)
@@ -311,7 +342,10 @@ t_object		*create_wall(char *game[11], t_data *data)
 	{
 		c[1] = -1;
 		while (++c[1] < MAP_L)
+		{
+			ft_init_player(data, c[0], c[1]);
 			compteur += check_nei(game, c[0], c[1]);
+		}
 	}
 	if (!(walls = malloc(sizeof(t_object) * (compteur + 1))))
 		return (NULL);
@@ -351,10 +385,13 @@ void		create_sprites(t_data *data, char *game[11])
 	}
 }
 
+
+void		init_sprites(t_data *data);
+
 int			main(void)
 {
 	t_data			data;
-	t_object			*objs;
+	t_object		*objs;
 	t_point			a;
 	t_point			b;
 	t_point			c;
@@ -366,12 +403,12 @@ int			main(void)
 		"11111111111111111111",
 		"10000000000010000001",
 		"10000000000010000001",
-		"10000200000010000001",
-		"10000000200010000001",
-		"10000002210010000001",
-		"10002000011110000001",
-		"10000000000000000001",
-		"10000000200000000001",
+		"10000000000010000001",
+		"10000000000010000001",
+		"1E000202010010020001",
+		"10000000011110020001",
+		"10000002000000000001",
+		"10000000000000002001",
 		"10000000000000000001",
 		"11111111111111111111"
 	};
@@ -388,25 +425,17 @@ int			main(void)
 	data.mlx = mlx_init();
 	if (parsing(fd, &data) == 0)
 		exit(0);
-	void			*background;
-	unsigned int	*background_addr;
-	background = mlx_new_image(data.mlx, (int)data.r.x, (int)data.r.y);
-	background_addr = (unsigned int *)mlx_get_data_addr(background, &trash, &trash, &trash);
-	trash = -1;
-	while (++trash < (data.r.x * data.r.y) / 2)
-		background_addr[trash] = data.color[0];
-	while (++trash < (data.r.x * data.r.y))
-		background_addr[trash] = data.color[1];
 	data.win = mlx_new_window(data.mlx, (int)data.r.x, (int)data.r.y, "Cub3D");
 	data.img = mlx_new_image(data.mlx, (int)data.r.x, (int)data.r.y);
 	data.draw = (unsigned int *)mlx_get_data_addr(data.img, &trash, &trash, &trash);
-	mlx_put_image_to_window(data.mlx, data.win, background, 0, 0);
 	mlx_hook(data.win, 17, 1L << 17, hook_close, &data);
 	mlx_hook(data.win, 2, 1L << 0, hook_keydown, &data);
 	mlx_loop_hook(data.mlx, hook_loop, &data);
 	mlx_do_key_autorepeaton(data.mlx);
 	data.player.pos.x = 3.5;
-	data.player.pos.y = 5.2;
+	data.player.pos.y = 5.5;
+	if (!(data.distance = malloc(sizeof(double) * data.r.x)))
+		return (0);
 	create_sprites(&data, game);
 	data.objs = create_wall(game, &data);
 	t_texture texture_sprite;
@@ -414,7 +443,7 @@ int			main(void)
 	texture_sprite.tab = (unsigned int *)mlx_get_data_addr(texture_sprite.ptr, &trash, &trash, &trash);
 	data.sprt = texture_sprite;
 	data.sprites->t = &texture_sprite;
-
+	init_sprites(&data);
 	update(&data);
 	mlx_loop(data.mlx);
 	return (0);

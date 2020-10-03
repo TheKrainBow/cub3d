@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/02 21:57:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/03 04:12:58 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,15 @@ t_point			get_intersect(t_point b, t_point a, t_object obj)
 	return (inter);
 }
 
-void		get_texture(int y, double angle, t_data *data, t_object obj)
+void		get_texture(int y, int x, t_data *data, t_object obj)
 {
 	int				i;
-	int				x;
+	//int				x;
 	t_point			temp;
 	double			col;
 	unsigned int	color;
 
-	x = (((angle / data->fov) * data->r.x));
+	//x = (((angle / data->fov) * data->r.x));
 	if (obj.color == NORTH || obj.color == SOUTH)
 		col = ((double)obj.t->wth * ft_sub_abs(obj.inter.y, obj.p[0].y));
 	else
@@ -152,59 +152,84 @@ double			get_angle(t_point a, t_point player)
 	: (asinf((a.y - player.y) / get_dist(a, player))) * (180/PI));
 }
 
-void			draw_height(double angle, t_object obj, t_data *data, int i)
+void			draw_height(int x, t_object obj, t_data *data)
 {
-	int y;
+	int		y;
+	double	f;
 
-	y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (obj.inter.dist)));
-	get_texture(y, angle, data, obj);
+	f = data->player.angle - (data->fov / 2) + ((x * FOV) / (data->r.x - 1));
+	f = ft_sub_abs(f, data->player.angle);
+	y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (obj.inter.dist * cosf(f / 180*PI))));
+	get_texture(y, x, data, obj);
 }
 
-void			draw_sprites(double f, int best_wall, t_data *data)
+t_point			get_inter(t_point b, t_point a, t_sprite *obj)
 {
-	t_point	start;
-	double	angle;
-	int		i;
-	double	a;
-	double	b;
+	double		t;
+	double		u;
+	double		denum;
+	t_point		c;
+	t_point		d;
+	t_point		inter;
 
-	start = data->objs[best_wall].inter;
-	angle = (data->player.angle - data->fov/2 + f);
-	a = (start.y - data->player.pos.y) / (start.x - data->player.pos.x);
-	b = start.y - a * start.x;
-	draw_circle(start, 5, data, EAST);
-	draw_pt(start.x * MULT, start.y * MULT, data, EAST);
-	draw_circle(data->player.pos, 5, data, WHITE);
-	round_angle(&angle);
-	/*printf("y = a * x + b\n");
-	printf("y = %f * x + %f\n", a, b);
-	printf("x = (y - b) / a\n");
-	printf("x = (y - %f) / %f\n", a, b);*/
-	i = -1;
-	start.x = (int)start.x;
-	start.y = a * start.x + b;
-	while ((data->objs[best_wall].inter.x - data->player.pos.x) * (start.x - data->player.pos.x) > 0)
+	c = obj->p[0];
+	d = obj->p[1];
+	denum = ((a.x - b.x) * (c.y - d.y)) - ((a.y - b.y) * (c.x - d.x));
+	t = (((a.x - c.x) * (c.y - d.y)) - ((a.y - c.y) * (c.x - d.x)));
+	u = -(((a.x - b.x) * (a.y - c.y)) - ((a.y - b.y) * (a.x - c.x)));
+	inter.x = 0;
+	inter.y = 0;
+	if (denum != 0)
 	{
-		if ((data->objs[best_wall].inter.x - data->player.pos.x) * (start.x - data->player.pos.x) > 0)
-			draw_circle(start, 2, data, 0xFF0000);
-		start.x += (start.x - data->player.pos.x) >= 0 ? -1 : 1;
-		start.y = a * start.x + b;
+		t /= denum;
+		u /= denum;
+		if ((t <= 1) && (0 <= u && u <= 1))
+		{
+			inter.x = a.x + (t * (b.x - a.x));
+			inter.y = a.y + (t * (b.y - a.y));
+		}
 	}
-	start = data->objs[best_wall].inter;
-	start.y = (int)start.y;
-	start.y = a * start.x + b;
-	i = -1;
-	while ((data->objs[best_wall].inter.y - data->player.pos.y) * (start.y - data->player.pos.y) > 0)
-	{
-		if ((data->objs[best_wall].inter.y - data->player.pos.y) * (start.y - data->player.pos.y) > 0)
-			draw_circle(start, 1, data, 0x00FF00);
-		start.y += (start.y - data->player.pos.y) >= 0 ? -1 : 1;
-		start.x = (start.y - b) / a;
-	}
-	//printf("%f %f %f\n", start.x, start.y, angle);
+	return (inter);
 }
 
-void			closest_object(double f, t_point x, t_data *data)
+void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
+{
+	int				i;
+	double			col;
+	unsigned int	color;
+
+	col = ((double)(data->sprt.wth) * (get_dist(temp->p[0], temp->inter)));
+	i = y - 1;
+	while ((++i < (int)data->r.y - y))
+	{
+		color = data->sprt.tab[(int)(((int)col % data->sprt.wth) + (((i - y) * ((int)data->sprt.lth) / ((int)data->r.y - y - y)) * ((int)data->sprt.wth)))];
+		draw_pt(x, i, data, color);
+	}
+	return ;
+}
+
+void			draw_height_sprite(int x, t_point a, t_data *data)
+{
+	t_sprite	*temp;
+	int		y;
+	double	f;
+
+	temp = data->sprites;
+	while (temp)
+	{
+		temp->inter = get_inter(data->player.pos, a, temp);
+		if (get_dist(temp->inter, data->player.pos) < data->distance[x] && temp->inter.x)
+		{
+			f = data->player.angle - (data->fov / 2) + ((x * FOV) / (data->r.x - 1));
+			f = ft_sub_abs(f, data->player.angle);
+			y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (get_dist(temp->inter, data->player.pos) * cosf(f / 180*PI))));
+			sprite_slice(x, y, temp, data);
+		}
+		temp = temp->next;
+	}
+}
+
+void			closest_object(int x, t_point a, t_data *data)
 {
 	int			i;
 	int			best_wall;
@@ -215,12 +240,14 @@ void			closest_object(double f, t_point x, t_data *data)
 	best_wall = -1;
 	while (++i < data->n_objs)
 	{
-		data->objs[i].inter = get_intersect(data->player.pos, x, data->objs[i]);
+		data->objs[i].inter = get_intersect(data->player.pos, a, data->objs[i]);
 		data->objs[i].inter.dist = get_dist(data->player.pos, data->objs[i].inter);
 		if ((best_wall == -1 || data->objs[i].inter.dist <= data->objs[best_wall].inter.dist) && (data->objs[i].inter.x && data->objs[i].inter.y))
 			best_wall = i;
 	}
-	draw_height(f, data->objs[best_wall], data, 0);
+	data->distance[x] = data->objs[best_wall].inter.dist;
+	draw_height(x, data->objs[best_wall], data);
+	draw_height_sprite(x, a, data);
 	return ;
 }
 
@@ -245,28 +272,105 @@ void			draw_grid(t_data *data)
 	}
 }
 
+double			ft_atan2(t_point a, t_point player)
+{
+	return (atan2(a.y - player.y, a.x - player.x));
+}
+
+t_sprite		*sorted_merge_list(t_sprite *a, t_sprite *b)
+{
+	t_sprite		*temp;
+
+	temp = NULL;
+	if (a == NULL)
+		return (b);
+	else if (b == NULL)
+		return (a);
+	if (a->dist > b->dist)
+	{
+		temp = a;
+		temp->next = sorted_merge_list(a->next, b);
+	}
+	else
+	{
+		temp = b;
+		temp->next = sorted_merge_list(a, b->next);
+	}
+	return (temp);
+}
+
+void			split_list(t_sprite *src, t_sprite **a, t_sprite **b)
+{
+	t_sprite	*fast;
+	t_sprite	*slow;
+
+	slow = src;
+	fast = src->next;
+	while (fast)
+	{
+		fast = fast->next;
+		if (fast)
+		{
+			slow = slow->next;
+			fast = fast->next;
+		}
+	}
+	*a = src;
+	*b = slow->next;
+	slow->next = NULL;
+}
+void			sprites_sort(t_sprite **sprites)
+{
+	t_sprite		*temp;
+	t_sprite		*a;
+	t_sprite		*b;
+
+	temp = *sprites;
+	if (!(temp) || !(temp->next))
+		return ;
+	split_list(temp, &a, &b);
+	sprites_sort(&a);
+	sprites_sort(&b);
+	*sprites = sorted_merge_list(a, b);
+}
+
+void			draw_sprites_v2(t_data *data)
+{
+	t_sprite		*temp;
+	t_point			a;
+	t_point			b;
+
+	temp = data->sprites;
+	sprites_sort(&temp);
+	while (temp)
+	{
+		temp->dist = get_dist(temp->pos, data->player.pos);
+		temp->angle = ft_atan2(data->player.pos, temp->pos);
+		temp->p[0].x = cosf(temp->angle - PI/2) / 2 + temp->pos.x;
+		temp->p[0].y = sinf(temp->angle - PI/2) / 2 + temp->pos.y;
+		temp->p[1].x = cosf(temp->angle + PI/2) / 2 + temp->pos.x;
+		temp->p[1].y = sinf(temp->angle + PI/2) / 2 + temp->pos.y;
+		temp = temp->next;
+	}
+}
+
 void			draw_screen(t_data *data)
 {
 	int			i;
 	double		f;
 	int			j;
+	double		x;
 	t_point		a;
 	int			closest;
 
-	//draw_grid(data);
-	f = 0;
-	while (f < data->fov)
+	x = -1;
+	draw_sprites_v2(data);
+	while (x < data->r.x)
 	{
+		f = (x * FOV) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)));
-		//closest_object(f, a, data);
-		//if (f > (FOV/2 - 10) && f < (FOV/2 + 10))
-		//if (f == 0)
-		//	travel_algo(f, a, data);
-		//if (f == 0)
-			dda_test(f, data);
-		//closest = closest_object(f, a, data);
-		//draw_height(f, data->objs[closest], data, 0);
-		f += (double)data->fov / (data->r.x + 1);
+		closest_object(x, a, data);
+		x += 1;
 	}
 }
