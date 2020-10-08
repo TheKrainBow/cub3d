@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/03 03:01:30 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:53:53 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define KEY_D 100
 # define ARR_L 65361
 # define ARR_R 65363
+# define SPACE 32
+# define SHIFT 65505
+# define FOG 0
+
 # define HEIGHT 1080
 # define LENGHT 1920
 # define SPEED 1
@@ -52,6 +56,12 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+typedef struct			s_map
+{
+	char				*line;
+	struct s_map		*next;
+}						t_map;
+
 typedef struct			s_point
 {
 	double				x;
@@ -67,7 +77,7 @@ typedef struct			s_texture
 	unsigned int		*tab;
 }						t_texture;
 
-typedef struct			s_object
+typedef struct			s_wall
 {
 	t_point				p[2];
 	t_texture			*t;
@@ -76,7 +86,7 @@ typedef struct			s_object
 	unsigned int 		color;
 	int					size;
 	int					used;
-}						t_object;
+}						t_wall;
 
 typedef struct			s_sprite
 {
@@ -98,27 +108,32 @@ typedef struct			s_player
 
 typedef struct			s_data
 {
+	t_point				r;
+	t_texture			ea;
+	t_texture			so;
+	t_texture			no;
+	t_texture			we;
 	t_player			player;
-	t_object			*objs;
+	t_texture			sprt;
+	t_wall				*objs;
 	int					n_objs;
 	int					n_sprite;
-	t_texture			no;
-	t_texture			so;
-	t_texture			ea;
-	t_texture			we;
-	t_texture			sprt;
 	t_sprite			*sprites;
 	int					sprite_nbr;
-	t_point				r;
 	void				*mlx;
 	void				*win;
 	void				*img;
 	unsigned int		*draw;
 	unsigned int		color[2];
-	double					*distance;
+	double				*distance;
 	int					update;
-	char				*game[11];
+	char				**game;
+	t_point				game_size;
 	int					fov;
+	int					key_pressed[13];
+	int					tick;
+	int					fd;
+	int					average;
 }						t_data;
 
 void					draw_pt(int x, int y, t_data *data, unsigned int color);
@@ -128,27 +143,34 @@ void					draw_walls(t_data *data, int mult);
 void					draw_screen(t_data *data);
 
 int						hook_keydown(int key_code, t_data *data);
+int						hook_keyup(int key_code, t_data *data);
 int						hook_close(t_data *data);
 int						hook_loop (t_data *data);
 
-t_point					get_intersect(t_point a, t_point b, t_object obj);
+t_point					get_intersect(t_point a, t_point b, t_wall obj);
 double					get_angle(t_point a, t_point player);
 
 void					update(t_data *data);
 
-int						parsing(int fd, t_data *data);
+int						parsing(t_data *data);
+void					INTtoRGB(unsigned int a, int *r, int *g, int *b);
+void					RGBtoINT(unsigned int *a, int r, int g, int b);
 int						ft_atoi(const char *str);
 double					get_dist(t_point a, t_point b);
 double					ft_sub_abs(double a, double b);
 
-int						closest_object_dda(double angle, t_data *data);
+int						closest_wall_dda(double angle, t_data *data);
 void					round_angle(double *f);
 void					draw_square(int x, int y, double size, unsigned int color, t_data *data);
 
 
 void					travel_algo(double f, t_point steps, t_data *data);
 
-void					dda_test(double f, t_data *data);
+void					dda_test(int f, t_point a, t_data *data);
 double					fix_angle(double angle);
+void					ft_init_player(t_data *data, int x, int y);
+void					draw_height_sprite(int x, t_point a, t_sprite *sp, t_data *data);
+t_sprite				*get_sprite(t_sprite *find, t_data *data);
+double					ft_atan2(t_point a, t_point player);
 
 #endif

@@ -6,17 +6,54 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/03 04:12:58 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:50:30 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+void				INTtoRGB(unsigned int a, int *r, int *g, int *b)
+{
+	*b = a % 256;
+	*g = a / 256 % 256;
+	*r = a / 256 / 256 % 256;
+}
+
+void				RGBtoINT(unsigned int *a, int r, int g, int b)
+{
+	*a = r;
+	*a = (*a << 8) + g;
+	*a = (*a << 8) + b;
+}
+
+unsigned int		average_color(unsigned int first, unsigned int second, double ratio)
+{
+	int		r[3];
+	int		g[3];
+	int		b[3];
+	unsigned int	dest;
+
+	INTtoRGB(first, &r[0], &g[0], &b[0]);
+	INTtoRGB(second, &r[1], &g[1], &b[1]);
+	r[2] = r[0] * (1 - ratio) + r[1] * (ratio);
+	g[2] = g[0] * (1 - ratio) + g[1] * (ratio);
+	b[2] = b[0] * (1 - ratio) + b[1] * (ratio);
+	r[2] = r[2] > 255 ? 255 : r[2];
+	g[2] = g[2] > 255 ? 255 : g[2];
+	b[2] = b[2] > 255 ? 255 : b[2];
+	r[2] = r[2] < 0 ? 5 : r[2];
+	g[2] = g[2] < 0 ? 5 : g[2];
+	b[2] = b[2] < 0 ? 5 : b[2];
+	RGBtoINT(&dest, r[2], g[2], b[2]);
+	return (dest);
+	
+}
+
 void		draw_pt(int x, int y, t_data *data, unsigned int color)
 {
-	if (y > 0 && y < data->r.y && x > 0 && x < data->r.x && color)
+	if (y >= 0 && y < data->r.y && x >= 0 && x < data->r.x && color)
 	{
-		data->draw[(y * (int)data->r.x) + x] = color;
+		data->draw[(y * (int)data->r.x) + x] = data->average ? average_color(data->draw[(y * (int)data->r.x) + x], color, 0.3) : color;
 	}
 }
 
@@ -72,8 +109,6 @@ void		draw_circle(t_point center, int radius, t_data *data, unsigned int color)
 	double i;
 	/*t_point a;
 	t_point b;*/
-	center.x *= MULT;
-	center.y *= MULT;
 
 	i = 0;
 	while (i < 360)
@@ -87,7 +122,7 @@ void		draw_circle(t_point center, int radius, t_data *data, unsigned int color)
 	}
 }
 
-t_point			get_intersect(t_point b, t_point a, t_object obj)
+t_point			get_intersect(t_point b, t_point a, t_wall obj)
 {
 	double		t;
 	double		u;
@@ -117,15 +152,29 @@ t_point			get_intersect(t_point b, t_point a, t_object obj)
 	return (inter);
 }
 
-void		get_texture(int y, int x, t_data *data, t_object obj)
+unsigned int		fog_color(unsigned int color, int x, double dist, t_data *data)
 {
 	int				i;
-	//int				x;
+	unsigned int	dest;
+
+	if (!(FOG))
+		return (color);
+	if (dist < 1)
+		return (color);
+	if (dist > 10)
+		return (average_color(dest, 0x828282, 0.95));
+	dest = color;
+	dest = average_color(dest, 0x828282, 0.1 * (dist));
+	return (dest);
+}
+
+void		get_texture(int y, int x, t_data *data, t_wall obj)
+{
+	int				i;
 	t_point			temp;
 	double			col;
 	unsigned int	color;
 
-	//x = (((angle / data->fov) * data->r.x));
 	if (obj.color == NORTH || obj.color == SOUTH)
 		col = ((double)obj.t->wth * ft_sub_abs(obj.inter.y, obj.p[0].y));
 	else
@@ -138,7 +187,7 @@ void		get_texture(int y, int x, t_data *data, t_object obj)
 		else if (i > y && i < ((int)data->r.y - y))
 		{
 			color = obj.t->tab[(int)(((int)col % obj.t->wth) + (((i - y) * ((int)obj.t->lth) / ((int)data->r.y - y - y)) * ((int)obj.t->wth)))];
-			draw_pt(x, i, data, color);
+			draw_pt(x, i, data, fog_color(color, x, data->distance[x], data));
 		}
 		else
 			draw_pt(x, i, data, data->color[1]);
@@ -152,14 +201,16 @@ double			get_angle(t_point a, t_point player)
 	: (asinf((a.y - player.y) / get_dist(a, player))) * (180/PI));
 }
 
-void			draw_height(int x, t_object obj, t_data *data)
+void			draw_height(int x, t_wall obj, t_data *data)
 {
 	int		y;
 	double	f;
 
-	f = data->player.angle - (data->fov / 2) + ((x * FOV) / (data->r.x - 1));
+	f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 	f = ft_sub_abs(f, data->player.angle);
-	y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (obj.inter.dist * cosf(f / 180*PI))));
+	y = ((((data->r.x/2 - data->fov)) / ((obj.inter.dist * cosf(f / 180*PI)))));
+	//printf("%f\n", obj.inter.dist * cosf(f / 180*PI));
+	y = (int)data->r.y/2 - y;
 	get_texture(y, x, data, obj);
 }
 
@@ -197,30 +248,51 @@ void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 	int				i;
 	double			col;
 	unsigned int	color;
+	t_point			a;
 
 	col = ((double)(data->sprt.wth) * (get_dist(temp->p[0], temp->inter)));
 	i = y - 1;
+	a.x = temp->inter.x;
+	a.y = temp->inter.y;
 	while ((++i < (int)data->r.y - y))
 	{
 		color = data->sprt.tab[(int)(((int)col % data->sprt.wth) + (((i - y) * ((int)data->sprt.lth) / ((int)data->r.y - y - y)) * ((int)data->sprt.wth)))];
-		draw_pt(x, i, data, color);
+		draw_pt(x, i, data, fog_color(color, x, get_dist(data->player.pos, a), data));
 	}
 	return ;
 }
 
-void			draw_height_sprite(int x, t_point a, t_data *data)
+t_sprite		*get_sprite(t_sprite *find, t_data *data)
 {
-	t_sprite	*temp;
-	int		y;
-	double	f;
+	t_sprite		*temp;
 
 	temp = data->sprites;
+	while (temp)
+	{
+		if ((int)find->pos.x == (int)temp->pos.x && (int)find->pos.y == (int)temp->pos.y)
+		{
+			find->p[0] = temp->p[0];
+			find->p[1] = temp->p[1];
+			return (find);
+		}
+		temp = temp->next;
+	}
+	return (find);
+}
+
+void			draw_height_sprite(int x, t_point a, t_sprite *sp, t_data *data)
+{
+	t_sprite	*temp;
+	int			y;
+	double		f;
+
+	temp = sp;
 	while (temp)
 	{
 		temp->inter = get_inter(data->player.pos, a, temp);
 		if (get_dist(temp->inter, data->player.pos) < data->distance[x] && temp->inter.x)
 		{
-			f = data->player.angle - (data->fov / 2) + ((x * FOV) / (data->r.x - 1));
+			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = ft_sub_abs(f, data->player.angle);
 			y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (get_dist(temp->inter, data->player.pos) * cosf(f / 180*PI))));
 			sprite_slice(x, y, temp, data);
@@ -229,7 +301,7 @@ void			draw_height_sprite(int x, t_point a, t_data *data)
 	}
 }
 
-void			closest_object(int x, t_point a, t_data *data)
+void			closest_wall(int x, t_point a, t_data *data)
 {
 	int			i;
 	int			best_wall;
@@ -247,7 +319,6 @@ void			closest_object(int x, t_point a, t_data *data)
 	}
 	data->distance[x] = data->objs[best_wall].inter.dist;
 	draw_height(x, data->objs[best_wall], data);
-	draw_height_sprite(x, a, data);
 	return ;
 }
 
@@ -255,21 +326,43 @@ void			draw_grid(t_data *data)
 {
 	int		i;
 	int		j;
+	double	f;
+	int		x;
+	double	dist;
+	t_point	a;
+	t_point	temp;
 
 	i = -1;
-	while (++i < MAP_H)
+	data->average = 1;
+	while (++i < data->game_size.x)
 	{
 		j = -1;
-		while (++j < MAP_L)
+		while (++j < data->game_size.y)
 		{
-			if (data->game[i][j] == '0')
-				draw_square(j * MULT, i * MULT, MULT - 2, 0x424242, data);
+			if (ft_strchr("0NSEW", data->game[i][j]))
+				draw_square((j + 0.5) * MULT, (i + 0.5) * MULT, MULT, 0x424242, data);
 			if (data->game[i][j] == '1')
-				draw_square(j * MULT, i * MULT, MULT - 1, 0xAAAAAA, data);
+				draw_square((j + 0.5) * MULT, (i + 0.5) * MULT, MULT, 0xAAAAAA, data);
 			if (data->game[i][j] == '2')
-				draw_square(j * MULT + MULT / 4, i * MULT + MULT / 4, MULT / 2, 0xEEEEEE, data);
+				draw_square((j + 0.5) * MULT, (i + 0.5) * MULT, MULT, 0xEEEEEE, data);
 		}
 	}
+	temp.x = data->player.pos.x * MULT;
+	temp.y = data->player.pos.y * MULT;
+	x = 0;
+	while (x < data->r.x)
+	{
+		dist = data->distance[x];
+		if (dist > 8)
+			dist = 8;
+		f = (x * data->fov) / (data->r.x - 1);
+		a.x = temp.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
+		a.y = temp.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
+		x += 1;
+		draw_line(temp, a, data, WHITE);
+	}
+	draw_circle(temp, 2, data, WHITE);
+	data->average = 0;
 }
 
 double			ft_atan2(t_point a, t_point player)
@@ -356,21 +449,19 @@ void			draw_sprites_v2(t_data *data)
 
 void			draw_screen(t_data *data)
 {
-	int			i;
 	double		f;
-	int			j;
 	double		x;
 	t_point		a;
-	int			closest;
 
 	x = -1;
-	draw_sprites_v2(data);
 	while (x < data->r.x)
 	{
-		f = (x * FOV) / (data->r.x - 1);
+		f = (x * data->fov) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)));
-		closest_object(x, a, data);
+		closest_wall(x, a, data);
+		dda_test(x, a, data);
 		x += 1;
 	}
+	//draw_grid(data);
 }

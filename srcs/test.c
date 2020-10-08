@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 00:16:59 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/03 03:20:05 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:42:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ unsigned int	get_color(t_point ray)
 
 void			draw_wall(double f, t_point ray, t_data *data, unsigned int color)
 {
-	int y;
-	t_point a;
-	t_point b;
+	int		y;
+	t_point	a;
+	t_point	b;
 
 	y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (10)));
 	a.x = (((f / data->fov) * data->r.x));
@@ -64,7 +64,7 @@ unsigned int		tessst(t_point p, t_point inc)
 		return (EAST);
 	else
 	{
-		printf("%d %d\n", a, b);
+		//printf("%d %d\n", a, b);
 		return (0x01000000);
 	}
 }
@@ -77,6 +77,7 @@ t_sprite	*new_sprite(t_point pos, t_data *data)
 		return (0);
 	sprite->pos.x = (int)pos.x + 0.5;
 	sprite->pos.y = (int)pos.y + 0.5;
+	sprite = get_sprite(sprite, data);
 	sprite->dist = get_dist(data->player.pos, sprite->pos);
 	sprite->next = NULL;
 	return (sprite);
@@ -90,30 +91,58 @@ void		sprite_push_front(t_sprite **first, t_sprite *new)
 	*first = new;
 }
 
-void		dda_test(double f, t_data *data)
+int			ft_check_point(t_point p, t_data *data)
+{
+	if (p.x >= 0 && p.x < data->game_size.y && p.y >= 0 && p.y < data->game_size.x)
+		return (1);
+	return (0);
+}
+
+void		fix_sprite_angle(t_sprite **sprite, t_data *data)
+{
+	t_sprite *temp;
+
+	temp = *sprite;
+	while (temp)
+	{
+		temp->dist = get_dist(temp->pos, data->player.pos);
+		temp->angle = ft_atan2(data->player.pos, temp->pos);
+		temp->p[0].x = cosf(temp->angle - PI/2) / 2 + temp->pos.x;
+		temp->p[0].y = sinf(temp->angle - PI/2) / 2 + temp->pos.y;
+		temp->p[1].x = cosf(temp->angle + PI/2) / 2 + temp->pos.x;
+		temp->p[1].y = sinf(temp->angle + PI/2) / 2 + temp->pos.y;
+		temp = temp->next;
+	}
+}
+
+void		dda_test(int x, t_point a, t_data *data)
 {
 	t_point		p;
 	t_point		inc;
 	t_point		b;
+	double		f;
 	int			steps;
+	t_sprite	*sprites;
+	t_sprite	*temp;
 
-	data->sprites = NULL;
-	b.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 1000);
-	b.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 1000);
+	f = (x * data->fov) / (data->r.x - 1);
+	sprites = NULL;
+	b.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 100);
+	b.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * 100);
 	steps = abs((int)(b.x - data->player.pos.x)) > abs((int)(b.y - data->player.pos.y)) ? abs((int)(b.x - data->player.pos.x)) : abs((int)(b.y - data->player.pos.y));
-	inc.x = (b.x - data->player.pos.x) / (double)(steps);
-	inc.y = (b.y - data->player.pos.y) / (double)(steps);
+	inc.x = (b.x - data->player.pos.x) / (double)(steps * 3);
+	inc.y = (b.y - data->player.pos.y) / (double)(steps * 3);
 	p.x = data->player.pos.x;
 	p.y = data->player.pos.y;
-	while (data->game[(int)p.y][(int)p.x] != '1')
+	while (ft_check_point(p, data) && data->game[(int)p.y][(int)p.x] != '1')
 	{
 		if (data->game[(int)p.y][(int)p.x] == '2')
-			sprite_push_front(&data->sprites, new_sprite(p, data));
+			sprite_push_front(&sprites, new_sprite(p, data));
 		p.x += inc.x;
 		p.y += inc.y;
 	}
-	//printf("%f %f %c\n", x, y, data->game[(int)y][(int)x]);
-	//draw_wall(f, p, data, tessst(p, inc));
+	fix_sprite_angle(&sprites, data);
+	draw_height_sprite(x, a, sprites, data);
 }
 
 void		sprite_add_sorted(t_sprite **first, t_sprite *new)
@@ -141,10 +170,10 @@ void		init_sprites(t_data *data)
 
 	data->sprites = NULL;
 	c[0] = -1;
-	while (++c[0] < MAP_H)
+	while (++c[0] < data->game_size.x)
 	{
 		c[1] = -1;
-		while (++c[1] < MAP_L)
+		while (++c[1] < data->game_size.y)
 			if (data->game[c[0]][c[1]] == '2')
 			{
 				p.x = c[1];

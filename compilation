@@ -1,1 +1,1 @@
-clang srcs/*.c -fsanitize=addrss -lbsd -lmlx -lX11 -lm && ./a.out
+clang srcs/*.c -lbsd -lmlx -lX11 -lm -LXext && ./a.out

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/03 18:14:41 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:44:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,186 @@ int			is_nb(char c)
 	return (0);
 }
 
-int			detect_param(char (**line))
+t_map		*new_map_line(char *line)
 {
+	t_map		*game;
+	int			i;
+
+	if (!(game = malloc(sizeof(t_map))) || !(game->line = malloc(sizeof(char) * (ft_strlen(line) + 1))))
+		return (NULL);
+	i = -1;
+	while (line && line[++i])
+		game->line[i] = line[i];
+	game->line[i] = 0;
+	game->next = NULL;
+	return (game);
+}
+
+void		map_push_back(t_map **first, t_map *new)
+{
+	t_map	*temp;
+
+	if (!first || !new)
+		return ;
+	if (!(*first))
+	{
+		*first = new;
+		return ;
+	}
+	temp = *first;
+	while (temp && temp->next)
+		temp = temp->next;
+	temp->next = new;
+}
+
+void		ft_print_map(t_map **game)
+{
+	t_map		*temp;
+
+	temp = *game;
+	while (temp)
+	{
+		printf("|%s|\n", temp->line);
+		temp = temp->next;
+	}
+}
+
+int			ft_check_line(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i] && ft_whitespace(line[i]))
+		i++;
+	if (line[i] != '1')
+		return (0);
+	while (line[i])
+	{
+		if (!ft_strchr("012NSEW ", line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int			longest_line(t_map *game)
+{
+	t_map		*temp;
+	int			maxsize;
+
+	maxsize = 0;
+	temp = game;
+	while (temp)
+	{
+		if (ft_strlen(temp->line) > maxsize)
+			maxsize = ft_strlen(temp->line);
+		temp = temp->next;
+	}
+	return (maxsize);
+}
+
+int			check_surround(int i, int j, t_data *data)
+{
+	if (data->game[i][j] == '0' || ft_strchr("NSWD", data->game[i][j]))
+	{
+		if (i == 0 || j == 0 || i == data->game_size.y || j == data->game_size.x)
+			return (0);
+		if (data->game[i - 1][j] == ' ')
+			return (0);
+		if (data->game[i + 1][j] == ' ')
+			return (0);
+		if (data->game[i][j - 1] == ' ')
+			return (0);
+		if (data->game[i][j + 1] == ' ')
+			return (0);
+	}
+	if (ft_strchr("NSWD", data->game[i][j]))
+	{
+		if (data->player.pos.x != -1)
+			return (0);
+		ft_init_player(data, i, j);
+	}
+	return (1);
+}
+
+int			check_game(t_data *data)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < data->game_size.y)
+	{
+		j = -1;
+		while (++j < data->game_size.x)
+		{
+			if (!(check_surround(i, j, data)))
+				return (0);
+		}
+	}
+	return (1);
+}
+
+void		create_game(t_map *map, int nbr_line, t_data *data)
+{
+	int		line_size;
+	int		i;
+	int		j;
+
+	if (!(data->game = malloc(sizeof(char *) * (nbr_line + 1))))
+		return ;
+	line_size = longest_line(map);
+	i = -1;
+	while (++i < nbr_line)
+	{
+		if (!(data->game[i] = malloc(sizeof(char) * (line_size + 1))))
+			return ;
+		j = -1;
+		while (map->line[++j] && j < line_size)
+			data->game[i][j] = map->line[j];
+		j--;
+		while (++j < line_size)
+			data->game[i][j] = ' ';
+		data->game[i][j] = 0;
+		map = map->next;
+	}
+	data->game[i] = NULL;
+	data->game_size.y = line_size;
+	data->game_size.x = nbr_line;
+}
+
+int			ft_map(char **line, t_data *data)
+{
+	int			ret;
+	int			nbr_line;
+	char		*temp;
+	t_map		*game;
+
+	temp = *line;
+	nbr_line = 0;
+	game = NULL;
+	while (ft_whitespace((**line)) && (**line))
+		(*line)++;
+	if (!(ft_check_line(temp)))
+		return (0);
+	ret = 1;
+	while (ret != -1)
+	{
+		if (!(ft_check_line(temp)))
+			break ;
+		map_push_back(&game, new_map_line(temp));
+		nbr_line++;
+		ret = get_next_line(data->fd, &temp);
+	}
+	//ft_print_map(&game);
+	create_game(game, nbr_line, data);
+	return (1);
+}
+
+int			detect_param(char (**line), t_data *data)
+{
+	if (ft_map(line, data))
+		return (9);
 	while (ft_whitespace((**line)) && (**line))
 		(*line)++;
 	if ((**line) == 0)
@@ -49,7 +227,7 @@ int			detect_param(char (**line))
 		return (7);
 	if ((**line) == 'C' && ft_whitespace(*(*line + 1)))
 		return (8);
-	return (9);
+	return (10);
 }
 
 int		reso(char *line, t_data *data)
@@ -304,9 +482,9 @@ int			aff_err(int n, int line_n)
 		printf("Error in east Texture line %d.\n", line_n);
 	else if (n == 6)
 		printf("Error in sprite Texture line %d.\n", line_n);
-	else if (n == 7)
-		printf("Error in floor Color line %d.\n", line_n);
 	else if (n == 8)
+		printf("Error in floor Color line %d.\n", line_n);
+	else if (n == 7)
 		printf("Error in celling Color line %d.\n", line_n);
 	return (1);
 }
@@ -326,22 +504,27 @@ int			redirect_function(char *line, t_data *data, int line_n)
 	redirect[6] = text_sp;
 	redirect[7] = color_f;
 	redirect[8] = color_c;
-	param = detect_param(&line);
+	param = detect_param(&line, data);
+	if (param >= 9)
+		return (0);
 	n = redirect[param](line, data);
 	return (aff_err(n, line_n));
 }
 
-int			parsing(int fd, t_data *data)
+int			parsing(t_data *data)
 {
 	char		*line;
 	char		*temp;
 	int			i;
+	int			ret;
+
 	i = 0;
-	while (i < 9)
+	ret = 1;
+	while (ret > 0)
 	{
-		get_next_line(fd, &line);
+		ret = get_next_line(data->fd, &line);
 		temp = line;
-		if (redirect_function(line, data, i + 1))
+		if (line && redirect_function(line, data, i + 1))
 		{
 			free(temp);
 			return (0);
