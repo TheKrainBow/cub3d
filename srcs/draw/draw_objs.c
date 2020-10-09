@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:21:05 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 05:48:48 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 void		get_texture(int y, int x, t_data *data, t_wall obj)
 {
 	int				i;
-	t_point			temp;
 	double			col;
 	unsigned int	color;
 

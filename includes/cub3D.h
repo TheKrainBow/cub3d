@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:58:58 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 06:03:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,13 @@
 # include "initialization.h"
 # include "utils.h"
 # include "get_next_line.h"
+# include "parsing.h"
 
 # include <math.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 
-int			parsing(t_data *data);
-/*void		ft_init_player(t_data *data, int x, int y);
-
-int			hook_keydown(int key_code, t_data *data);
-int			hook_keyup(int key_code, t_data *data);
-int			hook_close(t_data *data);
-int			hook_loop(t_data *data);
-
-
-double		get_dist(t_point a, t_point b);
-double		ft_atan2(t_point a, t_point player);
-
-void		find_sprite(int f, t_point a, t_data *data);
-
-
-int			check_nei(int x, int y, t_data *data);
-int			test_pts(t_wall *old_objs, int i, int j);
-
-
-int			valid_key(int key_code);
-void		move_player(t_data *data);
-int			check_keypressed(t_data *data);*/
-
 void		update(t_data *data);
+
 #endif

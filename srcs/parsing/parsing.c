@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:56:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 06:04:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,6 +390,8 @@ int		text_ea(char *line, t_data *data)
 
 int		text_sp(char *line, t_data *data)
 {
+	(void)line;
+	(void)data;
 	return (0);
 }
 
@@ -463,6 +465,8 @@ int		color_c(char *line, t_data *data)
 
 int			ft_void(char *line, t_data *data)
 {
+	(void)line;
+	(void)data;
 	return (0);
 }
 
@@ -486,7 +490,7 @@ int			aff_err(int n, int line_n)
 		printf("Error in floor Color line %d.\n", line_n);
 	else if (n == 7)
 		printf("Error in celling Color line %d.\n", line_n);
-	return (1);
+	exit(1);
 }
 
 int			redirect_function(char *line, t_data *data, int line_n)

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:06:54 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:11:33 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 05:49:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_wall		*compact_walls(t_wall *old_walls, int size, t_data *data)
 t_wall		*create_wall(t_data *data)
 {
 	int			c[2];
-	int			nei[2];
 	int			compteur;
 	t_wall		*walls;
 

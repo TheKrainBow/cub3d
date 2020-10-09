@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:35:00 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 05:50:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,8 @@ int			hook_keyup(int key_code, t_data *data)
 */
 int			hook_keydown(int key_code, t_data *data)
 {
-	t_point a;
-
-	//printf("%d => %d\n", key_code, (key_code % 14) - 1);
 	if (valid_key(key_code) && data->key_pressed[(key_code % 14) - 1] == 0)
 	{
-		//printf("SHIFT\n");
 		data->update = 1;
 		data->key_pressed[(key_code % 14) - 1] = 1;
 	}

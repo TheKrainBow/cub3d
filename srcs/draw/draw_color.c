@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:00:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 03:48:39 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 05:48:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ unsigned int		average_color(unsigned int first, unsigned int second, double rati
 */
 unsigned int		fog_color(unsigned int color, double dist, t_data *data)
 {
-	int				i;
 	unsigned int	dest;
 
+	(void)data;
 	if (!(FOG))
 		return (color);
 	if (dist < 1)

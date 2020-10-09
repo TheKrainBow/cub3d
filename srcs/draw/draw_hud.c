@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:20:35 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 05:48:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			draw_hud(t_data *data)
 void			draw_map(t_data *data)
 {
 	t_point	p;
-	int		j;
 
 	p.y = -1;
 	data->average = 1;
