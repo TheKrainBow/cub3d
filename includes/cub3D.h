@@ -6,12 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/08 16:53:53 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 04:58:58 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H__
 # define __CUB3D_H__
+
 # define KEY_Z 122
 # define KEY_Q 113
 # define KEY_S 115
@@ -22,14 +23,12 @@
 # define SHIFT 65505
 # define FOG 0
 
-# define HEIGHT 1080
-# define LENGHT 1920
 # define SPEED 1
+
 # define WHITE 0x00FFFFFF
 # define PI 3.14159265359
-# define MAP_H 11
-# define MAP_L 20
 # define FOV 60
+
 # define NORTH 0x2e86c1
 # define EAST 0xb03a2e
 # define WEST 0x28b463
@@ -49,128 +48,40 @@
 
 # include "mlx_int.h"
 # include "mlx.h"
-# include <math.h>
-
+# include "struct.h"
+# include "draw.h"
+# include "algo.h"
+# include "initialization.h"
+# include "utils.h"
 # include "get_next_line.h"
+
+# include <math.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 
-typedef struct			s_map
-{
-	char				*line;
-	struct s_map		*next;
-}						t_map;
+int			parsing(t_data *data);
+/*void		ft_init_player(t_data *data, int x, int y);
 
-typedef struct			s_point
-{
-	double				x;
-	double				y;
-	double				dist;
-}						t_point;
-
-typedef struct			s_texture
-{
-	void				*ptr;
-	int					wth;
-	int					lth;
-	unsigned int		*tab;
-}						t_texture;
-
-typedef struct			s_wall
-{
-	t_point				p[2];
-	t_texture			*t;
-	t_point				inter;
-	int					type;
-	unsigned int 		color;
-	int					size;
-	int					used;
-}						t_wall;
-
-typedef struct			s_sprite
-{
-	t_point				p[2];
-	t_point				pos;
-	t_point				inter;
-	int					x_slice;
-	double				angle;
-	double				dist;
-	t_texture			*t;
-	struct s_sprite		*next;
-}						t_sprite;
-
-typedef struct			s_player
-{
-	t_point				pos;
-	double				angle;
-}						t_player;
-
-typedef struct			s_data
-{
-	t_point				r;
-	t_texture			ea;
-	t_texture			so;
-	t_texture			no;
-	t_texture			we;
-	t_player			player;
-	t_texture			sprt;
-	t_wall				*objs;
-	int					n_objs;
-	int					n_sprite;
-	t_sprite			*sprites;
-	int					sprite_nbr;
-	void				*mlx;
-	void				*win;
-	void				*img;
-	unsigned int		*draw;
-	unsigned int		color[2];
-	double				*distance;
-	int					update;
-	char				**game;
-	t_point				game_size;
-	int					fov;
-	int					key_pressed[13];
-	int					tick;
-	int					fd;
-	int					average;
-}						t_data;
-
-void					draw_pt(int x, int y, t_data *data, unsigned int color);
-void					draw_line(t_point a, t_point b, t_data *data, unsigned int color);
-void					draw_circle(t_point center, int radius, t_data *data, unsigned int color);
-void					draw_walls(t_data *data, int mult);
-void					draw_screen(t_data *data);
-
-int						hook_keydown(int key_code, t_data *data);
-int						hook_keyup(int key_code, t_data *data);
-int						hook_close(t_data *data);
-int						hook_loop (t_data *data);
-
-t_point					get_intersect(t_point a, t_point b, t_wall obj);
-double					get_angle(t_point a, t_point player);
-
-void					update(t_data *data);
-
-int						parsing(t_data *data);
-void					INTtoRGB(unsigned int a, int *r, int *g, int *b);
-void					RGBtoINT(unsigned int *a, int r, int g, int b);
-int						ft_atoi(const char *str);
-double					get_dist(t_point a, t_point b);
-double					ft_sub_abs(double a, double b);
-
-int						closest_wall_dda(double angle, t_data *data);
-void					round_angle(double *f);
-void					draw_square(int x, int y, double size, unsigned int color, t_data *data);
+int			hook_keydown(int key_code, t_data *data);
+int			hook_keyup(int key_code, t_data *data);
+int			hook_close(t_data *data);
+int			hook_loop(t_data *data);
 
 
-void					travel_algo(double f, t_point steps, t_data *data);
+double		get_dist(t_point a, t_point b);
+double		ft_atan2(t_point a, t_point player);
 
-void					dda_test(int f, t_point a, t_data *data);
-double					fix_angle(double angle);
-void					ft_init_player(t_data *data, int x, int y);
-void					draw_height_sprite(int x, t_point a, t_sprite *sp, t_data *data);
-t_sprite				*get_sprite(t_sprite *find, t_data *data);
-double					ft_atan2(t_point a, t_point player);
+void		find_sprite(int f, t_point a, t_data *data);
 
+
+int			check_nei(int x, int y, t_data *data);
+int			test_pts(t_wall *old_objs, int i, int j);
+
+
+int			valid_key(int key_code);
+void		move_player(t_data *data);
+int			check_keypressed(t_data *data);*/
+
+void		update(t_data *data);
 #endif
