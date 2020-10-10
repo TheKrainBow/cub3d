@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:01:17 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 03:11:28 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,13 @@ int			ft_atoi(const char *str);
 int			check_keypressed(t_data *data);
 int			valid_key(int key_code);
 void		move_player(t_data *data);
+
+/*
+** utils_walls.c
+*/
+
+int				check_nei(int x, int y, t_data *data);
+int				test_pts(t_wall *old_objs, int i, int j);
+void			ft_init_player(t_data *data, int x, int y);
 
 #endif

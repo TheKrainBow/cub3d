@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:01:03 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 03:11:55 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_atoi(const char *str)
 }
 
 /*
-** Check if anykey is pressed
+** Check if any key is pressed
 */
 int			check_keypressed(t_data *data)
 {

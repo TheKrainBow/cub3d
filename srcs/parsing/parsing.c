@@ -6,12 +6,15 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 06:04:27 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 05:39:10 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "mlx.h"
+#include "mlx_int.h"
 
+int			aff_err(char *str, t_data *data);
 int			ft_whitespace(char c)
 {
 	if (c == '\f' || c == '\t' || c == '\n'
@@ -76,13 +79,13 @@ int			ft_check_line(char *line)
 	int		i;
 
 	i = 0;
-	while (line[i] && ft_whitespace(line[i]))
+	while (line[i] && line[i] == ' ')
 		i++;
 	if (line[i] != '1')
 		return (0);
 	while (line[i])
 	{
-		if (!ft_strchr("012NSEW ", line[i]))
+		if (!ft_strchr("0123NSEW ", line[i]))
 			return (0);
 		i++;
 	}
@@ -107,9 +110,9 @@ int			longest_line(t_map *game)
 
 int			check_surround(int i, int j, t_data *data)
 {
-	if (data->game[i][j] == '0' || ft_strchr("NSWD", data->game[i][j]))
+	if (data->game[i][j] == '0' || ft_strchr("NSWE", data->game[i][j]))
 	{
-		if (i == 0 || j == 0 || i == data->game_size.y || j == data->game_size.x)
+		if (i == 0 || j == 0 || i == data->game_size.x - 1 || j == data->game_size.y - 1)
 			return (0);
 		if (data->game[i - 1][j] == ' ')
 			return (0);
@@ -120,12 +123,6 @@ int			check_surround(int i, int j, t_data *data)
 		if (data->game[i][j + 1] == ' ')
 			return (0);
 	}
-	if (ft_strchr("NSWD", data->game[i][j]))
-	{
-		if (data->player.pos.x != -1)
-			return (0);
-		ft_init_player(data, i, j);
-	}
 	return (1);
 }
 
@@ -135,14 +132,16 @@ int			check_game(t_data *data)
 	int		j;
 
 	i = -1;
-	while (++i < data->game_size.y)
+	while (++i < data->game_size.x)
 	{
 		j = -1;
-		while (++j < data->game_size.x)
+		while (++j < data->game_size.y)
 		{
+			//printf("%c", data->game[i][j]);
 			if (!(check_surround(i, j, data)))
 				return (0);
 		}
+		//printf("\n");
 	}
 	return (1);
 }
@@ -173,6 +172,8 @@ void		create_game(t_map *map, int nbr_line, t_data *data)
 	data->game[i] = NULL;
 	data->game_size.y = line_size;
 	data->game_size.x = nbr_line;
+	if (!check_game(data))
+		aff_err("Map not valid!\n", data);
 }
 
 int			ft_map(char **line, t_data *data)
@@ -198,321 +199,168 @@ int			ft_map(char **line, t_data *data)
 		nbr_line++;
 		ret = get_next_line(data->fd, &temp);
 	}
-	//ft_print_map(&game);
 	create_game(game, nbr_line, data);
 	return (1);
 }
 
-int			detect_param(char (**line), t_data *data)
+int			detect_param(char **line, t_data *data)
 {
 	if (ft_map(line, data))
-		return (9);
+		return (4);
 	while (ft_whitespace((**line)) && (**line))
 		(*line)++;
 	if ((**line) == 0)
-		return (0);
-	if ((**line) == 'R' && ft_whitespace(*(*line + 1)))
-		return (1);
-	if ((**line) == 'N' && *(*line + 1) == 'O' && ft_whitespace(*(*line + 2)))
-		return (2);
-	if ((**line) == 'S' && *(*line + 1) == 'O' && ft_whitespace(*(*line + 2)))
-		return (3);
-	if ((**line) == 'W' && *(*line + 1) == 'E' && ft_whitespace(*(*line + 2)))
 		return (4);
-	if ((**line) == 'E' && *(*line + 1) == 'A' && ft_whitespace(*(*line + 2)))
-		return (5);
-	if ((**line) == 'S' && ft_whitespace(*(*line + 1)))
-		return (6);
-	if ((**line) == 'F' && ft_whitespace(*(*line + 1)))
-		return (7);
-	if ((**line) == 'C' && ft_whitespace(*(*line + 1)))
-		return (8);
-	return (10);
-}
-
-int		reso(char *line, t_data *data)
-{
-	int		x;
-	int		y;
-
-	mlx_get_screen_size(data->mlx, &x, &y);
-	line++;
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	if (!is_nb(*line))
-		return (ERR_RES);
-	data->r.x = ft_atoi(line);
-	data->r.x = data->r.x > x ? x : data->r.x;
-	while (is_nb(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line))
-		return (ERR_RES);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	if (!is_nb(*line))
-		return (ERR_RES);
-	data->r.y = ft_atoi(line);
-	data->r.y = data->r.y > y ? y : data->r.y;
-	while (is_nb(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_RES);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	if (*line)
-		return (ERR_RES);
-	return (NO_ERR);
-}
-
-int		text_no(char *line, t_data *data)
-{
-	char	*temp;
-	int		trash;
-
-	line += 2;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_NO);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	temp = line;
-	while (!ft_whitespace(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_NO);
-	if (*line)
-	{
-		*line = 0;
-		line++;
-		while (ft_whitespace(*line) && (*line))
-			line++;
-		if (*line)
-			return (ERR_NO);
-	}
-	data->no.ptr = mlx_xpm_file_to_image(data->mlx, temp, &(data->no.wth), &(data->no.lth));
-	if (data->no.ptr == NULL)
-		return (ERR_NO);
-	data->no.tab = (unsigned int *)mlx_get_data_addr(data->no.ptr, &trash, &trash, &trash);
-	return (NO_ERR);
-}
-
-int		text_so(char *line, t_data *data)
-{
-	char	*temp;
-	int		trash;
-
-	line += 2;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_SO);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	temp = line;
-	while (!ft_whitespace(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_SO);
-	if (*line)
-	{
-		*line = 0;
-		line++;
-		while (ft_whitespace(*line) && (*line))
-			line++;
-		if (*line)
-			return (ERR_SO);
-	}
-	data->so.ptr = mlx_xpm_file_to_image(data->mlx, temp, &(data->so.wth), &(data->so.lth));
-	if (data->so.ptr == NULL)
-		return (ERR_SO);
-	data->so.tab = (unsigned int *)mlx_get_data_addr(data->so.ptr, &trash, &trash, &trash);
-	return (NO_ERR);
-}
-
-int		text_we(char *line, t_data *data)
-{
-	char	*temp;
-	int		trash;
-
-	line += 2;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_WE);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	temp = line;
-	while (!ft_whitespace(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_WE);
-	if (*line)
-	{
-		*line = 0;
-		line++;
-		while (ft_whitespace(*line) && (*line))
-			line++;
-		if (*line)
-			return (ERR_WE);
-	}
-	data->we.ptr = mlx_xpm_file_to_image(data->mlx, temp, &(data->we.wth), &(data->we.lth));
-	if (data->we.ptr == NULL)
-		return (ERR_WE);
-	data->we.tab = (unsigned int *)mlx_get_data_addr(data->we.ptr, &trash, &trash, &trash);
-	return (NO_ERR);
-}
-
-int		text_ea(char *line, t_data *data)
-{
-	char	*temp;
-	int		trash;
-
-	line += 2;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_EA);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	temp = line;
-	while (!ft_whitespace(*line) && (*line))
-		line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_EA);
-	if (*line)
-	{
-		*line = 0;
-		line++;
-		while (ft_whitespace(*line) && (*line))
-			line++;
-		if (*line)
-			return (ERR_EA);
-	}
-	data->ea.ptr = mlx_xpm_file_to_image(data->mlx, temp, &(data->ea.wth), &(data->ea.lth));
-	if (data->ea.ptr == NULL)
-		return (ERR_EA);
-	data->ea.tab = (unsigned int *)mlx_get_data_addr(data->ea.ptr, &trash, &trash, &trash);
-	return (NO_ERR);
-}
-
-int		text_sp(char *line, t_data *data)
-{
-	(void)line;
-	(void)data;
-	return (0);
-}
-
-int		color_f(char *line, t_data *data)
-{
-	char			value[7];
-	int				temp;
-	unsigned int	res;
-	int				i;
-
-	line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_F);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	i = -1;
-	while (++i < 3)
-	{
-		temp = ft_atoi(line);
-		while (is_nb(*line) && (*line))
-			line++;
-		if (*line == ',')
-			line++;
-		else if (i < 2)
-			return (ERR_F);
-		value[i * 2] = temp / 16;
-		value[(i * 2) + 1] = temp % 16;
-	}
-	value[6] = 0;
-	i = -1;
-	res = 0;
-	while (++i < 6)
-		res = res * 16 + (value[i]);
-	data->color[1] = res;
-	return (0);
-}
-
-int		color_c(char *line, t_data *data)
-{
-	char			value[7];
-	int				temp;
-	unsigned int	res;
-	int				i;
-
-	line++;
-	if (!ft_whitespace(*line) && (*line))
-		return (ERR_C);
-	while (ft_whitespace(*line) && (*line))
-		line++;
-	i = -1;
-	while (++i < 3)
-	{
-		temp = ft_atoi(line);
-		while (is_nb(*line) && (*line))
-			line++;
-		if (*line == ',')
-			line++;
-		else if (i < 2)
-			return (ERR_C);
-		value[i * 2] = temp / 16;
-		value[(i * 2) + 1] = temp % 16;
-	}
-	value[6] = 0;
-	i = -1;
-	res = 0;
-	while (++i < 6)
-		res = res * 16 + (value[i]);
-	data->color[0] = res;
-	return (0);
-}
-
-int			ft_void(char *line, t_data *data)
-{
-	(void)line;
-	(void)data;
-	return (0);
-}
-
-int			aff_err(int n, int line_n)
-{
-	if (n == 0)
+	if ((**line) == 'R' && ft_whitespace(*(*line + 1)))
 		return (0);
-	else if (n == 1)
-		printf("Error in resolution line %d.\n", line_n);
-	else if (n == 2)
-		printf("Error in north Texture line %d.\n", line_n);
-	else if (n == 3)
-		printf("Error in south Texture line %d.\n", line_n);
-	else if (n == 4)
-		printf("Error in west Texture line %d.\n", line_n);
-	else if (n == 5)
-		printf("Error in east Texture line %d.\n", line_n);
-	else if (n == 6)
-		printf("Error in sprite Texture line %d.\n", line_n);
-	else if (n == 8)
-		printf("Error in floor Color line %d.\n", line_n);
-	else if (n == 7)
-		printf("Error in celling Color line %d.\n", line_n);
+	if ((ft_strstr(*line, "NO") == *line
+	|| ft_strstr(*line, "SO") == *line
+	|| ft_strstr(*line, "EA") == *line
+	|| ft_strstr(*line, "WE") == *line) && ft_whitespace(*(*line + 2)))
+		return (1);
+	if ((**line) == 'S' && ft_whitespace(*(*line + 1)))
+		return (1);
+	if (ft_strchr("FC", **line) && ft_whitespace(*(*line + 1)))
+		return (2);
+	return (4);
+}
+
+void	reso(char *line, t_data *data)
+{
+	line++;
+	line = ft_strtrim(line, " ");
+	if (!is_nb(*line))
+		aff_err("Invalide char in resolution line.\n", data);
+	data->r.x = ft_atoi(line);
+	if (data->r.x <= 0)
+		aff_err("Resolutions must be positives numbers.\n", data);
+	while (line && is_nb(*line))
+		line++;
+	if (!(*line == ' '))
+		aff_err("Invalide char in resolution line.\n", data);
+	while (line && *line == ' ')
+		line++;
+	if (!is_nb(*line))
+		aff_err("Invalide char in resolution line.\n", data);
+	data->r.y = ft_atoi(line);
+	if (data->r.y <= 0)
+		aff_err("Resolutions must be positives numbers.\n", data);
+	while (line && is_nb(*line))
+		line++;
+	if (*line)
+		aff_err("Invalide char in resolution line.\n", data);
+	data->pars.r = 1;
+}
+
+void	fill_texture(char *line, int n, t_data *data)
+{
+	int		trash;
+
+	line += 2;
+	line = ft_strtrim(line, " ");
+	if (data->pars.t[n] != 0)
+		aff_err("Multiple definition of textures.\n", data);
+	data->t[n].ptr
+	= mlx_xpm_file_to_image(data->mlx, line, &data->t[n].wth, &data->t[n].lth);
+	if (!data->t[n].ptr)
+		aff_err("Texture path is not valid.\n", data);
+	data->t[n].tab
+	= (unsigned int *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
+	data->pars.t[n] = 1;
+}
+
+void	texture(char *line, t_data *data)
+{
+	if (*line == 'E')
+		fill_texture(line, 0, data);
+	else if (*line == 'N')
+		fill_texture(line, 1, data);
+	else if (*line == 'W')
+		fill_texture(line, 2, data);
+	else if (*line == 'S' && *(line + 1) == 'O')
+		fill_texture(line, 3, data);
+	else if (*line == 'S')
+		fill_texture(line, 4, data);
+}
+
+void	fill_color(char *line, int n, t_data *data)
+{
+	int		color[3];
+	int		i;
+
+	i = -1;
+	while (line[++i])
+		if (!ft_strchr(" ,0123456789", line[i]))
+			aff_err("C and F line must contain numbers, spaces, and commas only\n", data);
+	if (!is_nb(line[ft_strlen(line) - 1]))
+		aff_err("C and F line must end with spaces or numbers only\n", data);
+	i = -1;
+	while (++i < 3)
+	{
+		if (!is_nb(*line))
+			aff_err("C and F line must contain numbers, spaces, and commas only\n", data);
+		color[i] = ft_atoi(line);
+		if (color[i] < 0 || color[i] > 255)
+			aff_err("C and F numbers must be positive, and less than 255.\n", data);
+		while (*line && is_nb(*line))
+			line++;
+		while (*line && ft_strchr(" ,", *line))
+			line++;
+	}
+	if (*line)
+		aff_err("C and F line must have only 3 colors\n", data);
+	RGBtoINT(&data->color[n], color[0], color[1], color[2]);
+}
+
+void	color(char *line, t_data *data)
+{
+	if (*line == 'F' && data->pars.f != 0)
+		aff_err("Multiple definition of F\n", data);
+	if (*line == 'C' && data->pars.c != 0)
+		aff_err("Multiple definition of C\n", data);
+	if (*line == 'F')
+	{
+		line++;
+		line = ft_strtrim(line, " ");
+		fill_color(line, 1, data);
+		data->pars.f = 1;
+	}
+	if (*line == 'C')
+	{
+		line++;
+		line = ft_strtrim(line, " ");
+		fill_color(line, 0, data);
+		data->pars.c = 1;
+	}
+}
+
+void		ft_void(char *line, t_data *data)
+{
+	(void)line;
+	(void)data;
+}
+
+int			aff_err(char *str, t_data *data)
+{
+	(void)data;
+	printf("%s", str);
 	exit(1);
 }
 
 int			redirect_function(char *line, t_data *data, int line_n)
 {
-	int			(*redirect[10])(char *, t_data *);
-	int			n;
+	void		(*redirect[10])(char *, t_data *);
 	int			param;
 
-	redirect[0] = ft_void;
-	redirect[1] = reso;
-	redirect[2] = text_no;
-	redirect[3] = text_so;
-	redirect[4] = text_we;
-	redirect[5] = text_ea;
-	redirect[6] = text_sp;
-	redirect[7] = color_f;
-	redirect[8] = color_c;
+	redirect[0] = reso;
+	redirect[1] = texture;
+	redirect[2] = color;
 	param = detect_param(&line, data);
-	if (param >= 9)
+	if (param >= 3)
 		return (0);
-	n = redirect[param](line, data);
-	return (aff_err(n, line_n));
+	(void)line_n;
+	redirect[param](line, data);
+	return (0);
 }
 
 int			parsing(t_data *data)
@@ -536,5 +384,15 @@ int			parsing(t_data *data)
 		free(temp);
 		i++;
 	}
+	i = -1;
+	while (++i < 5)
+		if (data->pars.t[i] == 0)
+			aff_err("Some textures are missing!\n", data);
+	if (data->pars.f == 0)
+		aff_err("No floor color\n", data);
+	if (data->pars.c == 0)
+		aff_err("No ceiling color\n", data);
+	if (data->pars.r == 0)
+		aff_err("No resolution\n", data);
 	return (1);
 }

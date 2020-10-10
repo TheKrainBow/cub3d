@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:11:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:26:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 20:37:05 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		fill_wall_north(t_wall *walls, int *i, t_point c, t_data *data)
 	walls[*i].p[0].x = ((int)c.x + 1);
 	walls[*i].p[0].y = ((int)c.y);
 	walls[*i].color = NORTH;
-	walls[*i].t = &data->no;
+	walls[*i].t = &data->t[NORTH];
 	walls[*i].used = 0;
 	walls[*i].type = 0;
 	*i += 1;
@@ -70,7 +70,7 @@ void		fill_wall_west(t_wall *walls, int *i, t_point c, t_data *data)
 	walls[*i].p[1].x = ((int)c.x);
 	walls[*i].p[1].y = ((int)c.y + 1);
 	walls[*i].color = WEST;
-	walls[*i].t = &data->we;
+	walls[*i].t = &data->t[WEST];
 	walls[*i].used = 0;
 	walls[*i].type = 0;
 	*i += 1;
@@ -86,7 +86,7 @@ void		fill_wall_south(t_wall *walls, int *i, t_point c, t_data *data)
 	walls[*i].p[1].x = ((int)c.x + 1);
 	walls[*i].p[1].y = ((int)c.y + 1);
 	walls[*i].color = SOUTH;
-	walls[*i].t = &data->so;
+	walls[*i].t = &data->t[SOUTH];
 	walls[*i].used = 0;
 	walls[*i].type = 0;
 	*i += 1;
@@ -102,7 +102,7 @@ void		fill_wall_east(t_wall *walls, int *i, t_point c, t_data *data)
 	walls[*i].p[0].x = ((int)c.x + 1);
 	walls[*i].p[0].y = ((int)c.y + 1);
 	walls[*i].color = EAST;
-	walls[*i].t = &data->ea;
+	walls[*i].t = &data->t[EAST];
 	walls[*i].used = 0;
 	walls[*i].type = 0;
 	*i += 1;

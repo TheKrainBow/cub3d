@@ -6,11 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:48:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 20:31:48 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "struct.h"
 
 /*
 ** call all draw hud functions

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:48:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 05:19:46 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void			draw_screen(t_data *data)
 		find_sprite(x, a, data);
 		x += 1;
 	}
-	draw_map(data);
 }
 
 /*
@@ -68,7 +67,7 @@ void			draw_height_sprite(int x, t_point a, t_sprite *sp, t_data *data)
 			data->distance[x] = temp->dist;
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
-			y = (int)data->r.y/2 - (((int)(data->r.y / 2) / (get_dist(temp->inter, data->player.pos) * cosf(f / 180*PI))));
+			y = (int)data->r.y/2 - (((int)(data->r.x/2 - data->fov) / (get_dist(temp->inter, data->player.pos) * cosf(f / 180*PI))));
 			sprite_slice(x, y, temp, data);
 		}
 		temp = temp->next;
@@ -85,13 +84,13 @@ void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 	unsigned int	color;
 	t_point			a;
 
-	col = ((double)(data->sprt.wth) * (get_dist(temp->p[1], temp->inter)));
+	col = ((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter)));
 	i = y - 1;
 	a.x = temp->inter.x;
 	a.y = temp->inter.y;
 	while ((++i < (int)data->r.y - y))
 	{
-		color = data->sprt.tab[(int)(((int)col % data->sprt.wth) + (((i - y) * ((int)data->sprt.lth) / ((int)data->r.y - y - y)) * ((int)data->sprt.wth)))];
+		color = data->t[SPRITE].tab[(int)(((int)col % data->t[SPRITE].wth) + (((i - y) * ((int)data->t[SPRITE].lth) / ((int)data->r.y - y - y)) * ((int)data->t[SPRITE].wth)))];
 		draw_pt(x, i, data, fog_color(color, get_dist(data->player.pos, a), data));
 	}
 	return ;

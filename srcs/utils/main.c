@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 06:01:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 05:38:07 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,9 @@ void		init_keys(t_data *data)
 int			main(void)
 {
 	t_data			data;
-	int 			trash;
 
 	data.fd = open("map1.cub", 'r');
 	init_mlx(&data);
-	data.sprt.ptr = mlx_xpm_file_to_image(data.mlx, "./texture/sprite.xpm", &(data.sprt.wth), &(data.sprt.lth));
-	data.sprt.tab = (unsigned int *)mlx_get_data_addr(data.sprt.ptr, &trash, &trash, &trash);
 	init_keys(&data);
 	update(&data);
 	mlx_loop(data.mlx);

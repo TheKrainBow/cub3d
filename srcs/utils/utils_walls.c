@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:27:20 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 04:29:46 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 05:02:22 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,35 @@ void			ft_init_player(t_data *data, int x, int y)
 	char		c;
 
 	c = data->game[x][y];
+	if (data->pars.player == 1 && ft_strchr("NSEW", c))
+		aff_err("Multiples player on the map\n", data);
 	if (c == 'N')
 	{
 		data->player.angle = -90;
 		data->player.pos.x = y + 0.5;
 		data->player.pos.y = x + 0.5;
+		data->pars.player = 1;
 	}
 	if (c == 'S')
 	{
 		data->player.angle = 90;
 		data->player.pos.x = y + 0.5;
 		data->player.pos.y = x + 0.5;
+		data->pars.player = 1;
 	}
 	if (c == 'E')
 	{
 		data->player.angle = 0;
 		data->player.pos.x = y + 0.5;
 		data->player.pos.y = x + 0.5;
+		data->pars.player = 1;
 	}
 	if (c == 'W')
 	{
 		data->player.angle = 180;
 		data->player.pos.x = y + 0.5;
 		data->player.pos.y = x + 0.5;
+		data->pars.player = 1;
 	}
 	return ;
 }

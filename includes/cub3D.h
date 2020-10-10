@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 06:03:27 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/09 20:36:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@
 # define PI 3.14159265359
 # define FOV 60
 
-# define NORTH 0x2e86c1
-# define EAST 0xb03a2e
-# define WEST 0x28b463
-# define SOUTH 0x6c3483
+# define EAST 0
+# define NORTH 1
+# define WEST 2
+# define SOUTH 3
+# define SPRITE 4
 
 # define NO_ERR 0
 # define ERR_RES 1

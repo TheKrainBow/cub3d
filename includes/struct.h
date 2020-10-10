@@ -6,13 +6,22 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 03:27:07 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 04:50:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+typedef struct		s_parsing
+{
+	int				f;
+	int				c;
+	int				t[5];
+	int				r;
+	int				player;
+}					t_parsing;
 
 typedef struct		s_map
 {
@@ -67,12 +76,8 @@ typedef struct		s_player
 typedef struct		s_data
 {
 	t_point			r;
-	t_texture		ea;
-	t_texture		so;
-	t_texture		no;
-	t_texture		we;
+	t_texture		t[5];
 	t_player		player;
-	t_texture		sprt;
 	t_wall			*objs;
 	int				n_objs;
 	int				n_sprite;
@@ -92,6 +97,7 @@ typedef struct		s_data
 	int				tick;
 	int				fd;
 	int				average;
+	t_parsing		pars;
 }					t_data;
 
 #endif
