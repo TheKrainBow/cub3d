@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:27:20 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/10 05:02:22 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/10 17:30:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void			ft_init_player(t_data *data, int x, int y)
 		data->player.pos.y = x + 0.5;
 		data->pars.player = 1;
 	}
+	data->player.angle = fix_angle(data->player.angle);
 	return ;
 }

@@ -6,12 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 20:36:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 02:33:12 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __CUB3D_H__
-# define __CUB3D_H__
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define KEY_Z 122
 # define KEY_Q 113
@@ -19,8 +19,10 @@
 # define KEY_D 100
 # define ARR_L 65361
 # define ARR_R 65363
+# define QUIT 97
 # define SPACE 32
 # define SHIFT 65505
+# define CTRL 65507
 # define FOG 0
 
 # define SPEED 1
@@ -34,6 +36,7 @@
 # define WEST 2
 # define SOUTH 3
 # define SPRITE 4
+# define GUN 5
 
 # define NO_ERR 0
 # define ERR_RES 1

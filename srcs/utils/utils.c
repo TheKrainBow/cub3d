@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/10 03:11:55 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 01:18:32 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,29 @@ int		ft_atoi(const char *str)
 }
 
 /*
-** Check if any key is pressed
+** Fix the angle to be between 0 and 360
 */
-int			check_keypressed(t_data *data)
+double		fix_angle(double ang)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 12)
-		if (data->key_pressed[i])
-			return (1);
-	return (0);
+	while (ang < (double)0)
+		ang += 360;
+	while (ang >= (double)360)
+		ang -= 360;
+	return (ang);
 }
 
-/*
-** Check if the key is valid
-*/
-int			valid_key(int key_code)
+void		change_p_pos(t_data *data, double angle, double speed)
 {
-	return (key_code == KEY_Z
-	|| key_code == KEY_Q
-	|| key_code == KEY_S
-	|| key_code == KEY_D
-	|| key_code == ARR_L
-	|| key_code == ARR_R
-	|| key_code == SPACE
-	|| key_code == SHIFT);
+	t_point pos;
+	t_point n;
+
+	n.x = cos(ator(angle)) * speed;
+	n.y = sin(ator(angle)) * speed;
+	pos = data->player.pos;
+	if (!ft_strchr("123", data->game[(int)(pos.y)][(int)(pos.x + n.x)]))
+		data->player.pos.x += cos(ator(angle)) * (speed * speed);
+	if (!ft_strchr("123", data->game[(int)(pos.y + n.y)][(int)(pos.x + n.x)]))
+		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
 /*
@@ -76,28 +73,38 @@ int			valid_key(int key_code)
 */
 void		move_player(t_data *data)
 {
-	t_point		check;
+	double			speed;
+	int				crouch;
 
-	if (data->key_pressed[ARR_R % 14 - 1] || data->key_pressed[ARR_L % 14 - 1])
-		data->player.angle = data->key_pressed[ARR_L % 14 - 1] ? data->player.angle - 0.00025 : data->player.angle + 0.00025;
-	check.x = (cos(data->player.angle * (PI / 180)) / 7) * data->key_pressed[KEY_Z % 14 - 1] +
-			(-cos(data->player.angle * (PI / 180)) / 7) * data->key_pressed[KEY_S % 14 - 1] +
-			(cos((data->player.angle + 90) * (PI / 180)) / 7) * data->key_pressed[KEY_D % 14 - 1] + 
-			(-cos((data->player.angle + 90) * (PI / 180)) / 7) * data->key_pressed[KEY_Q % 14 - 1];
-	check.y = (sin(data->player.angle * (PI / 180)) / 7) * data->key_pressed[KEY_Z % 14 - 1] +
-			(-sin(data->player.angle * (PI / 180)) / 7) * data->key_pressed[KEY_S % 14 - 1] +
-			(sin((data->player.angle + 90) * (PI / 180)) / 7) * data->key_pressed[KEY_D % 14 - 1] + 
-			(-sin((data->player.angle + 90) * (PI / 180)) / 7) * data->key_pressed[KEY_Q % 14 - 1];
-	if (data->game[(int)data->player.pos.y][(int)(data->player.pos.x + check.x)] != '1')
-		data->player.pos.x +=
-			(cos(data->player.angle * (PI / 180)) / (100000 - 70000 * data->key_pressed[SHIFT % 14 - 1])) * data->key_pressed[KEY_Z % 14 - 1] +
-			(-cos(data->player.angle * (PI / 180)) / (100000)) * data->key_pressed[KEY_S % 14 - 1] +
-			(cos((data->player.angle + 90) * (PI / 180)) / (100000)) * data->key_pressed[KEY_D % 14 - 1] + 
-			(-cos((data->player.angle + 90) * (PI / 180)) / (100000)) * data->key_pressed[KEY_Q % 14 - 1];
-	if (data->game[(int)(data->player.pos.y + check.y)][(int)data->player.pos.x] != '1')
-		data->player.pos.y +=
-			(sin(data->player.angle * (PI / 180)) / (100000 - 70000 * data->key_pressed[SHIFT % 14 - 1])) * data->key_pressed[KEY_Z % 14 - 1] +
-			(-sin(data->player.angle * (PI / 180)) / (100000)) * data->key_pressed[KEY_S % 14 - 1] +
-			(sin((data->player.angle + 90) * (PI / 180)) / (100000)) * data->key_pressed[KEY_D % 14 - 1] + 
-			(-sin((data->player.angle + 90) * (PI / 180)) / (100000)) * data->key_pressed[KEY_Q % 14 - 1];
+	speed = 0.3;
+	crouch = 0;
+	if (data->keys.crouch)
+	{
+		crouch = -50;
+		speed /= 2;
+	}
+	if (sin(data->player.jump) < 0)
+	{
+		data->player.jump = 0;
+		data->keys.jump = 0;
+	}
+	if (data->keys.jump == 1)
+	{
+		data->player.jump += sin(PI/15);
+	}
+	if (data->keys.run)
+		speed *= 1.8;
+	if (data->keys.forward)
+		change_p_pos(data, data->player.angle, speed);
+	if (data->keys.backward)
+		change_p_pos(data, data->player.angle - 180, speed);
+	if (data->keys.move_left)
+		change_p_pos(data, data->player.angle - 90, speed);
+	if (data->keys.move_right)
+		change_p_pos(data, data->player.angle + 90, speed);
+	if (data->keys.look_left)
+		data->player.angle -= 1 + data->keys.run;
+	if (data->keys.look_right)
+		data->player.angle += 1 + data->keys.run;
+	data->player.h = data->r.y / 2 + crouch + (sin(data->player.jump) * 100);
 }

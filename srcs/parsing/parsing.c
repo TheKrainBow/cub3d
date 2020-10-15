@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/10 05:39:10 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/14 22:41:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,8 @@ void	reso(char *line, t_data *data)
 		line++;
 	if (*line)
 		aff_err("Invalide char in resolution line.\n", data);
+	data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
+	data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
 	data->pars.r = 1;
 }
 

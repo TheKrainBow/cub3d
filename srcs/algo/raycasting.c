@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:31:46 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 05:47:47 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/12 17:08:30 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		find_sprite(int x, t_point a, t_data *data)
 	double		f;
 	int			steps;
 	t_sprite	*sprites;
+	(void)a;
 
 	f = (x * data->fov) / (data->r.x - 1);
 	sprites = NULL;
@@ -62,6 +63,6 @@ void		find_sprite(int x, t_point a, t_data *data)
 		p.x += inc.x;
 		p.y += inc.y;
 	}
-	fix_sprite_angle(&sprites, data);
-	draw_height_sprite(x, a, sprites, data);
+	//fix_sprite_angle(&sprites, data);
+	draw_height_sprite(x, sprites, data);
 }

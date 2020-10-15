@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 03:57:45 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 01:39:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Create a new sprite node
 */
+double			ator(double a);
 t_sprite	*new_sprite(t_point pos, t_data *data)
 {
 	t_sprite	*sprite;
@@ -23,6 +24,11 @@ t_sprite	*new_sprite(t_point pos, t_data *data)
 		return (0);
 	sprite->pos.x = (int)pos.x + 0.5;
 	sprite->pos.y = (int)pos.y + 0.5;
+	sprite->dist = get_dist(sprite->pos, data->player.pos);
+	sprite->p[1].x = cosf(ator(data->player.angle) - PI/2) / 2 + sprite->pos.x;
+	sprite->p[1].y = sinf(ator(data->player.angle) - PI/2) / 2 + sprite->pos.y;
+	sprite->p[0].x = cosf(ator(data->player.angle) + PI/2) / 2 + sprite->pos.x;
+	sprite->p[0].y = sinf(ator(data->player.angle) + PI/2) / 2 + sprite->pos.y;
 	sprite->dist = get_dist(data->player.pos, sprite->pos);
 	sprite->next = NULL;
 	return (sprite);
@@ -37,24 +43,4 @@ void		sprite_push_front(t_sprite **first, t_sprite *new)
 		return ;
 	new->next = *first;
 	*first = new;
-}
-
-/*
-** Adjust angle of all sprite so it face the player
-*/
-void		fix_sprite_angle(t_sprite **sprite, t_data *data)
-{
-	t_sprite *temp;
-
-	temp = *sprite;
-	while (temp)
-	{
-		temp->dist = get_dist(temp->pos, data->player.pos);
-		temp->angle = atan2(data->player.pos.y - temp->pos.y, data->player.pos.x - temp->pos.x);
-		temp->p[0].x = cosf(temp->angle - PI/2) / 2 + temp->pos.x;
-		temp->p[0].y = sinf(temp->angle - PI/2) / 2 + temp->pos.y;
-		temp->p[1].x = cosf(temp->angle + PI/2) / 2 + temp->pos.x;
-		temp->p[1].y = sinf(temp->angle + PI/2) / 2 + temp->pos.y;
-		temp = temp->next;
-	}
 }

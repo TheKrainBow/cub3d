@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/10 05:19:46 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 01:48:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void			draw_screen(t_data *data)
 		angle = (x * data->fov) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
-		closest_wall(x, a, data);
-		find_sprite(x, a, data);
+		//closest_wall(x, a, data);
+		closest_wall_angle(x, data);
+		//find_sprite(x, a, data);
 		x += 1;
 	}
 }
@@ -45,32 +46,39 @@ void			draw_height_wall(int x, t_wall obj, t_data *data)
 	f = fabs(f - data->player.angle);
 	y = ((((data->r.x/2 - data->fov)) / ((obj.inter.dist * cosf(f / 180*PI)))));
 	y = (int)data->r.y/2 - y;
-	get_texture(y, x, data, obj);
+	//get_texture(y, x, data, obj);
 }
 
 /*
 ** draw all sprite on the xth vertical line of the screen
 */
-void			draw_height_sprite(int x, t_point a, t_sprite *sp, t_data *data)
+double			ator(double a);
+void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 {
 	t_sprite	*temp;
 	int			y;
 	double		f;
+	t_point		a;
 
-	temp = sp;
-	while (temp)
+	f = xtoa(x, data);
+	a.x = data->player.pos.x + cos(ator(f));
+	a.y = data->player.pos.y + sin(ator(f));
+	while (sp)
 	{
-		temp->inter = get_inter(data->player.pos, a, temp);
-		temp->dist = get_dist(temp->inter, data->player.pos);
-		if (temp->dist < data->distance[x] && temp->inter.x)
+		sp->inter = get_inter(data->player.pos, a, sp);
+		sp->dist = get_dist(sp->inter, data->player.pos);
+		if (sp->dist < data->distance[x] && sp->inter.x)
 		{
-			data->distance[x] = temp->dist;
+			data->distance[x] = sp->dist;
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
-			y = (int)data->r.y/2 - (((int)(data->r.x/2 - data->fov) / (get_dist(temp->inter, data->player.pos) * cosf(f / 180*PI))));
-			sprite_slice(x, y, temp, data);
+			f = fix_angle(f);
+			y = (int)data->r.y/2 - (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
+			sprite_slice(x, y, sp, data);
 		}
-		temp = temp->next;
+		temp = sp;
+		sp = sp->next;
+		free(temp);
 	}
 }
 

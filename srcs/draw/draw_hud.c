@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/09 20:31:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 02:24:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void			draw_hud(t_data *data)
 {
 	draw_map(data);
-	draw_crosshair(data->r.x / 40, data);
+	//draw_crosshair(data->r.x / 40, data);
 }
 /*
 ** draw a minimap of the current stage
@@ -36,13 +36,13 @@ void			draw_map(t_data *data)
 		while (++p.x < data->game_size.y)
 		{
 			if (ft_strchr("0NSEW2", data->game[(int)p.y][(int)p.x]))
-				draw_square(p, MULT, 0x424242, data);
+				draw_square(p, MULT - 5, 0x424242, data);
 			if (data->game[(int)p.y][(int)p.x] == '1')
-				draw_square(p, MULT, 0xAAAAAA, data);
+				draw_square(p, MULT - 5, 0xAAAAAA, data);
 		}
 	}
-	draw_player_map(data);
 	data->average = 0;
+	draw_player_map(data);
 }
 
 /*
@@ -52,21 +52,42 @@ void		draw_player_map(t_data *data)
 {
 	int		x;
 	t_point	a;
+	t_point	b;
 	t_point	temp;
 	double	dist;
 	double	f;
 
 	temp.x = data->player.pos.x * MULT;
 	temp.y = data->player.pos.y * MULT;
-	x = -1;
-	while (++x < data->r.x)
-	{
-		dist = fmin(data->distance[x], 8);
+	x = data->r.x/2;
+	//while (++x < data->r.x)
+	//{
+		(void)dist;
+		//dist = fmin(data->distance[x], 8);
 		f = (x * data->fov) / (data->r.x - 1);
-		a.x = temp.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
-		a.y = temp.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
-		draw_line(temp, a, data, WHITE);
-	}
+		//a.x = temp.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
+		//a.y = temp.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
+		a.x = data->ray_inter[x].x * MULT;
+		a.y = data->ray_inter[x].y * MULT;
+		if (x < 20 || x > data->r.x - 20)
+			draw_line(temp, a, data, 0x0000FF);
+		else
+			draw_line(temp, a, data, WHITE);
+	//}
+	//x = 0;
+	//while (x < data->r.x)
+	//{
+		if (data->ray_bounced[x].x != -1)
+		{
+			a.x = data->ray_inter[x].x * MULT;
+			a.y = data->ray_inter[x].y * MULT;
+			b.x = data->ray_bounced[x].x * MULT;
+			b.y = data->ray_bounced[x].y * MULT;
+			if (get_dist(a, b) < 1000)
+				draw_line(a, b, data, 0x00FF00);
+		}
+		x++;
+	//}
 	draw_circle(temp, 2, data, WHITE);
 }
 

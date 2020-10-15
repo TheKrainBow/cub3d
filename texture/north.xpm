@@ -16,7 +16,7 @@ static char *dummy[]={
 "h  1111  h",
 "g 1    1 g",
 "f 1    1 f",
-"e     11 e",
+"e     1  e",
 "d    1   d",
 "c   1    c",
 "b  1     b",
