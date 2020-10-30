@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 01:18:32 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 08:40:53 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,13 @@ void		move_player(t_data *data)
 		data->keys.jump = 0;
 	}
 	if (data->keys.jump == 1)
-	{
 		data->player.jump += sin(PI/15);
+	if (data->keys.shoot == 1)
+		data->player.gun += 0.5;
+	if (data->player.gun > 5)
+	{
+		data->keys.shoot = 0;
+		data->player.gun = 0;
 	}
 	if (data->keys.run)
 		speed *= 1.8;

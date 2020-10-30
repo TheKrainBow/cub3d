@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 01:48:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 07:58:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
 			f = fix_angle(f);
-			y = (int)data->r.y/2 - (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
+			y = (int)data->player.h - (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
 			sprite_slice(x, y, sp, data);
 		}
 		temp = sp;
@@ -89,7 +89,7 @@ void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 {
 	int				i;
 	double			col;
-	unsigned int	color;
+	t_pixel			color;
 	t_point			a;
 
 	col = ((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter)));
@@ -111,7 +111,7 @@ void		get_texture(int y, int x, t_data *data, t_wall obj)
 {
 	int				i;
 	double			col;
-	unsigned int	color;
+	t_pixel			color;
 
 	if (obj.color == EAST || obj.color == WEST)
 		col = ((double)obj.t->wth * fabs(obj.inter.y - obj.p[0].y));

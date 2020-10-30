@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 01:23:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 23:47:37 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_point		point(double x, double y)
 }
 
 t_block			closest_wall_a(double f, t_point p, t_block wall, t_data *data);
-unsigned int	get_pixel_color(t_point p, double y, t_block wall, t_data *data)
+t_pixel			get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 {
 	t_texture	t;
 	double		ratio_x;
@@ -128,9 +128,8 @@ unsigned int	get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	ratio_y = (p.y - (data->player.h - y)) / (y * 2);
 	(void)y;
 	test = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
-	if (test >= 0 && test < t.wth * t.lth)
-		return (t.tab[test]);
-	return (WHITE);
+	//if (test >= 0 && test < t.wth * t.lth)
+	return (t.tab[test]);
 }
 
 void		get_texture_a(int x, t_block wall, t_data *data)

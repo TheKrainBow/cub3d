@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:22:35 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 07:59:34 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	init_gun(t_data *data)
 	int		t;
 
 	data->gun[0].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun0.xpm", &data->gun[0].wth, &data->gun[0].lth);
-	data->gun[0].tab = (unsigned int *)mlx_get_data_addr(data->gun[0].ptr, &t, &t, &t);
+	data->gun[0].tab = (t_pixel *)mlx_get_data_addr(data->gun[0].ptr, &t, &t, &t);
 	data->gun[1].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun1.xpm", &data->gun[1].wth, &data->gun[1].lth);
-	data->gun[1].tab = (unsigned int *)mlx_get_data_addr(data->gun[1].ptr, &t, &t, &t);
+	data->gun[1].tab = (t_pixel *)mlx_get_data_addr(data->gun[1].ptr, &t, &t, &t);
 	data->gun[2].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun2.xpm", &data->gun[2].wth, &data->gun[2].lth);
-	data->gun[2].tab = (unsigned int *)mlx_get_data_addr(data->gun[2].ptr, &t, &t, &t);
+	data->gun[2].tab = (t_pixel *)mlx_get_data_addr(data->gun[2].ptr, &t, &t, &t);
 	data->gun[3].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun3.xpm", &data->gun[3].wth, &data->gun[3].lth);
-	data->gun[3].tab = (unsigned int *)mlx_get_data_addr(data->gun[3].ptr, &t, &t, &t);
+	data->gun[3].tab = (t_pixel *)mlx_get_data_addr(data->gun[3].ptr, &t, &t, &t);
 	data->gun[4].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun4.xpm", &data->gun[4].wth, &data->gun[4].lth);
-	data->gun[4].tab = (unsigned int *)mlx_get_data_addr(data->gun[4].ptr, &t, &t, &t);
+	data->gun[4].tab = (t_pixel *)mlx_get_data_addr(data->gun[4].ptr, &t, &t, &t);
 	data->gun[5].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/gun5.xpm", &data->gun[5].wth, &data->gun[5].lth);
-	data->gun[5].tab = (unsigned int *)mlx_get_data_addr(data->gun[5].ptr, &t, &t, &t);
+	data->gun[5].tab = (t_pixel *)mlx_get_data_addr(data->gun[5].ptr, &t, &t, &t);
 }
 
 /*
@@ -49,9 +49,9 @@ void	init_mlx(t_data *data)
 	parsing(data);
 	data->win = mlx_new_window(data->mlx, data->r.x, data->r.y, "Cub3D");
 	data->img = mlx_new_image(data->mlx, data->r.x, data->r.y);
-	data->draw = (unsigned int *)mlx_get_data_addr(data->img, &t, &t, &t);
+	data->draw = (t_pixel *)mlx_get_data_addr(data->img, &t, &t, &t);
 	data->img2 = mlx_new_image(data->mlx, data->r.x, data->r.y);
-	data->draw2 = (unsigned int *)mlx_get_data_addr(data->img2, &t, &t, &t);
+	data->draw2 = (t_pixel *)mlx_get_data_addr(data->img2, &t, &t, &t);
 	mlx_hook(data->win, 17, 1L << 17, hook_close, data);
 	mlx_hook(data->win, 2, 1L << 0, hook_keydown, data);
 	mlx_hook(data->win, 3, 1L << 1, hook_keyup, data);

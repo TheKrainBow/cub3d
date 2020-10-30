@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/14 23:58:03 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 08:37:35 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int			hook_keydown(int key_code, t_data *data)
 		data->keys.run = 1;
 	if (key_code == SPACE)
 		data->keys.jump = 1;
+	if (key_code == F)
+		data->keys.shoot = 1;
 	if (key_code == CTRL)
 		data->keys.crouch = 1;
 	if (key_code == QUIT)
@@ -88,6 +90,5 @@ int			hook_keydown(int key_code, t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 		hook_close(data);
 	}
-	//update(data);
 	return (1);
 }

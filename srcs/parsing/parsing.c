@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/14 22:41:11 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 23:46:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ void	fill_texture(char *line, int n, t_data *data)
 	if (!data->t[n].ptr)
 		aff_err("Texture path is not valid.\n", data);
 	data->t[n].tab
-	= (unsigned int *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
+	= (t_pixel *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
 	data->pars.t[n] = 1;
 }
 
@@ -311,7 +311,7 @@ void	fill_color(char *line, int n, t_data *data)
 	}
 	if (*line)
 		aff_err("C and F line must have only 3 colors\n", data);
-	RGBtoINT(&data->color[n], color[0], color[1], color[2]);
+	data->color[n] = pixel(color[0], color[1], color[2], 5);
 }
 
 void	color(char *line, t_data *data)

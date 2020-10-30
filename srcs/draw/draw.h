@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:45:17 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/12 17:07:58 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/15 23:43:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,21 @@
 ** draw_shapes.c
 */
 
-void		draw_pt(int x, int y, t_data *data, unsigned color);
-void		draw_line(t_point a, t_point b, t_data *data, unsigned color);
-void		draw_circle(t_point c, int radius, t_data *data, unsigned color);
-void		draw_square(t_point p, double size, unsigned color, t_data *data);
-void		clear_screen(unsigned color, t_data *data);
+void		draw_pt(int x, int y, t_data *data, t_pixel color);
+void		draw_line(t_point a, t_point b, t_data *data, t_pixel color);
+void		draw_circle(t_point c, int radius, t_data *data, t_pixel color);
+void		draw_square(t_point p, double size, t_pixel color, t_data *data);
+void		clear_screen(t_pixel color, t_data *data);
 
 /*
 ** draw_color.c
 */
 
-unsigned	average_color(unsigned first, unsigned second, double ratio);
-void		INTtoRGB(unsigned a, int *r, int *g, int *b);
-void		RGBtoINT(unsigned *a, int r, int g, int b);
-unsigned	fog_color(unsigned color, double dist, t_data *data);
+t_pixel		average_color(t_pixel first, t_pixel second, double ratio);
+//void		INTtoRGB(unsigned a, int *r, int *g, int *b);
+//void		RGBtoINT(unsigned *a, int r, int g, int b);
+t_pixel		pixel(int r, int g, int b, int a);
+t_pixel		fog_color(t_pixel color, double dist, t_data *data);
 
 /*
 ** draw_objs.c

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 02:33:12 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 08:37:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define SPACE 32
 # define SHIFT 65505
 # define CTRL 65507
+# define F 102
+
 # define FOG 0
 
 # define SPEED 1

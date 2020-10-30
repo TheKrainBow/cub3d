@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:21:28 by magostin         ###   ########.fr       */
+/*   Updated: 2020/10/27 08:40:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_texture
 	void			*ptr;
 	int				wth;
 	int				lth;
-	unsigned int	*tab;
+	t_pixel			*tab;
 }					t_texture;
 
 typedef struct		s_block
@@ -72,6 +72,7 @@ typedef struct		s_key
 	int				run;
 	int				crouch;
 	int				jump;
+	int				shoot;
 }					t_key;
 
 typedef struct		s_wall
@@ -104,6 +105,7 @@ typedef struct		s_player
 	char			dir;
 	double			h;
 	double			jump;
+	double			gun;
 }					t_player;
 
 typedef struct		s_data
@@ -123,9 +125,9 @@ typedef struct		s_data
 	void			*win;
 	void			*img;
 	void			*img2;
-	unsigned int	*draw;
-	unsigned int	*draw2;
-	unsigned int	color[2];
+	t_pixel			*draw;
+	t_pixel			*draw2;
+	t_pixel			color[2];
 	double			*distance;
 	t_point			*ray_inter;
 	t_point			*ray_bounced;
