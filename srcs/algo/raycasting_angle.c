@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:47:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:42:20 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ t_pixel			get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	if (ratio_x < 0)
 		ratio_x *= -1;
 	ratio_y = (p.y - (data->player.h - y)) / (y * 2);
-	(void)y;
 	test = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
 	//if (test >= 0 && test < t.wth * t.lth)
 	return (t.tab[test]);
@@ -173,14 +172,15 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	int			first;
 
 	first = 1;
-	data->sprites = NULL;
+	if (data->bounced == 0)
+		data->sprites = NULL;
 	detect_dir(f, data);
 	wall.pos.x = (int)p.x;
 	wall.pos.y = (int)p.y;
 	while (((int)wall.pos.x >= 0 && (int)wall.pos.y >= 0 && (int)wall.pos.y < (int)data->game_size.x && (int)wall.pos.x < (int)data->game_size.y && !ft_strchr("13", data->game[(int)wall.pos.y][(int)wall.pos.x])))
 	{
 		first--;
-		if (data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
+		if (data->bounced == 0 && data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
 			sprite_push_front(&data->sprites, new_sprite(wall.pos, data));
 		wall.texture = wall_dir(f, p, wall.pos, data);
 		if (wall.texture == NORTH)

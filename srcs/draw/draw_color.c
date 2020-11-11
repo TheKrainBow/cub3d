@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:00:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:40:34 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:39:43 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_pixel			fog_color(t_pixel color, double dist, t_data *data)
 	grey.r = 20;
 	grey.g = 20;
 	grey.b = 20;
+	dest = color;
 	(void)data;
 	if (!(FOG))
 		return (color);
@@ -77,7 +78,6 @@ t_pixel			fog_color(t_pixel color, double dist, t_data *data)
 		return (color);
 	if (dist > 10)
 		return (average_color(dest, grey, 0.95));
-	dest = color;
 	dest = average_color(dest, grey, 0.1 * (dist));
 	return (dest);
 }

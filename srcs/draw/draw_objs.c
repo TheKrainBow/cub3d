@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/27 07:58:00 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:39:01 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
 			f = fix_angle(f);
-			y = (int)data->player.h - (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
+			y = (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
 			sprite_slice(x, y, sp, data);
 		}
 		temp = sp;
@@ -85,20 +85,28 @@ void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 /*
 ** draw a specific sprite on the xth vertical lien of the screen
 */
+t_point			point(double x, double y);
+double			map(double i, t_point range1, t_point range2);
 void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 {
 	int				i;
 	double			col;
 	t_pixel			color;
 	t_point			a;
+	t_point			coor;
+	int				y_temp;
 
+	y_temp = y;
+	y = (int)data->player.h - y;
 	col = ((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter)));
-	i = y - 1;
+	i = (int)data->player.h - y_temp - 1;
 	a.x = temp->inter.x;
 	a.y = temp->inter.y;
-	while ((++i < (int)data->r.y - y))
+	while ((++i < (int)data->player.h + y_temp))
 	{
-		color = data->t[SPRITE].tab[(int)(((int)col % data->t[SPRITE].wth) + (((i - y) * ((int)data->t[SPRITE].lth) / ((int)data->r.y - y - y)) * ((int)data->t[SPRITE].wth)))];
+		coor.x = (int)((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter))) % data->t[SPRITE].wth;
+		coor.y = map(i, point((int)data->player.h - y_temp - 1, (int)data->player.h + y_temp), point(0, data->t[SPRITE].lth));
+		color = data->t[SPRITE].tab[(int)coor.x + (int)coor.y * data->t[SPRITE].wth];
 		draw_pt(x, i, data, fog_color(color, get_dist(data->player.pos, a), data));
 	}
 	return ;

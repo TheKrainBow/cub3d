@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/27 08:40:53 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/01 15:16:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void		move_player(t_data *data)
 	if (data->keys.move_right)
 		change_p_pos(data, data->player.angle + 90, speed);
 	if (data->keys.look_left)
-		data->player.angle -= 1 + data->keys.run;
+		data->player.angle -= 3 + data->keys.run;
 	if (data->keys.look_right)
-		data->player.angle += 1 + data->keys.run;
+		data->player.angle += 3 + data->keys.run;
 	data->player.h = data->r.y / 2 + crouch + (sin(data->player.jump) * 100);
 }
