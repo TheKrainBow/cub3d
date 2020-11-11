@@ -62,18 +62,6 @@ void		map_push_back(t_map **first, t_map *new)
 	temp->next = new;
 }
 
-void		ft_print_map(t_map **game)
-{
-	t_map		*temp;
-
-	temp = *game;
-	while (temp)
-	{
-		printf("|%s|\n", temp->line);
-		temp = temp->next;
-	}
-}
-
 int			ft_check_line(char *line)
 {
 	int		i;
@@ -396,5 +384,7 @@ int			parsing(t_data *data)
 		aff_err("No ceiling color\n", data);
 	if (data->pars.r == 0)
 		aff_err("No resolution\n", data);
+	if (data->pars.player == 0)
+		aff_err("No player on the map\n", data);
 	return (1);
 }

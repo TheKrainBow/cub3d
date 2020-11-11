@@ -86,13 +86,10 @@ void	init_data(t_data *data)
 		return ;
 	if (!(data->ray_inter = malloc(sizeof(t_point) * (data->r.x + 1))))
 		return ;
-	data->objs = create_wall(data);
+	//data->objs = create_wall(data);
 	data->fov = FOV;
 	data->average = 0;
 	data->update = 0;
 	data->tick = 0;
 	data->player.jump = 0;
-	printf(" ");
-	if (data->pars.player == 0)
-		aff_err("No player on the map\n", data);
 }

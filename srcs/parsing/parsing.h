@@ -11,17 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef PARSING_H
-#define PARSING_H
-
+# define PARSING_H
 # include "cub3D.h"
-
 /*
 ** parsing.c
 */
 
 int			parsing(t_data *data);
 int			aff_err(char *str, t_data *data);
-
 /*
 ** parsing_utils.c
 */

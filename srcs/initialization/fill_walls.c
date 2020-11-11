@@ -12,9 +12,6 @@
 
 #include "cub3D.h"
 
-/*
-** fill each wall with correct informations
-*/
 t_wall		*fill_wall(t_wall *walls, t_data *data)
 {
 	t_point		c;
@@ -44,9 +41,6 @@ t_wall		*fill_wall(t_wall *walls, t_data *data)
 	return (merge_wall(walls, data));
 }
 
-/*
-** Fill all wall facing north
-*/
 void		fill_wall_north(t_wall *walls, int *i, t_point c, t_data *data)
 {
 	walls[*i].p[1].x = ((int)c.x);
@@ -60,9 +54,6 @@ void		fill_wall_north(t_wall *walls, int *i, t_point c, t_data *data)
 	*i += 1;
 }
 
-/*
-** Fill all wall facing west
-*/
 void		fill_wall_west(t_wall *walls, int *i, t_point c, t_data *data)
 {
 	walls[*i].p[0].x = ((int)c.x);
@@ -76,9 +67,6 @@ void		fill_wall_west(t_wall *walls, int *i, t_point c, t_data *data)
 	*i += 1;
 }
 
-/*
-** Fill all wall facing south
-*/
 void		fill_wall_south(t_wall *walls, int *i, t_point c, t_data *data)
 {
 	walls[*i].p[0].x = ((int)c.x);
@@ -92,9 +80,6 @@ void		fill_wall_south(t_wall *walls, int *i, t_point c, t_data *data)
 	*i += 1;
 }
 
-/*
-** Fill all wall facing east
-*/
 void		fill_wall_east(t_wall *walls, int *i, t_point c, t_data *data)
 {
 	walls[*i].p[1].x = ((int)c.x + 1);
