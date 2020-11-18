@@ -1,5 +1,4 @@
 SRCS_ALGO	=		srcs/algo/math.c						\
-					srcs/algo/raycasting.c					\
 					srcs/algo/raycasting_angle.c			\
 					srcs/algo/sprite.c
 
@@ -8,9 +7,7 @@ SRCS_DRAW	=		srcs/draw/draw_color.c					\
 					srcs/draw/draw_objs.c					\
 					srcs/draw/draw_shapes.c
 
-SRCS_INIT	=		srcs/initialization/fill_walls.c		\
-					srcs/initialization/init_mlx.c			\
-					srcs/initialization/init_walls.c		\
+SRCS_INIT	=		srcs/initialization/init_mlx.c
 
 SRCS_PARS	=		srcs/parsing/parsing.c					\
 					srcs/parsing/parsing_utils.c

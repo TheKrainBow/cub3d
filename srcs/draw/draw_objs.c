@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/01 15:39:01 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/11 20:15:09 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,24 @@ void			draw_screen(t_data *data)
 		angle = (x * data->fov) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
 		a.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
-		//closest_wall(x, a, data);
 		closest_wall_angle(x, data);
-		//find_sprite(x, a, data);
 		x += 1;
 	}
 }
 
-/*
-** draw a specific wall on the xth vertical lien of the screen
-*/
-void			draw_height_wall(int x, t_wall obj, t_data *data)
+
+int			between(t_point inter, t_point c, t_point d)
 {
-	int		y;
-	double	f;
-
-	f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
-	f = fabs(f - data->player.angle);
-	y = ((((data->r.x/2 - data->fov)) / ((obj.inter.dist * cosf(f / 180*PI)))));
-	y = (int)data->r.y/2 - y;
-	//get_texture(y, x, data, obj);
+	return ((((inter.x >= c.x && inter.x <= d.x)
+	|| (inter.x >= d.x && inter.x <= c.x))
+	&& ((inter.y >= c.y && inter.y <= d.y)
+	|| (inter.y >= d.y && inter.y <= c.y))));
 }
-
 /*
 ** draw all sprite on the xth vertical line of the screen
 */
+t_point			intersect(t_point b, t_point a, t_point c, t_point d);
+t_point			point(double x, double y);
 double			ator(double a);
 void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 {
@@ -65,9 +58,9 @@ void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
 	a.y = data->player.pos.y + sin(ator(f));
 	while (sp)
 	{
-		sp->inter = get_inter(data->player.pos, a, sp);
+		sp->inter = intersect(data->player.pos, a, sp->p[0], sp->p[1]);
 		sp->dist = get_dist(sp->inter, data->player.pos);
-		if (sp->dist < data->distance[x] && sp->inter.x)
+		if (sp->dist < data->distance[x] && between(sp->inter, sp->p[0], sp->p[1]))
 		{
 			data->distance[x] = sp->dist;
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:28:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/12 02:05:22 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/11 18:29:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,6 @@
 double			get_dist(t_point a, t_point b)
 {
 	return (hypotf(a.x - b.x, a.y - b.y));
-}
-
-/*
-** get the intersection point between a segment and a wall
-*/
-t_point			get_intersect(t_point b, t_point a, t_wall obj)
-{
-	double		t;
-	double		u;
-	double		denum;
-	t_point		c;
-	t_point		d;
-	t_point		inter;
-
-	c = obj.p[0];
-	d = obj.p[1];
-	denum = ((a.x - b.x) * (c.y - d.y)) - ((a.y - b.y) * (c.x - d.x));
-	t = (((a.x - c.x) * (c.y - d.y)) - ((a.y - c.y) * (c.x - d.x)));
-	u = -(((a.x - b.x) * (a.y - c.y)) - ((a.y - b.y) * (a.x - c.x)));
-	inter.x = 0;
-	inter.y = 0;
-	if (denum != 0)
-	{
-		t /= denum;
-		u /= denum;
-		if ((t <= 1) && (0 <= u && u <= 1))
-		{
-			inter.x = a.x + (t * (b.x - a.x));
-			inter.y = a.y + (t * (b.y - a.y));
-			return (inter);
-		}
-	}
-	return (inter);
 }
 
 /*

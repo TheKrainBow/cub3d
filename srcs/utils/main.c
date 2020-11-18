@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/27 08:42:26 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/11 18:26:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int			main(void)
 	data.fd = open("map1.cub", 'r');
 	init_mlx(&data);
 	init_keys(&data);
-	//printf("%f\n", map(15, point(10, 20), point(10, 30)));
 	mlx_loop(data.mlx);
 	return (0);
 }
