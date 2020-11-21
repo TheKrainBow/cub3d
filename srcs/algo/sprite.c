@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 01:39:56 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/18 23:10:04 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Create a new sprite node
 */
-double			ator(double a);
 t_sprite	*new_sprite(t_point pos, t_data *data)
 {
 	t_sprite	*sprite;

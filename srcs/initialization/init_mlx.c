@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/27 07:59:34 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:31:51 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ void	init_mlx(t_data *data)
 	init_parsing(data);
 	mlx_get_screen_size(data->mlx, &(data->max_x), &(data->max_y));
 	parsing(data);
-	data->win = mlx_new_window(data->mlx, data->r.x, data->r.y, "Cub3D");
+	if (!data->save)
+		data->win = mlx_new_window(data->mlx, data->r.x, data->r.y, "Cub3D");
 	data->img = mlx_new_image(data->mlx, data->r.x, data->r.y);
 	data->draw = (t_pixel *)mlx_get_data_addr(data->img, &t, &t, &t);
-	data->img2 = mlx_new_image(data->mlx, data->r.x, data->r.y);
-	data->draw2 = (t_pixel *)mlx_get_data_addr(data->img2, &t, &t, &t);
-	mlx_hook(data->win, 17, 1L << 17, hook_close, data);
-	mlx_hook(data->win, 2, 1L << 0, hook_keydown, data);
-	mlx_hook(data->win, 3, 1L << 1, hook_keyup, data);
-	mlx_loop_hook(data->mlx, hook_loop, data);
+	if (!data->save)
+	{
+		data->img2 = mlx_new_image(data->mlx, data->r.x, data->r.y);
+		data->draw2 = (t_pixel *)mlx_get_data_addr(data->img2, &t, &t, &t);
+		mlx_hook(data->win, 17, 1L << 17, hook_close, data);
+		mlx_hook(data->win, 2, 1L << 0, hook_keydown, data);
+		mlx_hook(data->win, 3, 1L << 1, hook_keyup, data);
+		mlx_loop_hook(data->mlx, hook_loop, data);
+	}
 	init_data(data);
 	init_gun(data);
 }

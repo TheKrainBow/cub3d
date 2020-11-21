@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/11 18:23:07 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/18 23:35:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ void		ft_void(char *line, t_data *data)
 int			aff_err(char *str, t_data *data)
 {
 	(void)data;
-	printf("%s", str);
+	printf("Error.\n%s", str);
 	exit(1);
 }
 

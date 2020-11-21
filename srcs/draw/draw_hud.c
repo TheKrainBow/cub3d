@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/01 15:32:07 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/18 23:12:49 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void		draw_gun(t_data *data)
 	}
 }
 
-/*
-** call all draw hud functions
-*/
 void			draw_hud(t_data *data)
 {
 	if (data->keys.open_map)
@@ -58,9 +55,7 @@ void			draw_hud(t_data *data)
 	draw_gun(data);
 	draw_crosshair(data->r.x / 40, data);
 }
-/*
-** draw a minimap of the current stage
-*/
+
 void			draw_map(t_data *data)
 {
 	t_point	p;
@@ -82,55 +77,37 @@ void			draw_map(t_data *data)
 	draw_player_map(data);
 }
 
-/*
-** Draw 2D player's view
-*/
 void		draw_player_map(t_data *data)
 {
 	int		x;
 	t_point	a;
 	t_point	b;
 	t_point	temp;
-	double	dist;
 	double	f;
 
 	temp.x = data->player.pos.x * MULT;
 	temp.y = data->player.pos.y * MULT;
 	x = data->r.x/2;
-	//while (++x < data->r.x)
-	//{
-		(void)dist;
-		//dist = fmin(data->distance[x], 8);
-		f = (x * data->fov) / (data->r.x - 1);
-		//a.x = temp.x + (cosf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
-		//a.y = temp.y + (sinf((data->player.angle - (data->fov / 2) + f) * (PI / 180)) * (dist * MULT));
+	f = (x * data->fov) / (data->r.x - 1);
+	a.x = data->ray_inter[x].x * MULT;
+	a.y = data->ray_inter[x].y * MULT;
+	if (x < 20 || x > data->r.x - 20)
+		draw_line(temp, a, data, pixel(0, 0, 255, 1));
+	else
+		draw_line(temp, a, data, pixel(255, 255, 255, 1));
+	if (data->ray_bounced[x].x != -1)
+	{
 		a.x = data->ray_inter[x].x * MULT;
 		a.y = data->ray_inter[x].y * MULT;
-		if (x < 20 || x > data->r.x - 20)
-			draw_line(temp, a, data, pixel(0, 0, 255, 1));
-		else
-			draw_line(temp, a, data, pixel(255, 255, 255, 1));
-	//}
-	//x = 0;
-	//while (x < data->r.x)
-	//{
-		if (data->ray_bounced[x].x != -1)
-		{
-			a.x = data->ray_inter[x].x * MULT;
-			a.y = data->ray_inter[x].y * MULT;
-			b.x = data->ray_bounced[x].x * MULT;
-			b.y = data->ray_bounced[x].y * MULT;
-			if (get_dist(a, b) < 1000)
-				draw_line(a, b, data, pixel(0, 255, 0, 1));
-		}
-		x++;
-	//}
+		b.x = data->ray_bounced[x].x * MULT;
+		b.y = data->ray_bounced[x].y * MULT;
+		if (get_dist(a, b) < 1000)
+			draw_line(a, b, data, pixel(0, 255, 0, 1));
+	}
+	x++;
 	draw_circle(temp, 2, data, pixel(255, 255, 255, 1));
 }
 
-/*
-** Draw a crosshair
-*/
 void		draw_crosshair(int size, t_data *data)
 {
 	int		i;
