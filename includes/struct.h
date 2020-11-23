@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/27 08:40:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 21:14:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,9 @@ typedef struct		s_data
 	int				max_x;
 	int				max_y;
 	t_texture		t[6];
-	t_texture		gun[7];
+	t_texture		gun[8];
 	t_player		player;
-	t_wall			*objs;
-	int				n_objs;
-	int				n_sprite;
 	t_sprite		*sprites;
-	int				sprite_nbr;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -131,12 +127,10 @@ typedef struct		s_data
 	double			*distance;
 	t_point			*ray_inter;
 	t_point			*ray_bounced;
-	int				update;
 	char			**game;
 	t_point			game_size;
 	int				fov;
 	t_key			keys;
-	int				tick;
 	int				fd;
 	int				average;
 	t_parsing		pars;
@@ -144,7 +138,8 @@ typedef struct		s_data
 	int				bounced;
 	int				y;
 	int				show_map;
-	int				test;
+	int				save;
+	int				mult;
 }					t_data;
 
 #endif

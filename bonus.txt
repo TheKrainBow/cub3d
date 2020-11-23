@@ -1,0 +1,10 @@
+Collision contre les murs
+Un HUD
+Sauter ou s’accroupir
+Un effet d’ombre basé sur la distance
+Plus d’objets dans le labyrinthe
+Collision avec les objets
+Animations (tir d’arme ou des sprites animés)
+Des armes et des méchants à combattre
+
+Minimap

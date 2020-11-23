@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/18 23:35:44 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:37:50 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,25 +96,23 @@ int			longest_line(t_map *game)
 	return (maxsize);
 }
 
-int			check_surround(int i, int j, t_data *data)
+void			check_surround(int i, int j, t_data *data)
 {
-	if (data->game[i][j] == '0' || ft_strchr("NSWE", data->game[i][j]))
-	{
-		if (i == 0 || j == 0 || i == data->game_size.x - 1 || j == data->game_size.y - 1)
-			return (0);
-		if (data->game[i - 1][j] == ' ')
-			return (0);
-		if (data->game[i + 1][j] == ' ')
-			return (0);
-		if (data->game[i][j - 1] == ' ')
-			return (0);
-		if (data->game[i][j + 1] == ' ')
-			return (0);
-	}
-	return (1);
+	if (!(data->game[i][j] == '0' || ft_strchr("NSWE2", data->game[i][j])))
+		return ;
+	if (i == 0 || j == 0 || i == data->game_size.x - 1 || j == data->game_size.y - 1)
+		aff_err("Map not valid!\n", data);
+	if (ft_strchr(" ", data->game[i - 1][j]))
+		aff_err("Map not valid!\n", data);
+	if (ft_strchr(" ", data->game[i + 1][j]))
+		aff_err("Map not valid!\n", data);
+	if (ft_strchr(" ", data->game[i][j - 1]))
+		aff_err("Map not valid!\n", data);
+	if (ft_strchr(" ", data->game[i][j + 1]))
+		aff_err("Map not valid!\n", data);
 }
 
-int			check_game(t_data *data)
+void			check_game(t_data *data)
 {
 	int		i;
 	int		j;
@@ -124,14 +122,8 @@ int			check_game(t_data *data)
 	{
 		j = -1;
 		while (++j < data->game_size.y)
-		{
-			//printf("%c", data->game[i][j]);
-			if (!(check_surround(i, j, data)))
-				return (0);
-		}
-		//printf("\n");
+			check_surround(i, j, data);
 	}
-	return (1);
 }
 
 void		create_game(t_map *map, int nbr_line, t_data *data)
@@ -160,8 +152,7 @@ void		create_game(t_map *map, int nbr_line, t_data *data)
 	data->game[i] = NULL;
 	data->game_size.y = line_size;
 	data->game_size.x = nbr_line;
-	if (!check_game(data))
-		aff_err("Map not valid!\n", data);
+	check_game(data);
 }
 
 int			ft_map(char **line, t_data *data)
@@ -237,8 +228,6 @@ void	reso(char *line, t_data *data)
 		line++;
 	if (*line)
 		aff_err("Invalide char in resolution line.\n", data);
-	data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
-	data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
 	data->pars.r = 1;
 }
 
@@ -337,7 +326,7 @@ int			aff_err(char *str, t_data *data)
 	exit(1);
 }
 
-int			redirect_function(char *line, t_data *data, int line_n)
+int			redirect_function(char *line, t_data *data)
 {
 	void		(*redirect[10])(char *, t_data *);
 	int			param;
@@ -348,7 +337,6 @@ int			redirect_function(char *line, t_data *data, int line_n)
 	param = detect_param(&line, data);
 	if (param >= 3)
 		return (0);
-	(void)line_n;
 	redirect[param](line, data);
 	return (0);
 }
@@ -387,27 +375,10 @@ void			ft_init_player(t_data *data)
 	}
 }
 
-int			parsing(t_data *data)
+void		check_parsing(t_data *data)
 {
-	char		*line;
-	char		*temp;
 	int			i;
-	int			ret;
-
-	i = 0;
-	ret = 1;
-	while (ret > 0)
-	{
-		ret = get_next_line(data->fd, &line);
-		temp = line;
-		if (line && redirect_function(line, data, i + 1))
-		{
-			free(temp);
-			return (0);
-		}
-		free(temp);
-		i++;
-	}
+	
 	i = -1;
 	while (++i < 5)
 		if (data->pars.t[i] == 0)
@@ -421,5 +392,28 @@ int			parsing(t_data *data)
 		aff_err("No resolution\n", data);
 	if (data->pars.player == 0)
 		aff_err("No player on the map\n", data);
+}
+
+int			parsing(t_data *data)
+{
+	char		*line;
+	char		*temp;
+	int			ret;
+
+	ret = 1;
+	while (ret > 0)
+	{
+		ret = get_next_line(data->fd, &line);
+		temp = line;
+		if (line && redirect_function(line, data))
+		{
+			free(temp);
+			return (0);
+		}
+		free(temp);
+	}
+	check_parsing(data);
+	data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
+	data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
 	return (1);
 }

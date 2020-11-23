@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/18 23:12:49 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 21:22:57 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void		draw_gun(t_data *data)
 		j = data->r.y / 5 - 1;
 		while (++j < data->r.y)
 		{
-			x = (int)map(i, point(data->r.x / 3, data->r.x), point(0, data->gun[(int)data->player.gun].wth));
-			y = (int)map(j, point(data->r.y / 5, data->r.y), point(0, data->gun[(int)data->player.gun].lth));
+			x = (int)map(i, point(0, data->r.x), point(0, data->gun[(int)data->player.gun].wth));
+			y = (int)map(j, point((int)(data->r.y / 5), data->r.y), point(0, data->gun[(int)data->player.gun].lth));
 			//printf("%d %d\n"(int), x, y);
 			color = data->gun[(int)data->player.gun].tab[x + y * data->gun[(int)data->player.gun].wth];
 			draw_pt(i, j, data, color);
@@ -59,7 +59,6 @@ void			draw_hud(t_data *data)
 void			draw_map(t_data *data)
 {
 	t_point	p;
-
 	p.y = -1;
 	data->average = 1;
 	while (++p.y < data->game_size.x)
@@ -68,9 +67,9 @@ void			draw_map(t_data *data)
 		while (++p.x < data->game_size.y)
 		{
 			if (ft_strchr("0NSEW2", data->game[(int)p.y][(int)p.x]))
-				draw_square(p, MULT - 5, pixel(20, 20, 20, 1), data);
+				draw_square(p, data->mult * 0.9, pixel(20, 20, 20, 1), data);
 			if (data->game[(int)p.y][(int)p.x] == '1')
-				draw_square(p, MULT - 5, pixel(80, 80, 80, 1), data);
+				draw_square(p, data->mult * 0.9, pixel(80, 80, 80, 1), data);
 		}
 	}
 	data->average = 0;
@@ -85,22 +84,22 @@ void		draw_player_map(t_data *data)
 	t_point	temp;
 	double	f;
 
-	temp.x = data->player.pos.x * MULT;
-	temp.y = data->player.pos.y * MULT;
+	temp.x = data->player.pos.x * data->mult;
+	temp.y = data->player.pos.y * data->mult;
 	x = data->r.x/2;
 	f = (x * data->fov) / (data->r.x - 1);
-	a.x = data->ray_inter[x].x * MULT;
-	a.y = data->ray_inter[x].y * MULT;
+	a.x = data->ray_inter[x].x * data->mult;
+	a.y = data->ray_inter[x].y * data->mult;
 	if (x < 20 || x > data->r.x - 20)
 		draw_line(temp, a, data, pixel(0, 0, 255, 1));
 	else
 		draw_line(temp, a, data, pixel(255, 255, 255, 1));
 	if (data->ray_bounced[x].x != -1)
 	{
-		a.x = data->ray_inter[x].x * MULT;
-		a.y = data->ray_inter[x].y * MULT;
-		b.x = data->ray_bounced[x].x * MULT;
-		b.y = data->ray_bounced[x].y * MULT;
+		a.x = data->ray_inter[x].x * data->mult;
+		a.y = data->ray_inter[x].y * data->mult;
+		b.x = data->ray_bounced[x].x * data->mult;
+		b.y = data->ray_bounced[x].y * data->mult;
 		if (get_dist(a, b) < 1000)
 			draw_line(a, b, data, pixel(0, 255, 0, 1));
 	}

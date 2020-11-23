@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/01 15:16:24 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 21:28:51 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void		change_p_pos(t_data *data, double angle, double speed)
 		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
+void		shoot(t_data *data)
+{
+	(void)data;
+}
+
 /*
 ** Change the player position and angle depending on the keys pressed
 */
@@ -92,10 +97,11 @@ void		move_player(t_data *data)
 		data->player.jump += sin(PI/15);
 	if (data->keys.shoot == 1)
 		data->player.gun += 0.5;
-	if (data->player.gun > 5)
+	if (data->player.gun > 6)
 	{
 		data->keys.shoot = 0;
 		data->player.gun = 0;
+		shoot(data);
 	}
 	if (data->keys.run)
 		speed *= 1.8;

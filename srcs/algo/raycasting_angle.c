@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/18 23:09:43 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:21:39 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_pixel			get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	ratio_y = (p.y - (data->player.h - y)) / (y * 2);
 	test = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
 	//if (test >= 0 && test < t.wth * t.lth)
-	return (t.tab[test]);
+	return (fog_color(t.tab[test], data->distance[(int)p.x], data));
 }
 
 void		get_texture_a(int x, t_block wall, t_data *data)
@@ -208,26 +208,12 @@ void		closest_wall_angle(int x, t_data *data)
 	{
 		data->bounced++;
 		if (wall.texture == EAST || wall.texture == WEST)
-		{
 			f = fix_angle(180 - f);
-			wall.inter.x += cos(ator(f)) * 0.001;
-			wall.inter.y += sin(ator(f)) * 0.001;
-			wall = closest_wall_a(f, wall.inter, wall, data);
-		}
-		else if (wall.texture == NORTH)
-		{
+		else
 			f = fix_angle(-f);
-			wall.inter.x += cos(ator(f)) * 0.001;
-			wall.inter.y += sin(ator(f)) * 0.001;
-			wall = closest_wall_a(f, wall.inter, wall, data);
-		}
-		else if (wall.texture == SOUTH)
-		{
-			f = fix_angle(-f);
-			wall.inter.x += cos(ator(f)) * 0.001;
-			wall.inter.y += sin(ator(f)) * 0.001;
-			wall = closest_wall_a(f, wall.inter, wall, data);
-		}
+		wall.inter.x += cos(ator(f)) * 0.001;
+		wall.inter.y += sin(ator(f)) * 0.001;
+		wall = closest_wall_a(f, wall.inter, wall, data);
 		data->ray_bounced[x] = wall.inter;
 	}
 	get_texture_a(x, wall, data);

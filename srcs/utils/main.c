@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/19 22:06:54 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:14:37 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			main(int ac, char **av)
 	}
 	else if (ac == 3)
 	{
-		data.save = 0;
+		data.save = 1;
 		if (ft_strstr(av[2], "--save") != av[2])
 			aff_err("Second argument must be --save if 3 arguments\n", &data);
 		size = ft_strlen(av[1]);
@@ -81,7 +81,6 @@ int			main(int ac, char **av)
 			aff_err("Can't open the file.\n", &data);
 		init_mlx(&data);
 		init_keys(&data);
-		update(&data);
 		draw_screen(&data);
 		draw_hud(&data);
 		ft_save(&data);

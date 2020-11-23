@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:56:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:44:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:31:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void		draw_pt(int x, int y, t_data *data, t_pixel color)
 			color = average_color(data->draw[(y * (int)data->r.x) + x], color, 0.3);
 		if (data->mirrored)
 			color = average_color(color, pixel(255, 255, 255, 50), 0.2);
+		/*if (data->fog)
+			color = fog_color(color, data->distance[(int)p.x], data);*/
 		data->draw[(y * (int)data->r.x) + x] = color;
 	}
 }
@@ -81,9 +83,9 @@ void		draw_square(t_point p, double size, t_pixel color, t_data *data)
 	int		j;
 
 	p.x += 0.5;
-	p.x *= MULT;
+	p.x *= data->mult;
 	p.y += 0.5;
-	p.y *= MULT;
+	p.y *= data->mult;
 	i = -1;
 	while (++i < size)
 	{
