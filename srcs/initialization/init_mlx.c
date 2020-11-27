@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:54:28 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:08:05 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	init_gun(t_data *data)
 {
 	int		t;
 
-	data->gun[0].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/Magic/0.xpm", &data->gun[0].wth, &data->gun[0].lth);
-	data->gun[0].tab = (t_pixel *)mlx_get_data_addr(data->gun[0].ptr, &t, &t, &t);
+	data->gun[0].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/Magic/0.xpm",
+	&data->gun[0].wth, &data->gun[0].lth);
+	data->gun[0].tab = (t_pixel *)mlx_get_data_addr(data->gun[0].ptr
+	, &t, &t, &t);
 	data->gun[1].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/Magic/1.xpm", &data->gun[1].wth, &data->gun[1].lth);
 	data->gun[1].tab = (t_pixel *)mlx_get_data_addr(data->gun[1].ptr, &t, &t, &t);
 	data->gun[2].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/Magic/2.xpm", &data->gun[2].wth, &data->gun[2].lth);
