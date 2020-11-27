@@ -6,15 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:05:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:08:32 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** Create a new sprite node
-*/
 t_sprite	*new_sprite(t_point pos, t_data *data)
 {
 	t_sprite	*sp;
