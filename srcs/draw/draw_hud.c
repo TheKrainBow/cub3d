@@ -6,14 +6,14 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/26 18:06:13 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:10:18 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "struct.h"
 
-double		map(double i, t_point range1, t_point range2)
+double	map(double i, t_point range1, t_point range2)
 {
 	double		ratio;
 
@@ -24,8 +24,7 @@ double		map(double i, t_point range1, t_point range2)
 	return (range2.y * ratio + range2.x);
 }
 
-t_point		point(double x, double y);
-void		draw_gun(t_data *data)
+void	draw_gun(t_data *data)
 {
 	int		i;
 	int		j;
@@ -47,7 +46,7 @@ void		draw_gun(t_data *data)
 	}
 }
 
-void		draw_hp(t_data *data)
+void	draw_hp(t_data *data)
 {
 	int		i;
 	int		j;
@@ -68,7 +67,7 @@ void		draw_hp(t_data *data)
 		}
 	}
 }
-void			draw_hud(t_data *data)
+void	draw_hud(t_data *data)
 {
 	if (data->keys.open_map)
 		draw_map(data);
@@ -77,7 +76,7 @@ void			draw_hud(t_data *data)
 	draw_crosshair(data->r.x / 40, data);
 }
 
-void			draw_map(t_data *data)
+void	draw_map(t_data *data)
 {
 	t_point	p;
 	p.y = -1;
@@ -97,7 +96,7 @@ void			draw_map(t_data *data)
 	draw_player_map(data);
 }
 
-void		draw_player_map(t_data *data)
+void	draw_player_map(t_data *data)
 {
 	int		x;
 	t_point	a;
@@ -128,7 +127,7 @@ void		draw_player_map(t_data *data)
 	draw_circle(temp, 2, data, pixel(255, 255, 255, 1));
 }
 
-void		draw_crosshair(int size, t_data *data)
+void	draw_crosshair(int size, t_data *data)
 {
 	int		i;
 	t_point	center;

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:45:17 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/15 23:43:08 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:10:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void		clear_screen(t_pixel color, t_data *data);
 */
 
 t_pixel		average_color(t_pixel first, t_pixel second, double ratio);
-//void		INTtoRGB(unsigned a, int *r, int *g, int *b);
-//void		RGBtoINT(unsigned *a, int r, int g, int b);
 t_pixel		pixel(int r, int g, int b, int a);
 t_pixel		fog_color(t_pixel color, double dist, t_data *data);
 
@@ -53,5 +51,7 @@ void		draw_hud(t_data *data);
 void		draw_map(t_data *data);
 void		draw_player_map(t_data *data);
 void		draw_crosshair(int size, t_data *data);
+
+t_point		point(double x, double y);
 
 #endif

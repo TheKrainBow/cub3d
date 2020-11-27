@@ -6,13 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:00:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/18 23:12:09 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:09:41 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_pixel				pixel(int r, int g, int b, int a)
+t_pixel		pixel(int r, int g, int b, int a)
 {
 	t_pixel		dest;
 
@@ -37,7 +37,7 @@ t_pixel		average_color(t_pixel first, t_pixel second, double ratio)
 	return (first);
 }
 
-t_pixel			fog_color(t_pixel color, double dist, t_data *data)
+t_pixel		fog_color(t_pixel color, double dist, t_data *data)
 {
 	t_pixel	dest;
 	t_pixel	grey;
