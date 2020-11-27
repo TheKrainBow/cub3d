@@ -6,15 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:49:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:01:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** Function is call by the MLX on each loop
-*/
 int			hook_loop(t_data *data)
 {
 	(void)data;
@@ -23,9 +20,6 @@ int			hook_loop(t_data *data)
 	return (0);
 }
 
-/*
-** Function is call by the MLX when a red cross is clicked
-*/
 int			hook_close(t_data *data)
 {
 	(void)data;
@@ -34,9 +28,6 @@ int			hook_close(t_data *data)
 	exit(0);
 }
 
-/*
-** Function is call by the MLX when a key from keyboard is up
-*/
 int			hook_keyup(int key_code, t_data *data)
 {
 	if (key_code == KEY_Z)
@@ -58,9 +49,6 @@ int			hook_keyup(int key_code, t_data *data)
 	return (1);
 }
 
-/*
-** Function is call by the MLX when a key from keyboard is down
-*/
 int			hook_keydown(int key_code, t_data *data)
 {
 	if (key_code == KEY_Z)
