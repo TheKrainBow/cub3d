@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:59:13 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:00:06 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,7 +376,7 @@ void	ft_init_player(t_data *data)
 void	check_parsing(t_data *data)
 {
 	int			i;
-	
+
 	i = -1;
 	while (++i < 5)
 		if (data->pars.t[i] == 0)
