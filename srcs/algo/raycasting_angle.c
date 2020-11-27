@@ -6,17 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/25 23:34:05 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:02:40 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
-/*
-** Detect player direction based on angle
-*/
-void			detect_dir(double f, t_data *data)
+void		detect_dir(double f, t_data *data)
 {
 	data->player.dir = -1;
 	if (f >= 0 && f < 90)
@@ -29,7 +25,7 @@ void			detect_dir(double f, t_data *data)
 		data->player.dir = NORTH;
 }
 
-char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
+char		wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 {
 	double		ang;
 
@@ -84,8 +80,7 @@ t_point		point(double x, double y)
 	return (p);
 }
 
-t_block			closest_wall_a(double f, t_point p, t_block wall, t_data *data);
-t_pixel			get_pixel_color(t_point p, double y, t_block wall, t_data *data)
+t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 {
 	t_texture	t;
 	double		ratio_x;

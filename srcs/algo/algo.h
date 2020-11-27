@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:00:23 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:02:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void			detect_dir(double f, t_data *data);
 double			xtoa(int x, t_data *data);
 double			rtoa(double rad);
 double			ator(double a);
+t_block			closest_wall_a(double f, t_point p, t_block wall, t_data *data);
 #endif
