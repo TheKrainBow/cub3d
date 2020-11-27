@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:58:40 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:59:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,12 +239,10 @@ void	fill_texture(char *line, int n, t_data *data)
 	line = ft_strtrim(line, " ");
 	if (data->pars.t[n] != 0)
 		aff_err("Multiple definition of textures.\n", data);
-	data->t[n].ptr = 
-	mlx_xpm_file_to_image(data->mlx, line, &data->t[n].wth, &data->t[n].lth);
+	data->t[n].ptr = mlx_xpm_file_to_image(data->mlx, line, &data->t[n].wth, &data->t[n].lth);
 	if (!data->t[n].ptr)
 		aff_err("Texture path is not valid.\n", data);
-	data->t[n].tab = 
-	(t_pixel *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
+	data->t[n].tab = (t_pixel *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
 	data->pars.t[n] = 1;
 }
 
