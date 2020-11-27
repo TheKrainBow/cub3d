@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:11:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:13:23 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	draw_hud(t_data *data)
 void	draw_map(t_data *data)
 {
 	t_point	p;
+
 	p.y = -1;
 	data->average = 1;
 	while (++p.y < data->game_size.x)
