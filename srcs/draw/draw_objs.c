@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:51:47 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:52:19 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
 			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
 			f = fix_angle(f);
-			y = (((int)(data->r.x/2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180*PI))));
+			y = (((int)(data->r.x / 2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180 * PI))));
 			sprite_slice(x, y, sp, data);
 		}
 		temp = sp;

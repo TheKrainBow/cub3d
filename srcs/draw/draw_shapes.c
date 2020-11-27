@@ -6,15 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:56:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 19:31:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:53:10 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** draw a point on the screen
-*/
 void		draw_pt(int x, int y, t_data *data, t_pixel color)
 {
 	if (y >= 0 && y < data->r.y && x >= 0 && x < data->r.x && color.a)
@@ -23,15 +20,10 @@ void		draw_pt(int x, int y, t_data *data, t_pixel color)
 			color = average_color(data->draw[(y * (int)data->r.x) + x], color, 0.3);
 		if (data->mirrored)
 			color = average_color(color, pixel(255, 255, 255, 50), 0.2);
-		/*if (data->fog)
-			color = fog_color(color, data->distance[(int)p.x], data);*/
 		data->draw[(y * (int)data->r.x) + x] = color;
 	}
 }
 
-/*
-** draw a line on the screen
-*/
 void		draw_line(t_point a, t_point b, t_data *data, t_pixel color)
 {
 	int			i;
@@ -53,9 +45,6 @@ void		draw_line(t_point a, t_point b, t_data *data, t_pixel color)
 	}
 }
 
-/*
-** draw a circle on the screen
-*/
 void		draw_circle(t_point center, int radius, t_data *data, t_pixel color)
 {
 	double		i;
@@ -74,9 +63,6 @@ void		draw_circle(t_point center, int radius, t_data *data, t_pixel color)
 	}
 }
 
-/*
-** draw a square on the screen
-*/
 void		draw_square(t_point p, double size, t_pixel color, t_data *data)
 {
 	int		i;
@@ -95,9 +81,6 @@ void		draw_square(t_point p, double size, t_pixel color, t_data *data)
 	}
 }
 
-/*
-** Put all pixels of the screen in a given color
-*/
 void		clear_screen(t_pixel color, t_data *data)
 {
 	int		i;
