@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:23:13 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:37:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ void		detect_dir(double f, t_data *data)
 		data->player.dir = NORTH;
 }
 
-char		wall_dir_return(int x, int y, t_point wall, t_point p_pos)
+double		wall_dir_return(int y, int x, t_point wall, t_point p_pos)
 {
 	return (fix_angle(rtoa(atan2(wall.y - p_pos.y + y, wall.x - p_pos.x + x))));
 }
 
 char		wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 {
-	double		ang;
-
 	if (data->player.dir == EAST)
 	{
 		if (f <= wall_dir_return(1, 1, wall, p_pos))
@@ -42,21 +40,18 @@ char		wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 	}
 	if (data->player.dir == SOUTH)
 	{
-		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y + 1, wall.x - p_pos.x)));
-		if (f <= ang)
+		if (f <= wall_dir_return(1, 0, wall, p_pos))
 			return (SOUTH);
 		return (WEST);
 	}
 	if (data->player.dir == WEST)
 	{
-		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y, wall.x - p_pos.x)));
-		if (f <= ang)
+		if (f <= wall_dir_return(0, 0, wall, p_pos))
 			return (WEST);
 		return (NORTH);
 	}
-	ang = fix_angle(rtoa(atan2(wall.y - p_pos.y, wall.x + 1 - p_pos.x)));
 	if (data->player.dir == NORTH)
-		if (f <= ang)
+		if (f <= wall_dir_return(0, 1, wall, p_pos))
 			return (NORTH);
 	return (EAST);
 }
