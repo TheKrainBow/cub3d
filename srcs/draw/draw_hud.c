@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:13:23 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:18:41 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	draw_player_map(t_data *data)
 
 	temp.x = data->player.pos.x * data->mult;
 	temp.y = data->player.pos.y * data->mult;
-	x = data->r.x/2;
+	x = data->r.x / 2;
 	f = (x * data->fov) / (data->r.x - 1);
 	a.x = data->ray_inter[x].x * data->mult;
 	a.y = data->ray_inter[x].y * data->mult;
