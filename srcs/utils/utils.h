@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/11 18:11:12 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:01:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ double		fix_angle(double ang);
 
 int				check_nei(int x, int y, t_data *data);
 int				test_pts(t_wall *old_objs, int i, int j);
+
+void			ft_save(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 19:14:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:01:48 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ void		init_keys(t_data *data)
 	data->keys.crouch = 0;
 	data->keys.jump = 0;
 	data->keys.shoot = 0;
-	data->player.h = data->r.y/2;
+	data->player.h = data->r.y / 2;
 }
 
-void		ft_save(t_data *data);
 int			main(int ac, char **av)
 {
 	t_data			data;
