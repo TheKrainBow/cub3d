@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/11 20:15:09 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/25 23:52:01 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,32 +103,4 @@ void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 		draw_pt(x, i, data, fog_color(color, get_dist(data->player.pos, a), data));
 	}
 	return ;
-}
-
-/*
-** map the x and y pixel, to the corresponding texture's color
-*/
-void		get_texture(int y, int x, t_data *data, t_wall obj)
-{
-	int				i;
-	double			col;
-	t_pixel			color;
-
-	if (obj.color == EAST || obj.color == WEST)
-		col = ((double)obj.t->wth * fabs(obj.inter.y - obj.p[0].y));
-	else
-		col = ((double)obj.t->wth * fabs(obj.inter.x - obj.p[0].x));
-	i = -1;
-	while ((++i < data->r.y))
-	{
-		if (i <= y)
-			draw_pt(x, i, data, data->color[0]);
-		else if (i > y && i < ((int)data->r.y - y))
-		{
-			color = obj.t->tab[(int)(((int)col % obj.t->wth) + (((i - y) * ((int)obj.t->lth) / ((int)data->r.y - y - y)) * ((int)obj.t->wth)))];
-			draw_pt(x, i, data, fog_color(color, data->distance[x], data));
-		}
-		else
-			draw_pt(x, i, data, data->color[1]);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 21:22:57 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/26 18:06:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,39 @@ void		draw_gun(t_data *data)
 		{
 			x = (int)map(i, point(0, data->r.x), point(0, data->gun[(int)data->player.gun].wth));
 			y = (int)map(j, point((int)(data->r.y / 5), data->r.y), point(0, data->gun[(int)data->player.gun].lth));
-			//printf("%d %d\n"(int), x, y);
 			color = data->gun[(int)data->player.gun].tab[x + y * data->gun[(int)data->player.gun].wth];
 			draw_pt(i, j, data, color);
 		}
 	}
 }
 
+void		draw_hp(t_data *data)
+{
+	int		i;
+	int		j;
+	int		x;
+	int		y;
+	t_pixel	color;
+
+	i = 0;
+	while (++i < data->r.x/2)
+	{
+		j = 3 * data->r.y / 4;
+		while (++j < data->r.y)
+		{
+			x = (int)map(i, point(0, data->r.x/2), point(0, data->health.wth));
+			y = (int)map(j, point(3 * data->r.y / 4, data->r.y), point(0, data->health.lth));
+			color = data->health.tab[x + y * data->health.wth];
+			draw_pt(i, j, data, color);
+		}
+	}
+}
 void			draw_hud(t_data *data)
 {
 	if (data->keys.open_map)
 		draw_map(data);
 	draw_gun(data);
+	draw_hp(data);
 	draw_crosshair(data->r.x / 40, data);
 }
 

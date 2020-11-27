@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 19:21:39 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/25 23:34:05 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 {
 	double		ang;
 
-	//printf("%f %f\t%f %f\n", p_pos.x, p_pos.y, wall.x, wall.y);
 	if (data->player.dir == EAST)
 	{
 		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y + 1, wall.x - p_pos.x + 1)));
-		//printf("%f <= %f\t", f, ang);
 		if (f <= ang)
 			return (EAST);
 		return (SOUTH);
@@ -45,7 +43,6 @@ char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 	if (data->player.dir == SOUTH)
 	{
 		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y + 1, wall.x - p_pos.x)));
-		//printf("%f <= %f\t", f, ang);
 		if (f <= ang)
 			return (SOUTH);
 		return (WEST);
@@ -53,19 +50,14 @@ char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 	if (data->player.dir == WEST)
 	{
 		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y, wall.x - p_pos.x)));
-		//printf("%f <= %f\t", f, ang);
 		if (f <= ang)
 			return (WEST);
 		return (NORTH);
 	}
+	ang = fix_angle(rtoa(atan2(wall.y - p_pos.y, wall.x + 1 - p_pos.x)));
 	if (data->player.dir == NORTH)
-	{
-		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y, wall.x + 1 - p_pos.x)));
-		//printf("%f <= %f\t", f, ang);
 		if (f <= ang)
 			return (NORTH);
-		return (EAST);
-	}
 	return (EAST);
 }
 

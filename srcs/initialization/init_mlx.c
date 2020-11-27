@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 21:19:20 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:57:45 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	init_gun(t_data *data)
 	data->gun[5].tab = (t_pixel *)mlx_get_data_addr(data->gun[5].ptr, &t, &t, &t);
 	data->gun[6].ptr = mlx_xpm_file_to_image(data->mlx, "./texture/Magic/6.xpm", &data->gun[6].wth, &data->gun[6].lth);
 	data->gun[6].tab = (t_pixel *)mlx_get_data_addr(data->gun[6].ptr, &t, &t, &t);
+	data->health.ptr = mlx_xpm_file_to_image(data->mlx, "./texture/health_bar.xpm", &data->health.wth, &data->health.lth);
+	data->health.tab = (t_pixel *)mlx_get_data_addr(data->health.ptr, &t, &t, &t);
 }
 
 /*

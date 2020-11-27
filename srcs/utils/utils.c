@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 21:28:51 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:28:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,21 @@ void		change_p_pos(t_data *data, double angle, double speed)
 		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
+t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data);
 void		shoot(t_data *data)
 {
-	(void)data;
+	t_block		wall;
+
+	wall.dist = 0;
+	data->mirrored = 0;
+	data->bounced = 0;
+	closest_wall_a(fix_angle(data->player.angle), data->player.pos, wall, data);
+	while (data->sprites && data->sprites->next)
+		data->sprites = data->sprites->next;
+	if (data->sprites)
+		data->game[(int)data->sprites->pos.y][(int)data->sprites->pos.x] = '0';
 }
 
-/*
-** Change the player position and angle depending on the keys pressed
-*/
 void		move_player(t_data *data)
 {
 	double			speed;

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 21:14:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:47:23 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,9 @@ typedef struct		s_key
 
 typedef struct		s_wall
 {
-	t_point			p[2];
 	t_texture		*t;
 	t_point			inter;
-	int				type;
 	unsigned int 	color;
-	int				size;
-	int				used;
 }					t_wall;
 
 typedef struct		s_sprite
@@ -92,8 +88,6 @@ typedef struct		s_sprite
 	t_texture		*t;
 	t_point			pos;
 	t_point			inter;
-	int				x_slice;
-	double			angle;
 	double			dist;
 	struct s_sprite	*next;
 }					t_sprite;
@@ -115,6 +109,7 @@ typedef struct		s_data
 	int				max_y;
 	t_texture		t[6];
 	t_texture		gun[8];
+	t_texture		health;
 	t_player		player;
 	t_sprite		*sprites;
 	void			*mlx;
