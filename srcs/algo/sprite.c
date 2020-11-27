@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/18 23:10:04 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:05:28 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@
 */
 t_sprite	*new_sprite(t_point pos, t_data *data)
 {
-	t_sprite	*sprite;
+	t_sprite	*sp;
 
 	if (!(sprite = (t_sprite *)malloc(sizeof(t_sprite))))
 		return (0);
-	sprite->pos.x = (int)pos.x + 0.5;
-	sprite->pos.y = (int)pos.y + 0.5;
-	sprite->dist = get_dist(sprite->pos, data->player.pos);
-	sprite->p[1].x = cosf(ator(data->player.angle) - PI/2) / 2 + sprite->pos.x;
-	sprite->p[1].y = sinf(ator(data->player.angle) - PI/2) / 2 + sprite->pos.y;
-	sprite->p[0].x = cosf(ator(data->player.angle) + PI/2) / 2 + sprite->pos.x;
-	sprite->p[0].y = sinf(ator(data->player.angle) + PI/2) / 2 + sprite->pos.y;
-	sprite->dist = get_dist(data->player.pos, sprite->pos);
-	sprite->next = NULL;
-	return (sprite);
+	sp->pos.x = (int)pos.x + 0.5;
+	sp->pos.y = (int)pos.y + 0.5;
+	sp->dist = get_dist(sp->pos, data->player.pos);
+	sp->p[1].x = cosf(ator(data->player.angle) - PI / 2) / 2 + sp->pos.x;
+	sp->p[1].y = sinf(ator(data->player.angle) - PI / 2) / 2 + sp->pos.y;
+	sp->p[0].x = cosf(ator(data->player.angle) + PI / 2) / 2 + sp->pos.x;
+	sp->p[0].y = sinf(ator(data->player.angle) + PI / 2) / 2 + sp->pos.y;
+	sp->dist = get_dist(data->player.pos, sp->pos);
+	sp->next = NULL;
+	return (sp);
 }
 
 /*
