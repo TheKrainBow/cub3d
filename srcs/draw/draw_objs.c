@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:51:00 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:51:14 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
 	}
 }
 
-double	map(double i, t_point range1, t_point range2);
 void	sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 {
 	int				i;

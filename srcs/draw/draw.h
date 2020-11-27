@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:45:17 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:26:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:51:23 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void		draw_crosshair(int size, t_data *data);
 
 t_point		point(double x, double y);
 t_point		intersect(t_point b, t_point a, t_point c, t_point d);
+double		map(double i, t_point range1, t_point range2);
 
 #endif
