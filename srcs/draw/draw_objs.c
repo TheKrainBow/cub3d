@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/25 23:52:01 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:27:16 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** cast rays to draw 3D view on screen
 */
-void			draw_screen(t_data *data)
+void	draw_screen(t_data *data)
 {
 	double		angle;
 	int			x;
@@ -33,7 +33,7 @@ void			draw_screen(t_data *data)
 }
 
 
-int			between(t_point inter, t_point c, t_point d)
+int		between(t_point inter, t_point c, t_point d)
 {
 	return ((((inter.x >= c.x && inter.x <= d.x)
 	|| (inter.x >= d.x && inter.x <= c.x))
@@ -43,10 +43,7 @@ int			between(t_point inter, t_point c, t_point d)
 /*
 ** draw all sprite on the xth vertical line of the screen
 */
-t_point			intersect(t_point b, t_point a, t_point c, t_point d);
-t_point			point(double x, double y);
-double			ator(double a);
-void			draw_height_sprite(int x, t_sprite *sp, t_data *data)
+void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
 {
 	t_sprite	*temp;
 	int			y;
