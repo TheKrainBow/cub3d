@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:03:57 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:23:01 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,18 @@ void		detect_dir(double f, t_data *data)
 		data->player.dir = NORTH;
 }
 
+char		wall_dir_return(int x, int y, t_point wall, t_point p_pos)
+{
+	return (fix_angle(rtoa(atan2(wall.y - p_pos.y + y, wall.x - p_pox.x + x))));
+}
+
 char		wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
 {
 	double		ang;
 
 	if (data->player.dir == EAST)
 	{
-		ang = fix_angle(rtoa(atan2(wall.y - p_pos.y + 1, wall.x - p_pos.x + 1)));
-		if (f <= ang)
+		if (f <= wall_dir_return(1, 1, wall, p_pos))
 			return (EAST);
 		return (SOUTH);
 	}
