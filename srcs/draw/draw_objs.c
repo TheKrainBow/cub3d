@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:27:16 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:51:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int		between(t_point inter, t_point c, t_point d)
 	&& ((inter.y >= c.y && inter.y <= d.y)
 	|| (inter.y >= d.y && inter.y <= c.y))));
 }
-/*
-** draw all sprite on the xth vertical line of the screen
-*/
+
 void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
 {
 	t_sprite	*temp;
@@ -72,12 +70,8 @@ void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
 	}
 }
 
-/*
-** draw a specific sprite on the xth vertical lien of the screen
-*/
-t_point			point(double x, double y);
-double			map(double i, t_point range1, t_point range2);
-void			sprite_slice(int x, int y, t_sprite *temp, t_data *data)
+double	map(double i, t_point range1, t_point range2);
+void	sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 {
 	int				i;
 	double			col;
