@@ -7,7 +7,8 @@ SRCS_DRAW	=		srcs/draw/draw_color.c					\
 					srcs/draw/draw_objs.c					\
 					srcs/draw/draw_shapes.c
 
-SRCS_INIT	=		srcs/initialization/init_mlx.c
+SRCS_INIT	=		srcs/initialization/init_mlx.c			\
+					srcs/initialization/init_gun.c
 
 SRCS_PARS	=		srcs/parsing/parsing.c					\
 					srcs/parsing/parsing_utils.c
