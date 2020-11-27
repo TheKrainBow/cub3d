@@ -6,15 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:40:39 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:05:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** convert a string to an int
-*/
 int		ft_atoi(const char *str)
 {
 	int i;
@@ -42,9 +39,6 @@ int		ft_atoi(const char *str)
 	return (res * neg);
 }
 
-/*
-** Fix the angle to be between 0 and 360
-*/
 double		fix_angle(double ang)
 {
 	while (ang < (double)0)
@@ -68,7 +62,6 @@ void		change_p_pos(t_data *data, double angle, double speed)
 		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
-t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data);
 void		shoot(t_data *data)
 {
 	t_block		wall;
