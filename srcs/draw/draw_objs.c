@@ -6,15 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:51:14 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:51:47 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** cast rays to draw 3D view on screen
-*/
 void	draw_screen(t_data *data)
 {
 	double		angle;
@@ -31,7 +28,6 @@ void	draw_screen(t_data *data)
 		x += 1;
 	}
 }
-
 
 int		between(t_point inter, t_point c, t_point d)
 {
