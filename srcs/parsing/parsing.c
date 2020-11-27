@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 19:37:50 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:55:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "mlx.h"
 #include "mlx_int.h"
 
-int			aff_err(char *str, t_data *data);
-int			ft_whitespace(char c)
+int		ft_whitespace(char c)
 {
 	if (c == '\f' || c == '\t' || c == '\n'
 	|| c == '\r' || c == '\v' || c == ' ')
@@ -30,7 +29,7 @@ int			is_nb(char c)
 	return (0);
 }
 
-t_map		*new_map_line(char *line)
+t_map	*new_map_line(char *line)
 {
 	t_map		*game;
 	int			i;
@@ -45,7 +44,7 @@ t_map		*new_map_line(char *line)
 	return (game);
 }
 
-void		map_push_back(t_map **first, t_map *new)
+void	map_push_back(t_map **first, t_map *new)
 {
 	t_map	*temp;
 
@@ -62,7 +61,7 @@ void		map_push_back(t_map **first, t_map *new)
 	temp->next = new;
 }
 
-int			ft_check_line(char *line)
+int		ft_check_line(char *line)
 {
 	int		i;
 
@@ -80,7 +79,7 @@ int			ft_check_line(char *line)
 	return (1);
 }
 
-int			longest_line(t_map *game)
+int		longest_line(t_map *game)
 {
 	t_map		*temp;
 	int			maxsize;
@@ -96,7 +95,7 @@ int			longest_line(t_map *game)
 	return (maxsize);
 }
 
-void			check_surround(int i, int j, t_data *data)
+void	check_surround(int i, int j, t_data *data)
 {
 	if (!(data->game[i][j] == '0' || ft_strchr("NSWE2", data->game[i][j])))
 		return ;
@@ -112,7 +111,7 @@ void			check_surround(int i, int j, t_data *data)
 		aff_err("Map not valid!\n", data);
 }
 
-void			check_game(t_data *data)
+void	check_game(t_data *data)
 {
 	int		i;
 	int		j;
@@ -126,7 +125,7 @@ void			check_game(t_data *data)
 	}
 }
 
-void		create_game(t_map *map, int nbr_line, t_data *data)
+void	create_game(t_map *map, int nbr_line, t_data *data)
 {
 	int		line_size;
 	int		i;
@@ -155,7 +154,7 @@ void		create_game(t_map *map, int nbr_line, t_data *data)
 	check_game(data);
 }
 
-int			ft_map(char **line, t_data *data)
+int		ft_map(char **line, t_data *data)
 {
 	int			ret;
 	int			nbr_line;
@@ -182,7 +181,7 @@ int			ft_map(char **line, t_data *data)
 	return (1);
 }
 
-int			detect_param(char **line, t_data *data)
+int		detect_param(char **line, t_data *data)
 {
 	if (ft_map(line, data))
 		return (4);
@@ -313,20 +312,20 @@ void	color(char *line, t_data *data)
 	}
 }
 
-void		ft_void(char *line, t_data *data)
+void	ft_void(char *line, t_data *data)
 {
 	(void)line;
 	(void)data;
 }
 
-int			aff_err(char *str, t_data *data)
+int		aff_err(char *str, t_data *data)
 {
 	(void)data;
 	printf("Error.\n%s", str);
 	exit(1);
 }
 
-int			redirect_function(char *line, t_data *data)
+int		redirect_function(char *line, t_data *data)
 {
 	void		(*redirect[10])(char *, t_data *);
 	int			param;
@@ -341,7 +340,7 @@ int			redirect_function(char *line, t_data *data)
 	return (0);
 }
 
-void		ft_create_player(t_data *data, int x, int y, char c)
+void	ft_create_player(t_data *data, int x, int y, char c)
 {
 	if (data->pars.player != 0)
 		aff_err("Multiple player definition.", data);
@@ -358,7 +357,7 @@ void		ft_create_player(t_data *data, int x, int y, char c)
 	data->pars.player = 1;
 }
 
-void			ft_init_player(t_data *data)
+void	ft_init_player(t_data *data)
 {
 	int		i;
 	int		j;
@@ -375,7 +374,7 @@ void			ft_init_player(t_data *data)
 	}
 }
 
-void		check_parsing(t_data *data)
+void	check_parsing(t_data *data)
 {
 	int			i;
 	
@@ -394,7 +393,7 @@ void		check_parsing(t_data *data)
 		aff_err("No player on the map\n", data);
 }
 
-int			parsing(t_data *data)
+int		parsing(t_data *data)
 {
 	char		*line;
 	char		*temp;
