@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:05:28 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:05:37 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ t_sprite	*new_sprite(t_point pos, t_data *data)
 	return (sp);
 }
 
-/*
-** Add a node at the beginning of the linked list
-*/
 void		sprite_push_front(t_sprite **first, t_sprite *new)
 {
 	if (!first || !new)
