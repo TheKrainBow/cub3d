@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:57:12 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:57:49 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_whitespace(char c)
 	return (0);
 }
 
-int			is_nb(char c)
+int		is_nb(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
