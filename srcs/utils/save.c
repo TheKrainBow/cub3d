@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/23 19:10:33 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:03:26 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		save_header(int fd, int bpp, t_data *data)
 	write(fd, &tmp, 4);
 }
 
-char		*ft_itoa(int n);
 void		ft_save(t_data *data)
 {
 	int		fd;
@@ -58,7 +57,6 @@ void		ft_save(t_data *data)
 	fd = -1;
 	while (fd == -1)
 	{
-		//fd = open(ft_strjoin(ft_strjoin("./save_", ft_itoa(i)), ".bmp"), O_CREAT | O_RDWR);
 		fd = open("./save.bmp", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		i++;
 	}
