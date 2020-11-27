@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:54:13 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:05:37 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:05:48 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_sprite	*new_sprite(t_point pos, t_data *data)
 {
 	t_sprite	*sp;
 
-	if (!(sprite = (t_sprite *)malloc(sizeof(t_sprite))))
+	if (!(sp = (t_sprite *)malloc(sizeof(t_sprite))))
 		return (0);
 	sp->pos.x = (int)pos.x + 0.5;
 	sp->pos.y = (int)pos.y + 0.5;
