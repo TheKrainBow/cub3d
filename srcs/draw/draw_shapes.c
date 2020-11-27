@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:56:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:53:10 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:53:42 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		draw_line(t_point a, t_point b, t_data *data, t_pixel color)
 	d.x = b.x - a.x;
 	d.y = b.y - a.y;
 	steps = fabs(d.x) > fabs(d.y) ? fabs(d.x) : fabs(d.y);
-
 	d.x /= steps;
 	d.y /= steps;
 	i = -1;

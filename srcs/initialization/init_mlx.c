@@ -6,18 +6,12 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/26 17:57:45 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:54:28 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-/*
-void	scale_texture_to_res(int i, t_data *data)
-{
-	void			*img;
-	unsigned int	*draw;
-}
-*/
+
 void	init_gun(t_data *data)
 {
 	int		t;
@@ -40,9 +34,6 @@ void	init_gun(t_data *data)
 	data->health.tab = (t_pixel *)mlx_get_data_addr(data->health.ptr, &t, &t, &t);
 }
 
-/*
-** initialize all mlx ptr and pars .cub
-*/
 void	init_mlx(t_data *data)
 {
 	int		t;
@@ -67,9 +58,7 @@ void	init_mlx(t_data *data)
 	init_data(data);
 	init_gun(data);
 }
-/*
-** initialize parsing structure
-*/
+
 void	init_parsing(t_data *data)
 {
 	int		i;
@@ -83,9 +72,6 @@ void	init_parsing(t_data *data)
 	data->pars.player = 0;
 }
 
-/*
-** initialize data
-*/
 void	init_data(t_data *data)
 {
 	if (!(data->distance = malloc(sizeof(double) * (data->r.x + 1))))
@@ -94,7 +80,6 @@ void	init_data(t_data *data)
 		return ;
 	if (!(data->ray_inter = malloc(sizeof(t_point) * (data->r.x + 1))))
 		return ;
-	//data->objs = create_wall(data);
 	data->fov = FOV;
 	data->average = 0;
 	data->player.jump = 0;
