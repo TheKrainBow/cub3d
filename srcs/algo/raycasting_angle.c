@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:02:40 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:03:57 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	double		ratio_x;
 	double		ratio_y;
 	double		f;
-	int			test;
+	int			color;
 
 	f = fix_angle(xtoa(p.x, data));
 	t = data->t[wall.texture];
@@ -99,9 +99,8 @@ t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	if (ratio_x < 0)
 		ratio_x *= -1;
 	ratio_y = (p.y - (data->player.h - y)) / (y * 2);
-	test = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
-	//if (test >= 0 && test < t.wth * t.lth)
-	return (fog_color(t.tab[test], data->distance[(int)p.x], data));
+	color = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
+	return (fog_color(t.tab[color], data->distance[(int)p.x], data));
 }
 
 void		get_texture_a(int x, t_block wall, t_data *data)
@@ -136,9 +135,6 @@ void		get_texture_a(int x, t_block wall, t_data *data)
 		draw_pt(x, i, data, data->color[1]);
 }
 
-/*
-** closest_wall_angle(int x, t_data *data)
-*/
 t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 {
 	t_point		a;
