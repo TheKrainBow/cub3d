@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:22:22 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:41:01 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,30 @@ t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 	return (fog_color(t.tab[color], data->distance[(int)p.x], data));
 }
 
+void		draw_ceilling(int *i, int x, double y, t_data *data)
+{
+	*i = -1;
+	while (++(*i) < data->player.h - data->y)
+		draw_pt(x, *i, data, data->color[0]);
+	if (data->bounced > 0)
+		data->mirrored = 1;
+	(*i)--;
+	while (++(*i) < data->player.h - y)
+		draw_pt(x, *i, data, data->color[0]);
+}
+
+void		draw_floor(int *i, int x, double y, t_data *data)
+{
+	(*i)--;
+	while (++(*i) >= (int)(data->player.h) + y && *i < (int)(data->player.h) + data->y)
+		draw_pt(x, *i, data, data->color[1]);
+	if (data->bounced > 0)
+		data->mirrored = 0;
+	(*i)--;
+	while (++(*i) < data->r.y)
+		draw_pt(x, *i, data, data->color[1]);
+}
+
 void		get_texture_a(int x, t_block wall, t_data *data)
 {
 	double			y;
@@ -44,23 +68,8 @@ void		get_texture_a(int x, t_block wall, t_data *data)
 	f = fix_angle(xtoa(x, data));
 	data->distance[x] = wall.dist;
 	y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(ator(fix_angle(f - data->player.angle))));
-	i = -1;
-	data->mirrored = 0;
-	while (++i < data->player.h - y)
-	{
-		if (data->mirrored == 0 && i >= data->player.h - data->y)
-			data->mirrored = 1;
-		draw_pt(x, i, data, data->color[0]);
-	}
-	i--;
+	draw_ceilling(&i, x, y, data);
 	while (++i >= data->player.h - y && i < (int)(data->player.h) + y)
 		draw_pt(x, i, data, get_pixel_color(point(x, i), y, wall, data));
-	i--;
-	data->mirrored = 1;
-	while (++i < data->r.y)
-	{
-		if (data->mirrored && i >= (int)(data->player.h) + data->y)
-			data->mirrored = 0;
-		draw_pt(x, i, data, data->color[1]);
-	}
+	draw_floor(&i, x, y, data);
 }
