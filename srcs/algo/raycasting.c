@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:53:45 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:55:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	return (wall);
 }
 
+char		game(t_point p, t_data *data)
+{
+	return (data->game[(int)p.y][(int)p.x]);
+}
+
 void		closest_wall(int x, t_data *data)
 {
 	double		f;
@@ -134,8 +139,7 @@ void		closest_wall(int x, t_data *data)
 	data->distance[x] = wall.dist;
 	data->y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(
 	ator(fix_angle(f - data->player.angle))));
-	while (data->game[(int)wall.pos.y][(int)wall.pos.x] == '3'
-	&& data->bounced < 3)
+	while (game(wall.pos, data) == '3' && data->bounced < 3)
 	{
 		data->bounced++;
 		if (wall.texture == EAST || wall.texture == WEST)
