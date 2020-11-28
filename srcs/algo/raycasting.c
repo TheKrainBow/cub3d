@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:52:50 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:53:30 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	&& !ft_strchr("13", data->game[(int)wall.pos.y][(int)wall.pos.x])))
 	{
 		first--;
-		if (data->bounced == 0 && data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
+		if (data->bounced == 0
+		&& data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
 			sprite_push_front(&data->sprites, new_sprite(wall.pos, data));
 		wall.texture = wall_dir(f, p, wall.pos, data);
 		if (wall.texture == NORTH)
@@ -112,10 +113,10 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	a.y = p.y + sin(ator(f));
 	wall.inter =
 	intersect(
-	p,
-	a,
-	point(wall.pos.x + (wall.texture == WEST), wall.pos.y + (wall.texture == NORTH)),
-	point(wall.pos.x + (wall.texture != EAST), wall.pos.y + (wall.texture != SOUTH)));
+	p, a, point(wall.pos.x +
+	(wall.texture == WEST), wall.pos.y + (wall.texture == NORTH)),
+	point(wall.pos.x + (wall.texture != EAST),
+	wall.pos.y + (wall.texture != SOUTH)));
 	wall.dist += get_dist(p, wall.inter);
 	return (wall);
 }
