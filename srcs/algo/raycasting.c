@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_angle.c                                 :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:11:28 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:43:16 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void		closest_wall_angle(int x, t_data *data)
 		wall = closest_wall_a(f, wall.inter, wall, data);
 		data->ray_bounced[x] = wall.inter;
 	}
-	get_texture_a(x, wall, data);
+	draw_wall(x, wall, data);
 	draw_height_sprite(x, data->sprites, data);
 	data->mirrored = 0;
 }

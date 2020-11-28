@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:42:18 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:43:43 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		draw_floor(int *i, int x, double y, t_data *data)
 		draw_pt(x, *i, data, data->color[1]);
 }
 
-void		get_texture_a(int x, t_block wall, t_data *data)
+void		draw_wall(int x, t_block wall, t_data *data)
 {
 	double			y;
 	double			f;

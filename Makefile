@@ -1,11 +1,11 @@
 SRCS_ALGO	=		srcs/algo/math.c						\
 					srcs/algo/raycasting.c					\
-					srcs/algo/textures.c					\
 					srcs/algo/sprite.c
 
 SRCS_DRAW	=		srcs/draw/draw_color.c					\
 					srcs/draw/draw_hud.c					\
 					srcs/draw/draw_objs.c					\
+					srcs/draw/draw_wall.c					\
 					srcs/draw/draw_shapes.c
 
 SRCS_INIT	=		srcs/initialization/init_mlx.c			\
