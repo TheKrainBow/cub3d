@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:45:17 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:44:31 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:50:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_pixel		fog_color(t_pixel color, double dist, t_data *data);
 
 void		draw_screen(t_data *data);
 void		draw_height_wall(int x, t_wall obj, t_data *data);
-void		draw_height_sprite(int x, t_sprite *sp, t_data *data);
+void		draw_sprite(int x, t_sprite *sp, t_data *data);
 void		sprite_slice(int x, int y, t_sprite *temp, t_data *data);
 void		get_texture(int y, int x, t_data *data, t_wall obj);
 

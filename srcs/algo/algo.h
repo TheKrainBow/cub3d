@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:43:57 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:48:21 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int				check_point(t_point p, t_data *data);
 ** raycasting.c
 */
 
-void			find_sprite(int x, t_point a, t_data *data);
-void			closest_wall(int x, t_point a, t_data *data);
+void			closest_wall(int x, t_data *data);
 
 /*
 ** sprite.c
@@ -42,7 +41,6 @@ void			sprite_push_front(t_sprite **first, t_sprite *new);
 ** raycasting_angle.c
 */
 
-void			closest_wall_angle(int x, t_data *data);
 void			detect_dir(double f, t_data *data);
 double			xtoa(int x, t_data *data);
 double			rtoa(double rad);

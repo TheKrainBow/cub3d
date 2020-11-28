@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:52:19 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:51:55 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ void	draw_screen(t_data *data)
 	while (x < data->r.x)
 	{
 		angle = (x * data->fov) / (data->r.x - 1);
-		a.x = data->player.pos.x + (cosf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
-		a.y = data->player.pos.y + (sinf((data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
-		closest_wall_angle(x, data);
+		a.x = data->player.pos.x + (cosf(
+		(data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
+		a.y = data->player.pos.y + (sinf(
+		(data->player.angle - (data->fov / 2) + angle) * (PI / 180)));
+		data->mirrored = 0;
+		data->bounced = 0;
+		closest_wall(x, data);
 		x += 1;
 	}
 }
@@ -37,7 +41,7 @@ int		between(t_point inter, t_point c, t_point d)
 	|| (inter.y >= d.y && inter.y <= c.y))));
 }
 
-void	draw_height_sprite(int x, t_sprite *sp, t_data *data)
+void	draw_sprite(int x, t_sprite *sp, t_data *data)
 {
 	t_sprite	*temp;
 	int			y;

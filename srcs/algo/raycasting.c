@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:43:16 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:52:50 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	detect_dir(f, data);
 	wall.pos.x = (int)p.x;
 	wall.pos.y = (int)p.y;
-	while (((int)wall.pos.x >= 0 && (int)wall.pos.y >= 0 && (int)wall.pos.y < (int)data->game_size.x && (int)wall.pos.x < (int)data->game_size.y && !ft_strchr("13", data->game[(int)wall.pos.y][(int)wall.pos.x])))
+	while (((int)wall.pos.x >= 0 && (int)wall.pos.y >= 0
+	&& (int)wall.pos.y < (int)data->game_size.x
+	&& (int)wall.pos.x < (int)data->game_size.y
+	&& !ft_strchr("13", data->game[(int)wall.pos.y][(int)wall.pos.x])))
 	{
 		first--;
 		if (data->bounced == 0 && data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
@@ -117,13 +120,11 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	return (wall);
 }
 
-void		closest_wall_angle(int x, t_data *data)
+void		closest_wall(int x, t_data *data)
 {
 	double		f;
 	t_block		wall;
 
-	data->mirrored = 0;
-	data->bounced = 0;
 	data->ray_bounced[x].x = -1;
 	f = fix_angle(xtoa(x, data));
 	wall.dist = 0;
@@ -144,6 +145,5 @@ void		closest_wall_angle(int x, t_data *data)
 		data->ray_bounced[x] = wall.inter;
 	}
 	draw_wall(x, wall, data);
-	draw_height_sprite(x, data->sprites, data);
-	data->mirrored = 0;
+	draw_sprite(x, data->sprites, data);
 }
