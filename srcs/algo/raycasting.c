@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:55:24 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:56:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ t_point		point(double x, double y)
 t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 {
 	t_point		a;
-	int			first;
 
-	first = 1;
 	if (data->bounced == 0)
 		data->sprites = NULL;
 	detect_dir(f, data);
@@ -95,7 +93,6 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	&& (int)wall.pos.x < (int)data->game_size.y
 	&& !ft_strchr("13", data->game[(int)wall.pos.y][(int)wall.pos.x])))
 	{
-		first--;
 		if (data->bounced == 0
 		&& data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
 			sprite_push_front(&data->sprites, new_sprite(wall.pos, data));
