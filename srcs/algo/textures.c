@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:21:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:22:22 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ void		get_texture_a(int x, t_block wall, t_data *data)
 			data->mirrored = 1;
 		draw_pt(x, i, data, data->color[0]);
 	}
-	while (i >= data->player.h - y && i < (int)(data->player.h) + y)
-	{
+	i--;
+	while (++i >= data->player.h - y && i < (int)(data->player.h) + y)
 		draw_pt(x, i, data, get_pixel_color(point(x, i), y, wall, data));
-		i++;
-	}
 	i--;
 	data->mirrored = 1;
 	while (++i < data->r.y)
