@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:06:12 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:07:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		get_texture_a(int x, t_block wall, t_data *data)
 		draw_pt(x, i, data, get_pixel_color(point(x, i), y, wall, data));
 		i++;
 	}
-	i--;
+	i--; 
 	while (++i >= (int)(data->player.h) + y && i < (int)(data->player.h) + data->y)
 		draw_pt(x, i, data, data->color[1]);
 	if (data->bounced > 0)
