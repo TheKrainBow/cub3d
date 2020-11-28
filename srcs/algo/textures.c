@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:41:01 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:42:18 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void		draw_ceilling(int *i, int x, double y, t_data *data)
 void		draw_floor(int *i, int x, double y, t_data *data)
 {
 	(*i)--;
-	while (++(*i) >= (int)(data->player.h) + y && *i < (int)(data->player.h) + data->y)
+	while (++(*i) >= (int)(data->player.h) + y
+	&& *i < (int)(data->player.h) + data->y)
 		draw_pt(x, *i, data, data->color[1]);
 	if (data->bounced > 0)
 		data->mirrored = 0;
@@ -67,7 +68,8 @@ void		get_texture_a(int x, t_block wall, t_data *data)
 
 	f = fix_angle(xtoa(x, data));
 	data->distance[x] = wall.dist;
-	y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(ator(fix_angle(f - data->player.angle))));
+	y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(
+	ator(fix_angle(f - data->player.angle))));
 	draw_ceilling(&i, x, y, data);
 	while (++i >= data->player.h - y && i < (int)(data->player.h) + y)
 		draw_pt(x, i, data, get_pixel_color(point(x, i), y, wall, data));
