@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:05:25 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:13:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ double			xtoa(int x, t_data *data);
 double			rtoa(double rad);
 double			ator(double a);
 t_block			closest_wall_a(double f, t_point p, t_block wall, t_data *data);
+void			get_texture_a(int x, t_block wall, t_data *data);
 #endif

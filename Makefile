@@ -1,5 +1,6 @@
 SRCS_ALGO	=		srcs/algo/math.c						\
 					srcs/algo/raycasting.c					\
+					srcs/algo/textures.c					\
 					srcs/algo/sprite.c
 
 SRCS_DRAW	=		srcs/draw/draw_color.c					\
