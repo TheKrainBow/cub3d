@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:49:27 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:50:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	draw_hp(t_data *data)
 		j = 3 * data->r.y / 4;
 		while (++j < data->r.y)
 		{
-			x = (int)map(i, point(0, data->r.x / 2), point(0, data->health.wth));
-			y = (int)map(j, point(3 * data->r.y / 4, data->r.y), point(0, data->health.lth));
+			x = (int)map(i, point(0, data->r.x / 2),
+			point(0, data->health.wth));
+			y = (int)map(j, point(3 * data->r.y / 4, data->r.y),
+			point(0, data->health.lth));
 			color = data->health.tab[x + y * data->health.wth];
 			draw_pt(i, j, data, color);
 		}
