@@ -17,6 +17,7 @@ SRCS_PARS	=		srcs/parsing/parsing.c					\
 
 SRCS_UTIL	=		srcs/utils/hook.c						\
 					srcs/utils/utils.c						\
+					srcs/utils/utils2.c						\
 					srcs/utils/main.c						\
 					srcs/utils/save.c						\
 					srcs/utils/ft_itoa.c					\
