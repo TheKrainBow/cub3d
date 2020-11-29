@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:00:06 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:33:48 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,21 @@ int		longest_line(t_map *game)
 
 void	check_surround(int i, int j, t_data *data)
 {
+	int		a;
+	int		b;
+
 	if (!(data->game[i][j] == '0' || ft_strchr("NSWE2", data->game[i][j])))
 		return ;
 	if (i == 0 || j == 0 || i == data->game_size.x - 1 || j == data->game_size.y - 1)
 		aff_err("Map not valid!\n", data);
-	if (ft_strchr(" ", data->game[i - 1][j]))
-		aff_err("Map not valid!\n", data);
-	if (ft_strchr(" ", data->game[i + 1][j]))
-		aff_err("Map not valid!\n", data);
-	if (ft_strchr(" ", data->game[i][j - 1]))
-		aff_err("Map not valid!\n", data);
-	if (ft_strchr(" ", data->game[i][j + 1]))
-		aff_err("Map not valid!\n", data);
+	a = -2;
+	while (++a <= 1)
+	{
+		b = -2;
+		while (++b <= 1)
+			if (ft_strchr(" ", data->game[i + a][j + b]) && (!(a == 0 && b == 0)))
+				aff_err("Map not valid!\n", data);
+	}
 }
 
 void	check_game(t_data *data)
