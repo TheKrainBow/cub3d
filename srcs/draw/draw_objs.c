@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:19:42 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:23:25 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int		between(t_point inter, t_point c, t_point d)
 	|| (inter.y >= d.y && inter.y <= c.y))));
 }
 
+double	calculate_f(int x, t_data *data)
+{
+	return (fix_angle(fabs((data->player.angle - (data->fov / 2) + (
+	(x * data->fov) / (data->r.x - 1))) - data->player.angle)));
+}
+
 void	draw_sprite(int x, t_sprite *sp, t_data *data)
 {
 	t_sprite	*temp;
@@ -59,10 +65,7 @@ void	draw_sprite(int x, t_sprite *sp, t_data *data)
 		between(sp->inter, sp->p[0], sp->p[1]))
 		{
 			data->distance[x] = sp->dist;
-			f = data->player.angle - (data->fov / 2) + (
-			(x * data->fov) / (data->r.x - 1));
-			f = fabs(f - data->player.angle);
-			f = fix_angle(f);
+			f = calculate_f(x, data);
 			y = (((int)(data->r.x / 2 - data->fov) / (
 			get_dist(sp->inter, data->player.pos) * cosf(f / 180 * PI))));
 			sprite_slice(x, y, sp, data);
