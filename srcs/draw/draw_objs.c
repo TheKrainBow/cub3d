@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:15:45 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:16:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,16 @@ void	draw_sprite(int x, t_sprite *sp, t_data *data)
 	{
 		sp->inter = intersect(data->player.pos, a, sp->p[0], sp->p[1]);
 		sp->dist = get_dist(sp->inter, data->player.pos);
-		if (sp->dist < data->distance[x] && between(sp->inter, sp->p[0], sp->p[1]))
+		if (sp->dist < data->distance[x] &&
+		between(sp->inter, sp->p[0], sp->p[1]))
 		{
 			data->distance[x] = sp->dist;
-			f = data->player.angle - (data->fov / 2) + ((x * data->fov) / (data->r.x - 1));
+			f = data->player.angle - (data->fov / 2) + (
+			(x * data->fov) / (data->r.x - 1));
 			f = fabs(f - data->player.angle);
 			f = fix_angle(f);
-			y = (((int)(data->r.x / 2 - data->fov) / (get_dist(sp->inter, data->player.pos) * cosf(f / 180 * PI))));
+			y = (((int)(data->r.x / 2 - data->fov) / (
+			get_dist(sp->inter, data->player.pos) * cosf(f / 180 * PI))));
 			sprite_slice(x, y, sp, data);
 		}
 		temp = sp;
