@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:51:55 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:15:45 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,14 @@ void	sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 	a.y = temp->inter.y;
 	while ((++i < (int)data->player.h + y_temp))
 	{
-		coor.x = (int)((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter))) % data->t[SPRITE].wth;
-		coor.y = map(i, point((int)data->player.h - y_temp - 1, (int)data->player.h + y_temp), point(0, data->t[SPRITE].lth));
-		color = data->t[SPRITE].tab[(int)coor.x + (int)coor.y * data->t[SPRITE].wth];
-		draw_pt(x, i, data, fog_color(color, get_dist(data->player.pos, a), data));
+		coor.x = (int)((double)(data->t[SPRITE].wth) * (
+		get_dist(temp->p[1], temp->inter))) % data->t[SPRITE].wth;
+		coor.y = map(i, point((int)data->player.h - y_temp - 1,
+		(int)data->player.h + y_temp), point(0, data->t[SPRITE].lth));
+		color = data->t[SPRITE].tab[(int)coor.x +
+		(int)coor.y * data->t[SPRITE].wth];
+		draw_pt(x, i, data,
+		fog_color(color, get_dist(data->player.pos, a), data));
 	}
 	return ;
 }
