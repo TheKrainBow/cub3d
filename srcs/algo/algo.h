@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:48:21 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:35:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ double			xtoa(int x, t_data *data);
 double			rtoa(double rad);
 double			ator(double a);
 t_block			closest_wall_a(double f, t_point p, t_block wall, t_data *data);
+
+/*
+** wall.c
+*/
+
+char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data);
+double			wall_dir_return(int y, int x, t_point wall, t_point p_pos);
+t_point			change_wall_pos(t_block wall);
+t_point			wall_inter(t_block wall, t_point p, t_point a);
 #endif

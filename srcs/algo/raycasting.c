@@ -6,11 +6,25 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:30:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:34:03 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+char		game(t_point p, t_data *data)
+{
+	return (data->game[(int)p.y][(int)p.x]);
+}
+
+t_point		point(double x, double y)
+{
+	t_point		p;
+
+	p.x = x;
+	p.y = y;
+	return (p);
+}
 
 void		detect_dir(double f, t_data *data)
 {
@@ -25,37 +39,6 @@ void		detect_dir(double f, t_data *data)
 		data->player.dir = NORTH;
 }
 
-double		wall_dir_return(int y, int x, t_point wall, t_point p_pos)
-{
-	return (fix_angle(rtoa(atan2(wall.y - p_pos.y + y, wall.x - p_pos.x + x))));
-}
-
-char		wall_dir(double f, t_point p_pos, t_point wall, t_data *data)
-{
-	if (data->player.dir == EAST)
-	{
-		if (f <= wall_dir_return(1, 1, wall, p_pos))
-			return (EAST);
-		return (SOUTH);
-	}
-	if (data->player.dir == SOUTH)
-	{
-		if (f <= wall_dir_return(1, 0, wall, p_pos))
-			return (SOUTH);
-		return (WEST);
-	}
-	if (data->player.dir == WEST)
-	{
-		if (f <= wall_dir_return(0, 0, wall, p_pos))
-			return (WEST);
-		return (NORTH);
-	}
-	if (data->player.dir == NORTH)
-		if (f <= wall_dir_return(0, 1, wall, p_pos))
-			return (NORTH);
-	return (EAST);
-}
-
 t_point		intersect(t_point b, t_point a, t_point c, t_point d)
 {
 	double	denom;
@@ -68,37 +51,6 @@ t_point		intersect(t_point b, t_point a, t_point c, t_point d)
 	inter.y = ((a.x * b.y - a.y * b.x) * (c.y - d.y) -
 	(a.y - b.y) * (c.x * d.y - c.y * d.x)) / denom;
 	return (inter);
-}
-
-t_point		point(double x, double y)
-{
-	t_point		p;
-
-	p.x = x;
-	p.y = y;
-	return (p);
-}
-
-t_point		wall_inter(t_block wall, t_point p, t_point a)
-{
-	return (intersect(
-	p, a, point(wall.pos.x +
-	(wall.texture == WEST), wall.pos.y + (wall.texture == NORTH)),
-	point(wall.pos.x + (wall.texture != EAST),
-	wall.pos.y + (wall.texture != SOUTH))));
-}
-
-t_point		change_wall_pos(t_block wall)
-{
-	if (wall.texture == NORTH)
-		wall.pos.y--;
-	if (wall.texture == SOUTH)
-		wall.pos.y++;
-	if (wall.texture == WEST)
-		wall.pos.x--;
-	if (wall.texture == EAST)
-		wall.pos.x++;
-	return (wall.pos);
 }
 
 t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
@@ -125,11 +77,6 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	wall.inter = wall_inter(wall, p, a);
 	wall.dist += get_dist(p, wall.inter);
 	return (wall);
-}
-
-char		game(t_point p, t_data *data)
-{
-	return (data->game[(int)p.y][(int)p.x]);
 }
 
 void		closest_wall(int x, t_data *data)
