@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:26:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:30:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,19 @@ t_point		wall_inter(t_block wall, t_point p, t_point a)
 	wall.pos.y + (wall.texture != SOUTH))));
 }
 
+t_point		change_wall_pos(t_block wall)
+{
+	if (wall.texture == NORTH)
+		wall.pos.y--;
+	if (wall.texture == SOUTH)
+		wall.pos.y++;
+	if (wall.texture == WEST)
+		wall.pos.x--;
+	if (wall.texture == EAST)
+		wall.pos.x++;
+	return (wall.pos);
+}
+
 t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 {
 	t_point		a;
@@ -105,14 +118,7 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 		if (data->game[(int)wall.pos.y][(int)wall.pos.x] == '2')
 			sprite_push_front(&data->sprites, new_sprite(wall.pos, data));
 		wall.texture = wall_dir(f, p, wall.pos, data);
-		if (wall.texture == NORTH)
-			wall.pos.y--;
-		if (wall.texture == SOUTH)
-			wall.pos.y++;
-		if (wall.texture == WEST)
-			wall.pos.x--;
-		if (wall.texture == EAST)
-			wall.pos.x++;
+		wall.pos = change_wall_pos(wall);
 	}
 	a.x = p.x + cos(ator(f));
 	a.y = p.y + sin(ator(f));
