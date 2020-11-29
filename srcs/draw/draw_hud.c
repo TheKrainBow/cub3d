@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:50:17 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:11:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,7 @@ void	draw_player_map(t_data *data)
 	f = (x * data->fov) / (data->r.x - 1);
 	a.x = data->ray_inter[x].x * data->mult;
 	a.y = data->ray_inter[x].y * data->mult;
-	if (x < 20 || x > data->r.x - 20)
-		draw_line(temp, a, data, pixel(0, 0, 255, 1));
-	else
-		draw_line(temp, a, data, pixel(255, 255, 255, 1));
+	draw_line(temp, a, data, pixel(255, 255, 255, 1));
 	if (data->ray_bounced[x].x != -1)
 	{
 		a.x = data->ray_inter[x].x * data->mult;
@@ -130,7 +127,6 @@ void	draw_player_map(t_data *data)
 		if (get_dist(a, b) < 1000)
 			draw_line(a, b, data, pixel(0, 255, 0, 1));
 	}
-	x++;
 	draw_circle(temp, 2, data, pixel(255, 255, 255, 1));
 }
 

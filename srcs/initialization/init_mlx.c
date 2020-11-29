@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:12:56 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:08:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	init_data(t_data *data)
 		return ;
 	if (!(data->ray_inter = malloc(sizeof(t_point) * (data->r.x + 1))))
 		return ;
+	data->mult = data->r.y / data->game_size.y;
+	if (data->r.x / data->game_size.x < data->r.y / data->game_size.y)
+		data->mult = data->r.x / data->game_size.x;
 	data->fov = FOV;
 	data->average = 0;
 	data->player.jump = 0;
