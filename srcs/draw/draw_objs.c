@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:16:00 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:19:42 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	draw_sprite(int x, t_sprite *sp, t_data *data)
 void	sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 {
 	int				i;
-	double			col;
 	t_pixel			color;
 	t_point			a;
 	t_point			coor;
@@ -84,7 +83,6 @@ void	sprite_slice(int x, int y, t_sprite *temp, t_data *data)
 
 	y_temp = y;
 	y = (int)data->player.h - y;
-	col = ((double)(data->t[SPRITE].wth) * (get_dist(temp->p[1], temp->inter)));
 	i = (int)data->player.h - y_temp - 1;
 	a.x = temp->inter.x;
 	a.y = temp->inter.y;
