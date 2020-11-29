@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:56:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:53:42 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:24:58 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void		draw_pt(int x, int y, t_data *data, t_pixel color)
 {
 	if (y >= 0 && y < data->r.y && x >= 0 && x < data->r.x && color.a)
 	{
-		if (data->average)
-			color = average_color(data->draw[(y * (int)data->r.x) + x], color, 0.3);
+		/*if (data->average)
+			color = average_color(data->draw[(y * (int)data->r.x) + x], color, 0.3);*/
 		if (data->mirrored)
 			color = average_color(color, pixel(255, 255, 255, 50), 0.2);
 		data->draw[(y * (int)data->r.x) + x] = color;
