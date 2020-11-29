@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:47:45 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:49:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ void	draw_gun(t_data *data)
 		j = data->r.y / 5 - 1;
 		while (++j < data->r.y)
 		{
-			x = (int)map(i, point(0, data->r.x), point(0, data->gun[(int)data->player.gun].wth));
-			y = (int)map(j, point((int)(data->r.y / 5), data->r.y), point(0, data->gun[(int)data->player.gun].lth));
-			color = data->gun[(int)data->player.gun].tab[x + y * data->gun[(int)data->player.gun].wth];
+			x = (int)map(i, point(0, data->r.x),
+			point(0, data->gun[(int)data->player.gun].wth));
+			y = (int)map(j, point((int)(data->r.y / 5), data->r.y),
+			point(0, data->gun[(int)data->player.gun].lth));
+			color = data->gun[(int)data->player.gun].tab[x + y * data->
+			gun[(int)data->player.gun].wth];
 			draw_pt(i, j, data, color);
 		}
 	}
