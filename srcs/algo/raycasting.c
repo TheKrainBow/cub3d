@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:21:03 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/29 23:26:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ t_point		point(double x, double y)
 	return (p);
 }
 
+t_point		wall_inter(t_block wall, t_point p, t_point a)
+{
+	return (intersect(
+	p, a, point(wall.pos.x +
+	(wall.texture == WEST), wall.pos.y + (wall.texture == NORTH)),
+	point(wall.pos.x + (wall.texture != EAST),
+	wall.pos.y + (wall.texture != SOUTH))));
+}
+
 t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 {
 	t_point		a;
@@ -107,12 +116,7 @@ t_block		closest_wall_a(double f, t_point p, t_block wall, t_data *data)
 	}
 	a.x = p.x + cos(ator(f));
 	a.y = p.y + sin(ator(f));
-	wall.inter =
-	intersect(
-	p, a, point(wall.pos.x +
-	(wall.texture == WEST), wall.pos.y + (wall.texture == NORTH)),
-	point(wall.pos.x + (wall.texture != EAST),
-	wall.pos.y + (wall.texture != SOUTH)));
+	wall.inter = wall_inter(wall, p, a);
 	wall.dist += get_dist(p, wall.inter);
 	return (wall);
 }
