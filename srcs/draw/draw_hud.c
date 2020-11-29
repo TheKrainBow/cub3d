@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:22:04 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:11:31 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:26:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	draw_map(t_data *data)
 		while (++p.x < data->game_size.y)
 		{
 			if (ft_strchr("0NSEW2", data->game[(int)p.y][(int)p.x]))
-				draw_square(p, data->mult * 0.9, pixel(20, 20, 20, 1), data);
+				draw_square(p, data->mult, pixel(20, 20, 20, 1), data);
 			if (data->game[(int)p.y][(int)p.x] == '1')
-				draw_square(p, data->mult * 0.9, pixel(80, 80, 80, 1), data);
+				draw_square(p, data->mult, pixel(80, 80, 80, 1), data);
 		}
 	}
 	data->average = 0;
