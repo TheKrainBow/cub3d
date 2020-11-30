@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:21:56 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:36:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ void	color(char *line, t_data *data)
 		fill_color(line, 0, data);
 		data->pars.c = 1;
 	}
-}
-
-void	ft_void(char *line, t_data *data)
-{
-	(void)line;
-	(void)data;
 }
 
 int		aff_err(char *str, t_data *data)
