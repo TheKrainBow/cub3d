@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:08:30 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:17:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@
 # define ERR_S 6
 # define ERR_C 7
 # define ERR_F 8
+
+# define C_F_ERR "C and F line must contain numbers, spaces, and commas only\n"
+# define C_F_INV "C and F numbers must be positive, and less than 255.\n"
 
 # define MULT 50
 
