@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:01:13 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 16:46:18 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			hook_keyup(int key_code, t_data *data)
 	return (1);
 }
 
-int			hook_keydown(int key_code, t_data *data)
+void		hook_keydown_move(int key_code, t_data *data)
 {
 	if (key_code == KEY_Z)
 		data->keys.forward = 1;
@@ -63,6 +63,11 @@ int			hook_keydown(int key_code, t_data *data)
 		data->keys.look_left = 1;
 	if (key_code == ARR_R)
 		data->keys.look_right = 1;
+}
+
+int			hook_keydown(int key_code, t_data *data)
+{
+	hook_keydown_move(key_code, data);
 	if (key_code == 109)
 		data->keys.open_map = data->keys.open_map == 1 ? 0 : 1;
 	if (key_code == SHIFT)
