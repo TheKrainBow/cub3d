@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:33:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:12:14 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,16 @@ void	check_surround(int i, int j, t_data *data)
 
 	if (!(data->game[i][j] == '0' || ft_strchr("NSWE2", data->game[i][j])))
 		return ;
-	if (i == 0 || j == 0 || i == data->game_size.x - 1 || j == data->game_size.y - 1)
+	if (i == 0 || j == 0 || i == data->game_size.x - 1
+	|| j == data->game_size.y - 1)
 		aff_err("Map not valid!\n", data);
 	a = -2;
 	while (++a <= 1)
 	{
 		b = -2;
 		while (++b <= 1)
-			if (ft_strchr(" ", data->game[i + a][j + b]) && (!(a == 0 && b == 0)))
+			if (ft_strchr(" ",
+			data->game[i + a][j + b]) && (!(a == 0 && b == 0)))
 				aff_err("Map not valid!\n", data);
 	}
 }
@@ -242,10 +244,12 @@ void	fill_texture(char *line, int n, t_data *data)
 	line = ft_strtrim(line, " ");
 	if (data->pars.t[n] != 0)
 		aff_err("Multiple definition of textures.\n", data);
-	data->t[n].ptr = mlx_xpm_file_to_image(data->mlx, line, &data->t[n].wth, &data->t[n].lth);
+	data->t[n].ptr = mlx_xpm_file_to_image(data->mlx, line,
+	&data->t[n].wth, &data->t[n].lth);
 	if (!data->t[n].ptr)
 		aff_err("Texture path is not valid.\n", data);
-	data->t[n].tab = (t_pixel *)mlx_get_data_addr(data->t[n].ptr, &trash, &trash, &trash);
+	data->t[n].tab = (t_pixel *)mlx_get_data_addr(data->t[n].ptr,
+	&trash, &trash, &trash);
 	data->pars.t[n] = 1;
 }
 
@@ -271,17 +275,21 @@ void	fill_color(char *line, int n, t_data *data)
 	i = -1;
 	while (line[++i])
 		if (!ft_strchr(" ,0123456789", line[i]))
-			aff_err("C and F line must contain numbers, spaces, and commas only\n", data);
+			aff_err("C and F line must"
+			"contain numbers, spaces, and commas only\n", data);
 	if (!is_nb(line[ft_strlen(line) - 1]))
-		aff_err("C and F line must end with spaces or numbers only\n", data);
+		aff_err("C and F line must end with"
+		" spaces or numbers only\n", data);
 	i = -1;
 	while (++i < 3)
 	{
 		if (!is_nb(*line))
-			aff_err("C and F line must contain numbers, spaces, and commas only\n", data);
+			aff_err("C and F line must contain"
+			" numbers, spaces, and commas only\n", data);
 		color[i] = ft_atoi(line);
 		if (color[i] < 0 || color[i] > 255)
-			aff_err("C and F numbers must be positive, and less than 255.\n", data);
+			aff_err("C and F numbers "
+			"must be positive, and less than 255.\n", data);
 		while (*line && is_nb(*line))
 			line++;
 		while (*line && ft_strchr(" ,", *line))
