@@ -39,12 +39,10 @@ void	draw_player_map(t_data *data)
 	t_point	a;
 	t_point	b;
 	t_point	temp;
-	double	f;
 
 	temp.x = data->player.pos.x * data->mult;
 	temp.y = data->player.pos.y * data->mult;
 	x = data->r.x / 2;
-	f = (x * data->fov) / (data->r.x - 1);
 	a.x = data->ray_inter[x].x * data->mult;
 	a.y = data->ray_inter[x].y * data->mult;
 	draw_line(temp, a, data, pixel(255, 255, 255, 1));
