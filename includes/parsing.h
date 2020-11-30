@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 06:02:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:30:18 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:38:03 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,7 @@ void		reso(char *line, t_data *data);
 void		fill_texture(char *line, int n, t_data *data);
 void		texture(char *line, t_data *data);
 void		fill_color(char *line, int n, t_data *data);
+
+void		ft_create_player(t_data *data, int x, int y, char c);
+void		ft_init_player(t_data *data);
 #endif

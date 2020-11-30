@@ -17,6 +17,7 @@ SRCS_PARS	=		srcs/parsing/parsing.c					\
 					srcs/parsing/parsing1.c					\
 					srcs/parsing/parsing2.c					\
 					srcs/parsing/parsing3.c					\
+					srcs/parsing/parsing4.c					\
 					srcs/parsing/parsing_utils.c
 
 SRCS_UTIL	=		srcs/utils/hook.c						\
