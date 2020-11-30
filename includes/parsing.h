@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.h                                   :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/09 04:07:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:39:27 by magostin         ###   ########.fr       */
+/*   Created: 2020/10/09 06:02:01 by magostin          #+#    #+#             */
+/*   Updated: 2020/11/27 20:00:12 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INITIALIZATION_H
-# define INITIALIZATION_H
-
+#ifndef PARSING_H
+# define PARSING_H
 # include "cub3D.h"
 
 /*
-** init_mlx.c
+** parsing.c
 */
 
-void			init_mlx(t_data *data);
-void			init_data(t_data *data);
-void			init_parsing(t_data *data);
-void			init_gun(t_data *data);
+int			parsing(t_data *data);
+int			aff_err(char *str, t_data *data);
+/*
+** parsing_utils.c
+*/
 
+char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strstr(const char *haystack, const char *needle);
 #endif

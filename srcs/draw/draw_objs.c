@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:23:25 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:58:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_screen(t_data *data)
 	t_point		a;
 
 	x = -1;
-	while (x < data->r.x)
+	while (++x < data->r.x - 1)
 	{
 		angle = (x * data->fov) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf(
@@ -29,7 +29,6 @@ void	draw_screen(t_data *data)
 		data->mirrored = 0;
 		data->bounced = 0;
 		closest_wall(x, data);
-		x += 1;
 	}
 }
 

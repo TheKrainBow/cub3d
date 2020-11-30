@@ -7,6 +7,7 @@ SRCS_DRAW	=		srcs/draw/draw_color.c					\
 					srcs/draw/draw_hud.c					\
 					srcs/draw/draw_objs.c					\
 					srcs/draw/draw_wall.c					\
+					srcs/draw/draw_map.c					\
 					srcs/draw/draw_shapes.c
 
 SRCS_INIT	=		srcs/initialization/init_mlx.c			\

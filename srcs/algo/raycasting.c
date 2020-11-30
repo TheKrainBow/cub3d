@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 16:27:19 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:45:36 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:06:23 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		closest_wall(int x, t_data *data)
 	data->distance[x] = wall.dist;
 	data->y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(
 	ator(fix_angle(f - data->player.angle))));
-	while (game(wall.pos, data) == '3' && data->bounced < 3)
+	while (game(wall.pos, data) == '3' && data->bounced < 10)
 	{
 		data->bounced++;
 		if (wall.texture == EAST || wall.texture == WEST)

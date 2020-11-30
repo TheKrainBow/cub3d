@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:08:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/11/30 00:49:57 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	init_parsing(t_data *data)
 
 void	init_data(t_data *data)
 {
-	if (!(data->distance = malloc(sizeof(double) * (data->r.x + 1))))
+	if (!(data->distance = malloc(sizeof(double) * (data->r.x + 2))))
 		return ;
-	if (!(data->ray_bounced = malloc(sizeof(t_point) * (data->r.x + 1))))
+	if (!(data->ray_bounced = malloc(sizeof(t_point) * (data->r.x + 2))))
 		return ;
-	if (!(data->ray_inter = malloc(sizeof(t_point) * (data->r.x + 1))))
+	if (!(data->ray_inter = malloc(sizeof(t_point) * (data->r.x + 2))))
 		return ;
 	data->mult = data->r.y / data->game_size.y;
 	if (data->r.x / data->game_size.x < data->r.y / data->game_size.y)
