@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:03:26 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:40:19 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void		save_header(int fd, int bpp, t_data *data)
 void		ft_save(t_data *data)
 {
 	int		fd;
-	int		x;
-	int		y;
+	t_point	p;
 	int		i;
 	int		bpp;
 	int		*tmp;
 
-	tmp = (int *)mlx_get_data_addr(data->img, &bpp, &x, &x);
+	tmp = (int *)mlx_get_data_addr(data->img, &bpp, &i, &i);
 	i = 0;
 	fd = -1;
 	while (fd == -1)
@@ -61,15 +60,15 @@ void		ft_save(t_data *data)
 		i++;
 	}
 	save_header(fd, bpp, data);
-	y = data->r.y;
-	while (y >= 0)
+	p.y = data->r.y;
+	while ((int)p.y >= 0)
 	{
-		x = 0;
-		while (x < data->r.x)
+		p.x = 0;
+		while ((int)p.x < data->r.x)
 		{
-			write(fd, &tmp[y * ((int)data->r.x) + x], 4);
-			x++;
+			write(fd, &tmp[(int)p.y * ((int)data->r.x) + (int)p.x], 4);
+			p.x++;
 		}
-		y--;
+		p.y--;
 	}
 }
