@@ -6,11 +6,24 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:47:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:48:57 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void		save_header2(int fd)
+{
+	int	tmp;
+
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+}
 
 void		save_header(int fd, int bpp, t_data *data)
 {
@@ -34,13 +47,7 @@ void		save_header(int fd, int bpp, t_data *data)
 	write(fd, &tmp, 2);
 	tmp = bpp;
 	write(fd, &tmp, 2);
-	tmp = 0;
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
+	save_header2(fd);
 }
 
 void		ft_save(t_data *data)
