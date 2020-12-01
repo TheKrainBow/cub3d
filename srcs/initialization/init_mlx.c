@@ -6,13 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:56:17 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:57:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void		init_keys(t_data *data)
+void	init_keys(t_data *data)
 {
 	data->keys.forward = 0;
 	data->keys.backward = 0;
