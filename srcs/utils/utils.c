@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:51:17 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:52:53 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ void	shoot(t_data *data)
 
 void	move_player2(double speed, t_data *data)
 {
+	if (data->player.gun > 6)
+	{
+		data->keys.shoot = 0;
+		data->player.gun = 0;
+		shoot(data);
+	}
 	if (data->keys.run)
 		speed *= 1.8;
 	if (data->keys.forward)
@@ -115,12 +121,6 @@ void	move_player(t_data *data)
 		data->player.jump += sin(PI / 15);
 	if (data->keys.shoot == 1)
 		data->player.gun += 0.5;
-	if (data->player.gun > 6)
-	{
-		data->keys.shoot = 0;
-		data->player.gun = 0;
-		shoot(data);
-	}
 	move_player2(speed, data);
 	data->player.h = data->r.y / 2 + crouch + (sin(data->player.jump) * 100);
 }
