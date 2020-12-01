@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 16:46:18 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:57:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int			hook_loop(t_data *data)
 int			hook_close(t_data *data)
 {
 	(void)data;
-	//mlx_destroy_image(data->mlx, data->img);
 	printf("Game Exited\n");
 	exit(0);
 }
