@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:40:19 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:42:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void		ft_save(t_data *data)
 	fd = -1;
 	while (fd == -1)
 	{
-		fd = open("./save.bmp", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		fd = open("./save.bmp", O_CREAT | O_RDWR,
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		i++;
 	}
 	save_header(fd, bpp, data);
