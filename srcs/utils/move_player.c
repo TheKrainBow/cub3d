@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 12:53:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:55:10 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	change_p_pos(t_data *data, double angle, double speed)
 {

@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:28:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 19:00:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:59:53 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 double			get_dist(t_point a, t_point b)
 {

@@ -6,14 +6,14 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:45:17 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:50:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:58:47 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 
-# include "cub3D.h"
+# include "cub3d.h"
 
 /*
 ** draw_shapes.c

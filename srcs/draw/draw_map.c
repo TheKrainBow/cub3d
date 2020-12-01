@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 00:35:55 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:09:51 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:06 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	draw_map(t_data *data)
 {

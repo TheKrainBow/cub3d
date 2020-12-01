@@ -6,13 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:37:22 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
-#include "mlx.h"
-#include "mlx_int.h"
+#include "cub3d.h"
 
 void	color(char *line, t_data *data)
 {

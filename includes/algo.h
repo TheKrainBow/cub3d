@@ -6,14 +6,14 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:35:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:59:46 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALGO_H
 # define ALGO_H
 
-# include "cub3D.h"
+# include "cub3d.h"
 
 /*
 ** math.c
@@ -35,7 +35,7 @@ void			closest_wall(int x, t_data *data);
 */
 
 t_sprite		*new_sprite(t_point pos, t_data *data);
-void			sprite_push_front(t_sprite **first, t_sprite *new);
+void			sprite_push_front(t_sprite **first, t_sprite *new_map);
 
 /*
 ** raycasting_angle.c

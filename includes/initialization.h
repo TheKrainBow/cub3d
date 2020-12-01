@@ -6,14 +6,14 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:07:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:56:32 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:58:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INITIALIZATION_H
 # define INITIALIZATION_H
 
-# include "cub3D.h"
+# include "cub3d.h"
 
 /*
 ** init_mlx.c

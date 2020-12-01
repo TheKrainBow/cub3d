@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 23:16:30 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:00:54 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static char	*ft_itoa2(int i, long int n, int neg)
 {

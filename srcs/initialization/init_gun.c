@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 20:12:45 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:13:58 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:15 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	init_gun_ptr(t_data *data)
 {

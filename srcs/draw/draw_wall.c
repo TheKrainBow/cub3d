@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/28 15:43:43 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:12 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 {

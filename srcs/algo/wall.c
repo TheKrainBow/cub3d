@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 23:31:48 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:41:42 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 t_point		wall_inter(t_block wall, t_point p, t_point a)
 {

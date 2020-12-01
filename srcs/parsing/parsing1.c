@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:19:38 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:20:32 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:28 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int		ft_whitespace(char c)
 {

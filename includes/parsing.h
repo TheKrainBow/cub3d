@@ -6,13 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 06:02:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:38:03 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:59:40 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-# include "cub3D.h"
+# include "cub3d.h"
 
 /*
 ** parsing.c
@@ -31,7 +31,7 @@ char		*ft_strstr(const char *haystack, const char *needle);
 int			ft_whitespace(char c);
 int			is_nb(char c);
 t_map		*new_map_line(char *line);
-void		map_push_back(t_map **first, t_map *new);
+void		map_push_back(t_map **first, t_map *new_map);
 int			ft_check_line(char *line);
 
 int			longest_line(t_map *game);

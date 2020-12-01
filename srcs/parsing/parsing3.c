@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:22:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:39:34 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:33 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int		detect_param(char **line, t_data *data)
 {

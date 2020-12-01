@@ -6,14 +6,14 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 00:39:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:59:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "cub3D.h"
+# include "cub3d.h"
 
 /*
 ** hook.c

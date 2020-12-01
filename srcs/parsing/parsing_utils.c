@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 03:11:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/10/10 03:34:33 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:20 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {

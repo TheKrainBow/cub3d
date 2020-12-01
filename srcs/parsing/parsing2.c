@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:20:39 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/30 01:21:42 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int		longest_line(t_map *game)
 {

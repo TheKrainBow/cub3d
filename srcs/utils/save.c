@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:48:57 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:46 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void		save_header2(int fd)
 {

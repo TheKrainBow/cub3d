@@ -6,11 +6,11 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 23:45:30 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/29 23:45:46 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:00:50 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 char		game(t_point p, t_data *data)
 {
