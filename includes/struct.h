@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:02:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:03:14 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct		s_wall
 {
 	t_texture		*t;
 	t_point			inter;
-	unsigned int 	color;
+	unsigned int	color;
 }					t_wall;
 
 typedef struct		s_sprite
