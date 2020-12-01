@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:49:54 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:51:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,24 @@ void	shoot(t_data *data)
 		data->game[(int)data->sprites->pos.y][(int)data->sprites->pos.x] = '0';
 }
 
+void	move_player2(double speed, t_data *data)
+{
+	if (data->keys.run)
+		speed *= 1.8;
+	if (data->keys.forward)
+		change_p_pos(data, data->player.angle, speed);
+	if (data->keys.backward)
+		change_p_pos(data, data->player.angle - 180, speed);
+	if (data->keys.move_left)
+		change_p_pos(data, data->player.angle - 90, speed);
+	if (data->keys.move_right)
+		change_p_pos(data, data->player.angle + 90, speed);
+	if (data->keys.look_left)
+		data->player.angle -= 3 + data->keys.run;
+	if (data->keys.look_right)
+		data->player.angle += 3 + data->keys.run;
+}
+
 void	move_player(t_data *data)
 {
 	double			speed;
@@ -103,19 +121,6 @@ void	move_player(t_data *data)
 		data->player.gun = 0;
 		shoot(data);
 	}
-	if (data->keys.run)
-		speed *= 1.8;
-	if (data->keys.forward)
-		change_p_pos(data, data->player.angle, speed);
-	if (data->keys.backward)
-		change_p_pos(data, data->player.angle - 180, speed);
-	if (data->keys.move_left)
-		change_p_pos(data, data->player.angle - 90, speed);
-	if (data->keys.move_right)
-		change_p_pos(data, data->player.angle + 90, speed);
-	if (data->keys.look_left)
-		data->player.angle -= 3 + data->keys.run;
-	if (data->keys.look_right)
-		data->player.angle += 3 + data->keys.run;
+	move_player2(speed, data);
 	data->player.h = data->r.y / 2 + crouch + (sin(data->player.jump) * 100);
 }
