@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:13:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:42:11 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:47:29 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,11 @@ void		ft_save(t_data *data)
 		i++;
 	}
 	save_header(fd, bpp, data);
-	p.y = data->r.y;
-	while ((int)p.y >= 0)
+	p.y = data->r.y + 1;
+	while (--p.y >= 0)
 	{
-		p.x = 0;
-		while ((int)p.x < data->r.x)
-		{
+		p.x = -1;
+		while (++p.x < data->r.x)
 			write(fd, &tmp[(int)p.y * ((int)data->r.x) + (int)p.x], 4);
-			p.x++;
-		}
-		p.y--;
 	}
 }
