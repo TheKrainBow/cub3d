@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:59:13 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:02:41 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int			test_pts(t_wall *old_objs, int i, int j);
 void		ft_save(t_data *data);
 
 char		*ft_itoa(int n);
-
 
 t_point		point(double x, double y);
 char		game(t_point p, t_data *data);
