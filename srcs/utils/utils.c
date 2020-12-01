@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/11/27 20:05:08 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:49:54 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_atoi(const char *str)
 	return (res * neg);
 }
 
-double		fix_angle(double ang)
+double	fix_angle(double ang)
 {
 	while (ang < (double)0)
 		ang += 360;
@@ -48,7 +48,7 @@ double		fix_angle(double ang)
 	return (ang);
 }
 
-void		change_p_pos(t_data *data, double angle, double speed)
+void	change_p_pos(t_data *data, double angle, double speed)
 {
 	t_point pos;
 	t_point n;
@@ -62,7 +62,7 @@ void		change_p_pos(t_data *data, double angle, double speed)
 		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
-void		shoot(t_data *data)
+void	shoot(t_data *data)
 {
 	t_block		wall;
 
@@ -76,7 +76,7 @@ void		shoot(t_data *data)
 		data->game[(int)data->sprites->pos.y][(int)data->sprites->pos.x] = '0';
 }
 
-void		move_player(t_data *data)
+void	move_player(t_data *data)
 {
 	double			speed;
 	int				crouch;
