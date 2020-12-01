@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:42 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:13:15 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		start_game(char *str, t_data *data)
 		aff_err("Can't open the file.\n", data);
 	init_mlx(data);
 	init_keys(data);
-	mlx_loop(data->mlx);
 }
 
 void		start_save(char **av, t_data *data)

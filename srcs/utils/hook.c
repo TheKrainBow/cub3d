@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 14:47:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:09:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int			hook_close(t_data *data)
 	free(data->ray_inter);
 	(void)data;
 	printf("Game Exited\n");
-	exit(0);
+	//exit(0);
+	return (1);
 }
 
 int			hook_keyup(int key_code, t_data *data)

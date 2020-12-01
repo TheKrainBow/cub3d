@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:23:02 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:13:26 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	init_mlx(t_data *data)
 	}
 	init_data(data);
 	init_gun(data);
+	if (!data->save)
+		mlx_loop(data->mlx);
 }
 
 void	init_parsing(t_data *data)

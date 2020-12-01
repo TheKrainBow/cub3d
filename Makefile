@@ -47,7 +47,7 @@ RM			= rm -f
 NAME		= Cub3d
 
 FLAGS_MLX	= -lbsd -lmlx -lXext -lX11 -lm
-FLAGS		= -Wall -Werror -Wextra ${INCLUDES} $(FLAGS_MLX) -g -o $(NAME) -fsanitize=leak
+FLAGS		= -Wall -Werror -Wextra ${INCLUDES} $(FLAGS_MLX) -g -o $(NAME)
 
 .c.o:
 			${CC} -c $< -o ${<:.c=.o} ${FLAGS}
