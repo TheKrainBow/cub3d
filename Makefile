@@ -24,6 +24,7 @@ SRCS_UTIL	=		srcs/utils/hook.c						\
 					srcs/utils/utils.c						\
 					srcs/utils/utils2.c						\
 					srcs/utils/main.c						\
+					srcs/utils/move_player.c				\
 					srcs/utils/save.c						\
 					srcs/utils/ft_itoa.c					\
 
