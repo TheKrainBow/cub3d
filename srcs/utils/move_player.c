@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 12:53:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:44 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:44:57 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,23 @@ void	change_p_pos(t_data *data, double angle, double speed)
 void	shoot(t_data *data)
 {
 	t_block		wall;
+	t_sprite	*tmp;
 
 	wall.dist = 0;
 	data->mirrored = 0;
 	data->bounced = 0;
 	closest_wall_a(fix_angle(data->player.angle), data->player.pos, wall, data);
 	while (data->sprites && data->sprites->next)
+	{
+		tmp = data->sprites;
 		data->sprites = data->sprites->next;
+		free(tmp);
+	}
 	if (data->sprites)
+	{
 		data->game[(int)data->sprites->pos.y][(int)data->sprites->pos.x] = '0';
+		free(data->sprites);
+	}
 }
 
 void	move_player2(double speed, t_data *data)

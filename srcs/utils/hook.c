@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:40 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:47:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ int			hook_loop(t_data *data)
 
 int			hook_close(t_data *data)
 {
+	/*int		i;
+
+	i = -1;
+	while (data->game && ++i < data->game_size.y - 1)
+		free(data->game[i]);*/
+	free(data->distance);
+	free(data->ray_bounced);
+	free(data->ray_inter);
 	(void)data;
 	printf("Game Exited\n");
 	exit(0);

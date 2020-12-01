@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 06:02:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:01:56 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:31:15 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 */
 
 int			parsing(t_data *data);
-int			aff_err(char *str, t_data *data);
+void		aff_err(char *str, t_data *data);
 
 /*
 ** parsing_utils.c
 */
 
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char *s1, char const *set);
 char		*ft_strstr(const char *haystack, const char *needle);
 
 int			ft_whitespace(char c);
@@ -38,7 +38,7 @@ int			longest_line(t_map *game);
 void		check_surround(int i, int j, t_data *data);
 void		check_game(t_data *data);
 void		create_game(t_map *map, int nbr_line, t_data *data);
-int			ft_map(char **line, t_data *data);
+int			ft_map(char *line, t_data *data);
 
 int			detect_param(char **line, t_data *data);
 void		reso(char *line, t_data *data);

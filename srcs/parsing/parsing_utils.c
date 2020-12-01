@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 03:11:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:20 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:32:12 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (dest);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	int		len;
 	int		i;
@@ -62,7 +62,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	i = 0;
 	if (!s1)
-		return (0);
+		return (NULL);
 	if (!set)
 		return (ft_strdup(s1));
 	len = ft_strlen(s1);

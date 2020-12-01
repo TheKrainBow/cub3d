@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:02:41 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:42:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char		*ft_itoa(int n);
 
 t_point		point(double x, double y);
 char		game(t_point p, t_data *data);
+void		my_free(void *ptr);
 
 #endif

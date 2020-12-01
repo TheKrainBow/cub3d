@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:27 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:45:14 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	color(char *line, t_data *data)
 {
+	char	*tmp;
+
+	tmp = line;
 	if (*line == 'F' && data->pars.f != 0)
 		aff_err("Multiple definition of F\n", data);
 	if (*line == 'C' && data->pars.c != 0)
@@ -32,20 +35,23 @@ void	color(char *line, t_data *data)
 		fill_color(line, 0, data);
 		data->pars.c = 1;
 	}
+	free(tmp);
 }
 
-int		aff_err(char *str, t_data *data)
+void	aff_err(char *str, t_data *data)
 {
 	(void)data;
 	printf("Error.\n%s", str);
-	exit(1);
+	hook_close(data);
 }
 
 int		redirect_function(char *line, t_data *data)
 {
 	void		(*redirect[10])(char *, t_data *);
 	int			param;
+	char		*tmp;
 
+	tmp = line;
 	redirect[0] = reso;
 	redirect[1] = texture;
 	redirect[2] = color;
@@ -53,6 +59,7 @@ int		redirect_function(char *line, t_data *data)
 	if (param >= 3)
 		return (0);
 	redirect[param](line, data);
+	//free(tmp);
 	return (0);
 }
 
@@ -78,20 +85,16 @@ void	check_parsing(t_data *data)
 int		parsing(t_data *data)
 {
 	char		*line;
-	char		*temp;
+	char		*tmp;
 	int			ret;
 
 	ret = 1;
 	while (ret > 0)
 	{
 		ret = get_next_line(data->fd, &line);
-		temp = line;
-		if (line && redirect_function(line, data))
-		{
-			free(temp);
-			return (0);
-		}
-		free(temp);
+		tmp = line;
+		if (line)
+			redirect_function(line, data);
 	}
 	check_parsing(data);
 	data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;

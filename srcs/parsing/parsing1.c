@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:19:38 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:28 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:55:45 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,10 @@ int		is_nb(char c)
 t_map	*new_map_line(char *line)
 {
 	t_map		*game;
-	int			i;
 
-	if (!(game = malloc(sizeof(t_map)))
-	|| !(game->line = malloc(sizeof(char) * (ft_strlen(line) + 1))))
+	if (!(game = malloc(sizeof(t_map))))
 		return (NULL);
-	i = -1;
-	while (line && line[++i])
-		game->line[i] = line[i];
-	game->line[i] = 0;
+	game->line = line;
 	game->next = NULL;
 	return (game);
 }

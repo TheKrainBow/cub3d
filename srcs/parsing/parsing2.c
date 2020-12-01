@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:20:39 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:31 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:26:50 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ void	create_game(t_map *map, int nbr_line, t_data *data)
 {
 	int		line_size;
 	int		i;
+	t_map	*tmp;
 	int		j;
 
 	if (!(data->game = malloc(sizeof(char *) * (nbr_line + 1))))
 		return ;
 	line_size = longest_line(map);
-	i = -1;
-	while (++i < nbr_line)
+	i = 0;
+	while (map)
 	{
 		if (!(data->game[i] = malloc(sizeof(char) * (line_size + 1))))
 			return ;
@@ -84,7 +85,11 @@ void	create_game(t_map *map, int nbr_line, t_data *data)
 		while (++j < line_size)
 			data->game[i][j] = ' ';
 		data->game[i][j] = 0;
+		tmp = map;
 		map = map->next;
+		free(tmp->line);
+		free(tmp);
+		i++;
 	}
 	data->game[i] = NULL;
 	data->game_size.y = line_size;
@@ -92,18 +97,16 @@ void	create_game(t_map *map, int nbr_line, t_data *data)
 	check_game(data);
 }
 
-int		ft_map(char **line, t_data *data)
+int		ft_map(char *line, t_data *data)
 {
 	int			ret;
 	int			nbr_line;
 	char		*temp;
 	t_map		*game;
 
-	temp = *line;
+	temp = line;
 	nbr_line = 0;
 	game = NULL;
-	while (ft_whitespace((**line)) && (**line))
-		(*line)++;
 	if (!(ft_check_line(temp)))
 		return (0);
 	ret = 1;
@@ -115,6 +118,7 @@ int		ft_map(char **line, t_data *data)
 		nbr_line++;
 		ret = get_next_line(data->fd, &temp);
 	}
+	free(temp);
 	create_game(game, nbr_line, data);
 	return (1);
 }
