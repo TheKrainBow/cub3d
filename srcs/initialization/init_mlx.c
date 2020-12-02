@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:07:15 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:36:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	init_parsing(t_data *data)
 	data->pars.c = 0;
 	data->pars.r = 0;
 	data->pars.player = 0;
+	data->pars.game = NULL;
 }
 
 void	init_data(t_data *data)

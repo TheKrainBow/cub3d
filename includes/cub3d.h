@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 19:03:58 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 23:12:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:23:27 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define CTRL 65507
 # define F 102
 
-# define FOG 0
+# define FOG 1
 
 # define SPEED 1
 

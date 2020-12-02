@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:52:29 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 21:54:15 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:40:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_strlen(const char *str)
 	int	len;
 
 	len = 0;
-	while (str[len] && str[len] != '\n')
+	while (str && str[len] && str[len] != '\n')
 		len++;
 	return (len);
 }

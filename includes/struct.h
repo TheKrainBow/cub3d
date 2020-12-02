@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:52:16 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 20:58:05 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:39:46 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct		s_parsing
 	int				r;
 	int				player;
 	int				nbr_line;
-	t_map			**game;
+	t_map			*game;
 }					t_parsing;
 
 typedef struct		s_point

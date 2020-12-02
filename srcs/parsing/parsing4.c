@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:33:06 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 23:07:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:40:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_map(t_data *data)
 	t_map *map;
 	t_map *tmp;
 
-	map = *data->pars.game;
+	map = data->pars.game;
 	while (map)
 	{
 		tmp = map->next;
@@ -63,7 +63,7 @@ void	free_map(t_data *data)
 
 void	ft_map(char *line, t_data *data)
 {
-	map_push_back(data->pars.game, new_map_line(line));
+	map_push_back(&data->pars.game, new_map_line(line));
 	data->pars.nbr_line++;
 }
 

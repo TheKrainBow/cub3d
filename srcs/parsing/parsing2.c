@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:20:39 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 22:52:43 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:41:04 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		longest_line(t_map *game)
 	temp = game;
 	while (temp)
 	{
-		if (ft_strlen(temp->line) > maxsize)
+		if (temp->line && ft_strlen(temp->line) > maxsize)
 			maxsize = ft_strlen(temp->line);
 		temp = temp->next;
 	}
@@ -75,7 +75,7 @@ void	create_game2(int line_size, int i, t_data *data)
 	t_map	*map;
 	t_map	*tmp;
 
-	map = *data->pars.game;
+	map = data->pars.game;
 	line_size = longest_line(map);
 	i = 0;
 	while (map)
