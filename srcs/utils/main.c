@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 16:13:15 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 17:52:35 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void		update(t_data *data)
 	swap_images(data);
 }
 
+void		exit_game(void *ptr)
+{
+	(void)ptr;
+	printf("yo\n");
+	exit(1);
+}
+
 void		start_game(char *str, t_data *data)
 {
 	int				size;
@@ -43,8 +50,9 @@ void		start_game(char *str, t_data *data)
 	data->fd = open(str, O_RDONLY);
 	if (data->fd < 0)
 		aff_err("Can't open the file.\n", data);
-	init_mlx(data);
 	init_keys(data);
+	init_mlx(data);
+	exit_game(data);
 }
 
 void		start_save(char **av, t_data *data)

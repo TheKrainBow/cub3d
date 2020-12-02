@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 14:45:14 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:02:35 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	aff_err(char *str, t_data *data)
 {
 	(void)data;
 	printf("Error.\n%s", str);
-	hook_close(data);
+	//hook_close(data);
 }
 
 int		redirect_function(char *line, t_data *data)

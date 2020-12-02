@@ -47,7 +47,7 @@ RM			= rm -f
 NAME		= Cub3d
 
 FLAGS_MLX	= -lbsd -lmlx -lXext -lX11 -lm
-FLAGS		= -Wall -Werror -Wextra ${INCLUDES} $(FLAGS_MLX) -g -o $(NAME)
+FLAGS		= -Wall -Werror -Wextra -L ../minilibx-linux ${INCLUDES} -g -o $(NAME) $(FLAGS_MLX)
 
 .c.o:
 			${CC} -c $< -o ${<:.c=.o} ${FLAGS}

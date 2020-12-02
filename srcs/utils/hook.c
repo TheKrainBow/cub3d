@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 16:16:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:02:03 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,6 @@ int			hook_loop(t_data *data)
 	move_player(data);
 	update(data);
 	return (0);
-}
-
-int			hook_close(t_data *data)
-{
-	/*int		i;
-
-	i = -1;
-	while (data->game && ++i < data->game_size.y - 1)
-		free(data->game[i]);*/
-	free(data->distance);
-	free(data->ray_bounced);
-	free(data->ray_inter);
-	mlx_destroy_image(data->mlx, data->img);
-	(void)data;
-	printf("Game Exited\n");
-	//exit(0);
-	return (1);
 }
 
 int			hook_keyup(int key_code, t_data *data)
@@ -90,7 +73,7 @@ int			hook_keydown(int key_code, t_data *data)
 	if (key_code == QUIT)
 	{
 		mlx_destroy_window(data->mlx, data->win);
-		hook_close(data);
+		//hook_close(data);
 	}
 	return (1);
 }
