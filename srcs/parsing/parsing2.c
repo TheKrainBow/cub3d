@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:20:39 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 20:02:02 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 20:46:35 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ int		ft_map(char *line, t_data *data)
 	ret = 1;
 	while (ret != -1)
 	{
-		if (!(ft_check_line(temp)))
-			break ;
 		map_push_back(&game, new_map_line(temp));
 		nbr_line++;
 		ret = get_next_line(data->fd, &temp);
+		if (!temp || !(ft_check_line(temp)))
+			break ;
 	}
 	free(temp);
 	create_game(game, nbr_line, data);

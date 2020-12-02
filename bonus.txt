@@ -6,5 +6,6 @@ Plus d’objets dans le labyrinthe
 Collision avec les objets
 Animations (tir d’arme ou des sprites animés)
 Des armes et des méchants à combattre
-
 Minimap
+
+courrir?

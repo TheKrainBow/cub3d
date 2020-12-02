@@ -46,7 +46,7 @@ CC			=	@clang
 RM			=	@rm -f
 NAME		=	Cub3D
 
-LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address -fsanitize=leak
+LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address
 FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -g
 
 .c.o:

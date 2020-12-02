@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:51:40 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 20:42:53 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	aff_err(char *str, t_data *data)
 
 int		redirect_function(char *line, t_data *data)
 {
-	void		(*redirect[10])(char *, t_data *);
+	void		(*redirect[3])(char *, t_data *);
 	int			param;
 	char		*tmp;
 
