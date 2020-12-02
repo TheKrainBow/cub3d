@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:40:54 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:51:40 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,12 @@ int		parsing(t_data *data)
 		ret = get_next_line(data->fd, &line);
 		tmp = line;
 		if (line)
-			redirect_function(line, data);
+		{
+			if (line[0])
+				redirect_function(line, data);
+			else
+				free(line);
+		}
 	}
 	check_parsing(data);
 	if (data->save == 0)
