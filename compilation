@@ -1,1 +1,0 @@
-clang srcs/*.c -lbsd -lmlx -lX11 -lm -LXext && ./a.out
