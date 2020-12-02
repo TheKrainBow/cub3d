@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 20:42:53 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 22:53:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void	aff_err(char *str, t_data *data)
 {
 	(void)data;
 	printf("Error.\n%s", str);
-	//hook_close(data);
+	mlx_loop_end(data->mlx);
+	exit(1);
 }
 
 int		redirect_function(char *line, t_data *data)
 {
-	void		(*redirect[3])(char *, t_data *);
+	void		(*redirect[4])(char *, t_data *);
 	int			param;
 	char		*tmp;
 
@@ -52,11 +53,11 @@ int		redirect_function(char *line, t_data *data)
 	redirect[0] = reso;
 	redirect[1] = texture;
 	redirect[2] = color;
-	param = detect_param(&line, data);
-	if (param >= 3)
+	redirect[3] = ft_map;
+	param = detect_param(&line);
+	if (param >= 4)
 		return (0);
 	redirect[param](line, data);
-	free(tmp);
 	return (0);
 }
 
@@ -79,30 +80,31 @@ void	check_parsing(t_data *data)
 		aff_err("No player on the map\n", data);
 }
 
-int		parsing(t_data *data)
+void	parsing(t_data *data)
 {
 	char		*line;
-	char		*tmp;
 	int			ret;
+	int			map;
 
 	ret = 1;
+	map = 0;
 	while (ret > 0)
 	{
 		ret = get_next_line(data->fd, &line);
-		tmp = line;
-		if (line)
+		redirect_function(line, data);
+		if (ft_check_line(line))
+			map = 1;
+		if (!ft_check_line(line))
+			free(line);
+		if (!ft_check_line(line) && map == 1)
 		{
-			if (line[0])
-				redirect_function(line, data);
-			else
-				free(line);
+			free_map(data);
+			aff_err("Bad line in map\n", data);
 		}
 	}
-	check_parsing(data);
+	create_game(data);
 	if (data->save == 0)
-	{
 		data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
+	if (data->save == 0)
 		data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
-	}
-	return (1);
 }

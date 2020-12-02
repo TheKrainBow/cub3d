@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:33:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:35:25 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 22:04:06 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int			hook_keydown(int key_code, t_data *data)
 	if (key_code == CTRL)
 		data->keys.crouch = 1;
 	if (key_code == QUIT)
-	{
-		mlx_destroy_window(data->mlx, data->win);
 		mlx_loop_end(data->mlx);
-	}
 	return (1);
 }

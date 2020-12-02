@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:53:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:48 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 21:43:13 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ int		ft_atoi(const char *str)
 		i++;
 	}
 	return (res * neg);
+}
+
+char	*ft_strchr(char *s, int c)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i] && s[i] != c)
+		i++;
+	if (s[i] == c)
+		return (s + i);
+	return (NULL);
 }
 
 double	fix_angle(double ang)

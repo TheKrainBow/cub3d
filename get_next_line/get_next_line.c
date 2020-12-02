@@ -5,125 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 16:43:56 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 15:26:15 by magostin         ###   ########.fr       */
+/*   Created: 2019/11/20 14:52:24 by magostin          #+#    #+#             */
+/*   Updated: 2020/12/02 21:54:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int				read_line(t_nxtlne nxtlne[100], char *buffer, int lnbr)
+static int				ft_strchr(char *buffer, char chr)
 {
-	int		read_return;
-	char	*temp;
+	int		pos;
 
-	read_return = 1;
-	while (!(ft_strchr(nxtlne[lnbr].line, '\n')) && read_return)
-	{
-		read_return = read(nxtlne[lnbr].fd, buffer, 4096);
-		if (read_return == -1)
-			return (-1);
-		if (read_return)
-		{
-			temp = nxtlne[lnbr].line;
-			buffer[read_return] = 0;
-			if (!(nxtlne[lnbr].line = ft_strjoin(nxtlne[lnbr].line, buffer)))
-				return (0);
-			free(temp);
-		}
-	}
-	return (1);
+	pos = 0;
+	while (buffer[pos] && buffer[pos] != chr)
+		pos++;
+	return (buffer[pos] == chr ? pos + 1 : -1);
 }
 
-char			*stock_line(t_nxtlne nxtlne[100], int lnbr)
+static int		ft_read(int fd, char *buffer, char **line)
 {
-	char		*buffer;
-	char		*dest;
-	char		*temp;
+	char	*tmp;
+	int		chr_read;
+	int		pos;
 
-	buffer = ft_strchr(nxtlne[lnbr].line, '\n');
-	if (buffer)
+	while ((chr_read = read(fd, buffer, BUFFER_SIZE)) && chr_read != -1)
 	{
-		if (!(dest = ft_strndup(nxtlne[lnbr].line, buffer - nxtlne[lnbr].line)))
-			return (NULL);
-		temp = nxtlne[lnbr].line;
-		if (!(nxtlne[lnbr].line = ft_strdup(buffer)))
-			return (NULL);
-		free(temp);
-	}
-	else
-	{
-		if ((dest = ft_strdup(nxtlne[lnbr].line)) == NULL)
-			return (NULL);
-		nxtlne[lnbr].line = NULL;
-		free(nxtlne[lnbr].line);
-	}
-	return (dest);
-}
-
-int				ft_fd_exist(int fd, t_nxtlne nxtlne[100])
-{
-	int		i;
-
-	i = 0;
-	if (nxtlne[0].fd == 0 && nxtlne[99].fd == 0)
-	{
-		while (i < 100)
+		buffer[chr_read] = 0;
+		tmp = ft_strjoin(*line, buffer);
+		free(*line);
+		*line = tmp;
+		if ((pos = ft_strchr(buffer, '\n')) != -1)
 		{
-			nxtlne[i].fd = -1;
-			i++;
+			ft_memmove(buffer, buffer + pos, BUFFER_SIZE - pos);
+			buffer[BUFFER_SIZE - pos] = 0;
+			break ;
 		}
 	}
-	i = 0;
-	while (nxtlne[i].fd != -1 && nxtlne[i].fd != fd)
-		i++;
-	nxtlne[i].fd = fd;
-	return (i);
+	return (chr_read == 0 || chr_read == -1 ? chr_read : 1);
 }
 
 int				get_next_line(int fd, char **line)
 {
-	static t_nxtlne		nxtlne[100];
-	char				*buffer;
-	int					lnbr;
-	int					error;
+	static char		buffer[100][BUFFER_SIZE + 1];
+	int				pos;
 
-	if (!line || fd < 0)
+	if (BUFFER_SIZE <= 0 || !line)
 		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (4096 + 1))))
+	*line = buffer[fd][0] ? ft_strdup(buffer[fd]) : ft_strdup("");
+	if (!*line)
 		return (-1);
-	lnbr = ft_fd_exist(fd, nxtlne);
-	error = read_line(nxtlne, buffer, lnbr);
-	if (error == -1)
-		return (-1);
-	if (error == 0)
-	{
-		*line = NULL;
-		return (1);
-	}
-	free(buffer);
-	if (!(*line = stock_line(nxtlne, lnbr)))
-		return (-1);
-	return (nxtlne[lnbr].line ? 1 : 0);
-}/*
-#include <stdio.h>
-
-int main(int argc, char **argv)
-{
-	char		*str = NULL;
-	int			fd;
-	int			i;
-	int			ret;
-	char		buffer[10];
-
-	i = 0;
-	ret = 1;
-	fd = open(argv[argc - 1], 'r');
-	while (i < 7)
-	{
-		ret = get_next_line(fd, &str);
-		printf("|%s| %d\n", str, ret);
-		i++;
-	}
-	free(str);
-}*/
+	if (!(buffer[fd][0]))
+		return (ft_read(fd, buffer[fd], line));
+	if ((pos = ft_strchr(buffer[fd], '\n')) == -1)
+		return (ft_read(fd, buffer[fd], line));
+	ft_memmove(buffer[fd], buffer[fd] + pos, BUFFER_SIZE - pos);
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 15:28:09 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:08 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:14:33 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_screen(t_data *data)
 	t_point		a;
 
 	x = -1;
-	while (++x < data->r.x - 1)
+	while (++x < data->r.x)
 	{
 		angle = (x * data->fov) / (data->r.x - 1);
 		a.x = data->player.pos.x + (cosf(

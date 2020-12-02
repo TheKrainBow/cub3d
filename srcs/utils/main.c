@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:54:58 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 22:45:38 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ void		update(t_data *data)
 	draw_hud(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	swap_images(data);
-}
-
-void		exit_game(t_data *data)
-{
-	int		i;
-
-	free(data->distance);
-	free(data->ray_bounced);
-	free(data->ray_inter);
-	i = -1;
-	while (++i < (int)data->game_size.y)
-		free(data->game[i]);
-	printf("yo\n");
-	exit(1);
 }
 
 void		start_game(char *str, t_data *data)
@@ -80,6 +66,7 @@ void		start_save(char **av, t_data *data)
 	draw_screen(data);
 	draw_hud(data);
 	ft_save(data);
+	exit_game(data);
 }
 
 int			main(int ac, char **av)

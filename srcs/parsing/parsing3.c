@@ -6,37 +6,30 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:22:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 19:42:08 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:07:51 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		detect_param(char **line, t_data *data)
+void	reso2(char *line, t_data *data)
 {
-	if (ft_map(*line, data))
-		return (4);
-	while (ft_whitespace((**line)) && (**line))
-		(*line)++;
-	if ((**line) == 0)
-		return (4);
-	if ((**line) == 'R' && ft_whitespace(*(*line + 1)))
-		return (0);
-	if ((ft_strstr(*line, "NO") == *line
-	|| ft_strstr(*line, "SO") == *line
-	|| ft_strstr(*line, "EA") == *line
-	|| ft_strstr(*line, "WE") == *line) && ft_whitespace(*(*line + 2)))
-		return (1);
-	if ((**line) == 'S' && ft_whitespace(*(*line + 1)))
-		return (1);
-	if (ft_strchr("FC", **line) && ft_whitespace(*(*line + 1)))
-		return (2);
-	return (4);
+	if (!is_nb(*line))
+		aff_err("Invalide char in resolution line.\n", data);
+	data->r.y = ft_atoi(line);
+	if (data->r.y <= 0)
+		aff_err("Resolutions must be positives numbers.\n", data);
+	while (line && is_nb(*line))
+		line++;
+	if (*line)
+		aff_err("Invalide char in resolution line.\n", data);
+	data->pars.r = 1;
 }
 
 void	reso(char *line, t_data *data)
 {
 	char	*tmp;
+
 	line++;
 	line = ft_strtrim(line, " ");
 	tmp = line;
@@ -51,16 +44,7 @@ void	reso(char *line, t_data *data)
 		aff_err("Invalide char in resolution line.\n", data);
 	while (line && *line == ' ')
 		line++;
-	if (!is_nb(*line))
-		aff_err("Invalide char in resolution line.\n", data);
-	data->r.y = ft_atoi(line);
-	if (data->r.y <= 0)
-		aff_err("Resolutions must be positives numbers.\n", data);
-	while (line && is_nb(*line))
-		line++;
-	if (*line)
-		aff_err("Invalide char in resolution line.\n", data);
-	data->pars.r = 1;
+	reso2(line, data);
 	free(tmp);
 }
 

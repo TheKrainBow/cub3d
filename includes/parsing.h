@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 06:02:01 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 15:31:15 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:09:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** parsing.c
 */
 
-int			parsing(t_data *data);
+void		parsing(t_data *data);
 void		aff_err(char *str, t_data *data);
 
 /*
@@ -37,10 +37,10 @@ int			ft_check_line(char *line);
 int			longest_line(t_map *game);
 void		check_surround(int i, int j, t_data *data);
 void		check_game(t_data *data);
-void		create_game(t_map *map, int nbr_line, t_data *data);
-int			ft_map(char *line, t_data *data);
+void		create_game(t_data *data);
+void		ft_map(char *line, t_data *data);
 
-int			detect_param(char **line, t_data *data);
+int			detect_param(char **line);
 void		reso(char *line, t_data *data);
 void		fill_texture(char *line, int n, t_data *data);
 void		texture(char *line, t_data *data);
@@ -48,4 +48,7 @@ void		fill_color(char *line, int n, t_data *data);
 
 void		ft_create_player(t_data *data, int x, int y, char c);
 void		ft_init_player(t_data *data);
+void		free_map(t_data *data);
+void		check_parsing(t_data *data);
+
 #endif

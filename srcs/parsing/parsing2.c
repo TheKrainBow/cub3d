@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:20:39 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 20:46:35 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 22:52:43 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	check_surround(int i, int j, t_data *data)
 		return ;
 	if (i == 0 || j == 0 || i == data->game_size.x - 1
 	|| j == data->game_size.y - 1)
+	{
+		free_map(data);
 		aff_err("Map not valid!\n", data);
+	}
 	a = -2;
 	while (++a <= 1)
 	{
@@ -45,7 +48,10 @@ void	check_surround(int i, int j, t_data *data)
 		while (++b <= 1)
 			if (ft_strchr(" ",
 			data->game[i + a][j + b]) && (!(a == 0 && b == 0)))
+			{
+				free_map(data);
 				aff_err("Map not valid!\n", data);
+			}
 	}
 }
 
@@ -63,15 +69,13 @@ void	check_game(t_data *data)
 	}
 }
 
-void	create_game(t_map *map, int nbr_line, t_data *data)
+void	create_game2(int line_size, int i, t_data *data)
 {
-	int		line_size;
-	int		i;
-	t_map	*tmp;
 	int		j;
+	t_map	*map;
+	t_map	*tmp;
 
-	if (!(data->game = malloc(sizeof(char *) * (nbr_line + 1))))
-		return ;
+	map = *data->pars.game;
 	line_size = longest_line(map);
 	i = 0;
 	while (map)
@@ -87,38 +91,19 @@ void	create_game(t_map *map, int nbr_line, t_data *data)
 		data->game[i][j] = 0;
 		tmp = map;
 		map = map->next;
-		free(tmp->line);
-		free(tmp);
 		i++;
 	}
 	data->game[i] = NULL;
 	data->game_size.y = line_size;
-	data->game_size.x = nbr_line;
-	check_game(data);
+	data->game_size.x = data->pars.nbr_line;
 }
 
-int		ft_map(char *line, t_data *data)
+void	create_game(t_data *data)
 {
-	int			ret;
-	int			nbr_line;
-	char		*temp;
-	t_map		*game;
-
-	temp = line;
-	nbr_line = 0;
-	game = NULL;
-	if (!(ft_check_line(temp)))
-		return (0);
-	ret = 1;
-	while (ret != -1)
-	{
-		map_push_back(&game, new_map_line(temp));
-		nbr_line++;
-		ret = get_next_line(data->fd, &temp);
-		if (!temp || !(ft_check_line(temp)))
-			break ;
-	}
-	free(temp);
-	create_game(game, nbr_line, data);
-	return (1);
+	if (!(data->game = malloc(sizeof(char *) * (data->pars.nbr_line + 1))))
+		return ;
+	create_game2(0, 0, data);
+	check_game(data);
+	free_map(data);
+	check_parsing(data);
 }

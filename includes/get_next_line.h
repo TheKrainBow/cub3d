@@ -5,29 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 15:54:18 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:58:04 by magostin         ###   ########.fr       */
+/*   Created: 2019/11/20 14:52:31 by magostin          #+#    #+#             */
+/*   Updated: 2020/12/02 21:53:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <stdio.h>
 
-typedef struct		s_nxtlne
-{
-	int				fd;
-	char			*line;
-}					t_nxtlne;
+char	*ft_strdup(const char *s1);
+void	*ft_memmove(void *dst, const void *src, size_t len);
+char	*ft_strjoin(const char *s1, const char *s2);
+int		get_next_line(int fd, char **line);
+int		ft_strlen(const char *str);
 
-char				*ft_strjoin(char const *s1, char const *s2);
-int					get_next_line(int fd, char **line);
-char				*ft_strchr(char *s, int c);
-char				*ft_strdup(const char *str);
-char				*ft_strndup(const char *s, int n);
-char				*ft_strnew(size_t size);
-int					ft_strlen(const char *str);
 #endif

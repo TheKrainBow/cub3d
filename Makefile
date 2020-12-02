@@ -31,12 +31,8 @@ SRCS_UTIL	=	srcs/utils/hook.c						\
 SRCS_GNL	=	get_next_line/get_next_line.c			\
 				get_next_line/get_next_line_utils.c
 
-INCLUDES	=	-Isrcs/algo								\
-				-Isrcs/draw								\
-				-Isrcs/initialization					\
-				-Isrcs/parsing							\
-				-Isrcs/utils							\
-				-Iincludes
+INCLUDES	=	-Iincludes								\
+				-Imlx
 
 
 SRCS		=	$(SRCS_GNL) $(SRCS_ALGO) $(SRCS_DRAW) $(SRCS_INIT) $(SRCS_PARS) $(SRCS_UTIL)
@@ -47,7 +43,7 @@ RM			=	@rm -f
 NAME		=	Cub3D
 
 LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address
-FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -g
+FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -g -D BUFFER_SIZE=4096
 
 .c.o:
 				$(CC) -c $< -o $(<:.c=.o) $(FLAGS)

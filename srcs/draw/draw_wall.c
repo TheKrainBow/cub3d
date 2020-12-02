@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 13:00:12 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 23:16:21 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 void		draw_ceilling(int *i, int x, double y, t_data *data)
 {
 	*i = -1;
-	while (++(*i) < data->player.h - data->y)
+	while (++(*i) <= data->player.h - data->y)
 		draw_pt(x, *i, data, data->color[0]);
 	if (data->bounced > 0)
 		data->mirrored = 1;
 	(*i)--;
-	while (++(*i) < data->player.h - y)
+	while (++(*i) <= data->player.h - y)
 		draw_pt(x, *i, data, data->color[0]);
+	(*i)--;
 }
 
 void		draw_floor(int *i, int x, double y, t_data *data)
