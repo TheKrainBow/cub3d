@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 05:02:08 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 17:01:29 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:07:15 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_mlx(t_data *data)
 	{
 		data->img2 = mlx_new_image(data->mlx, data->r.x, data->r.y);
 		data->draw2 = (t_pixel *)mlx_get_data_addr(data->img2, &t, &t, &t);
-		mlx_hook(data->win, 33, 1L << 17, mlx_loop_end, data);
+		mlx_hook(data->win, 33, 1L << 17, mlx_loop_end, data->mlx);
 		mlx_hook(data->win, 2, 1L << 0, hook_keydown, data);
 		mlx_hook(data->win, 3, 1L << 1, hook_keyup, data);
 		mlx_loop_hook(data->mlx, hook_loop, data);

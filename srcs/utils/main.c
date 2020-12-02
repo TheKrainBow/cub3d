@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 17:52:35 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:13:37 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,16 @@ void		update(t_data *data)
 	swap_images(data);
 }
 
-void		exit_game(void *ptr)
+void		exit_game(t_data *data)
 {
-	(void)ptr;
+	int		i;
+
+	free(data->distance);
+	free(data->ray_bounced);
+	free(data->ray_inter);
+	i = -1;
+	while (++i < (int)data->game_size.y)
+		free(data->game[i]);
 	printf("yo\n");
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 17:02:35 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:40:54 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	color(char *line, t_data *data)
 {
-	char	*tmp;
-
-	tmp = line;
 	if (*line == 'F' && data->pars.f != 0)
 		aff_err("Multiple definition of F\n", data);
 	if (*line == 'C' && data->pars.c != 0)
@@ -35,7 +32,7 @@ void	color(char *line, t_data *data)
 		fill_color(line, 0, data);
 		data->pars.c = 1;
 	}
-	free(tmp);
+	free(line);
 }
 
 void	aff_err(char *str, t_data *data)
@@ -59,7 +56,7 @@ int		redirect_function(char *line, t_data *data)
 	if (param >= 3)
 		return (0);
 	redirect[param](line, data);
-	//free(tmp);
+	free(tmp);
 	return (0);
 }
 
@@ -97,7 +94,10 @@ int		parsing(t_data *data)
 			redirect_function(line, data);
 	}
 	check_parsing(data);
-	data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
-	data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
+	if (data->save == 0)
+	{
+		data->r.x = data->r.x > data->max_x ? data->max_x : data->r.x;
+		data->r.y = data->r.y > data->max_y ? data->max_y : data->r.y;
+	}
 	return (1);
 }

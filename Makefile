@@ -46,8 +46,8 @@ CC			=	@clang
 RM			=	@rm -f
 NAME		=	Cub3D
 
-LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g
-FLAGS		=	-Wall -Werror -Wextra $(INCLUDES)
+LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address -fsanitize=leak
+FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -g
 
 .c.o:
 				$(CC) -c $< -o $(<:.c=.o) $(FLAGS)
@@ -67,6 +67,7 @@ fclean:			clean
 				$(RM) $(NAME)
 
 start_message:
+				@clear
 				@echo "\033[0;31mMaking \033[1;31mCub3D"
 				@echo "\033[0;32mCompiling objects\033[0m"
 

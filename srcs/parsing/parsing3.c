@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:22:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 15:33:23 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:42:08 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ int		detect_param(char **line, t_data *data)
 void	reso(char *line, t_data *data)
 {
 	char	*tmp;
-
-	tmp = line;
 	line++;
 	line = ft_strtrim(line, " ");
+	tmp = line;
 	if (!is_nb(*line))
 		aff_err("Invalide char in resolution line.\n", data);
 	data->r.x = ft_atoi(line);
@@ -61,16 +60,14 @@ void	reso(char *line, t_data *data)
 		line++;
 	if (*line)
 		aff_err("Invalide char in resolution line.\n", data);
-	free(tmp);
 	data->pars.r = 1;
+	free(tmp);
 }
 
 void	fill_texture(char *line, int n, t_data *data)
 {
 	int		trash;
-	char	*tmp;
 
-	tmp = line;
 	line += 2;
 	line = ft_strtrim(line, " ");
 	if (data->pars.t[n] != 0)
@@ -82,7 +79,7 @@ void	fill_texture(char *line, int n, t_data *data)
 	data->t[n].tab = (t_pixel *)mlx_get_data_addr(data->t[n].ptr,
 	&trash, &trash, &trash);
 	data->pars.t[n] = 1;
-	free(tmp);
+	free(line);
 }
 
 void	texture(char *line, t_data *data)
