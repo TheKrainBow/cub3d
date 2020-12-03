@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 12:53:53 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 22:17:51 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 20:59:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	change_p_pos(t_data *data, double angle, double speed)
 	pos = data->player.pos;
 	if (!ft_strchr("123", data->game[(int)(pos.y)][(int)(pos.x + n.x)]))
 		data->player.pos.x += cos(ator(angle)) * (speed * speed);
-	if (!ft_strchr("123", data->game[(int)(pos.y + n.y)][(int)(pos.x + n.x)]))
+	if (!ft_strchr("123", data->game[(int)(pos.y + n.y)][(int)(pos.x)]))
 		data->player.pos.y += sin(ator(angle)) * (speed * speed);
 }
 
