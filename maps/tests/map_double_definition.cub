@@ -1,0 +1,24 @@
+R 500 500
+R 500 500
+NO ./texture/north.xpm
+NO ./texture/north.xpm
+EA ./texture/east.xpm
+EA ./texture/east.xpm
+WE ./texture/west.xpm
+WE ./texture/west.xpm
+SO ./texture/south.xpm
+SO ./texture/south.xpm
+S ./texture/lag_star.xpm
+S ./texture/lag_star.xpm
+C 255,186,8
+C 255,186,8
+F 50,1,19
+F 50,1,19
+
+111111111111111
+100000000000001
+100000000200001
+100000E00000001
+100000000000001
+100000000000001
+111111111111111

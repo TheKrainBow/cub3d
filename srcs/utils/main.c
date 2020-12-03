@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/03 15:44:14 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 17:07:59 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,16 @@ void		start_game(char *str, t_data *data)
 
 	size = ft_strlen(str);
 	if (ft_strstr(str, ".cub") != str + size - 4)
-		aff_err("File must end with .cub\n", data);
+	{
+		ft_putstr("Error.\nFile must end with .cub\n");
+		exit(1);
+	}
 	data->fd = open(str, O_RDONLY);
 	if (data->fd < 0)
-		aff_err("Can't open the file.\n", data);
+	{
+		ft_putstr("Error.\nCan't open the file.\n");
+		exit(1);
+	}
 	init_keys(data);
 	init_mlx(data);
 	exit_game(data);
@@ -55,12 +61,21 @@ void		start_save(char **av, t_data *data)
 	size = ft_strlen(av[1]);
 	data->save = 1;
 	if (ft_strstr(av[2], "--save") != av[2])
-		aff_err("Second argument must be --save if 3 arguments\n", data);
+	{
+		ft_putstr("Error.\nMust have 2 or 3 arguments.\n");
+		exit(1);
+	}
 	if (ft_strstr(av[1], ".cub") != av[1] + size - 4)
-		aff_err("File must end with .cub\n", data);
+	{
+		ft_putstr("Error.\nFile must end with .cub\n");
+		exit(1);
+	}
 	data->fd = open(av[1], O_RDONLY);
 	if (data->fd < 0)
-		aff_err("Can't open the file.\n", data);
+	{
+		ft_putstr("Error.\nCan't open the file.\n");
+		exit(1);
+	}
 	init_mlx(data);
 	init_keys(data);
 	draw_screen(data);
