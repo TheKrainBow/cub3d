@@ -59,7 +59,7 @@ clean:
 				$(RM) $(OBJS)
 
 fclean:			clean
-				@echo "\033[0;33mRemoving \033[1;31mCub3D\033[0m"
+				@echo "\033[0;33mRemoving \033[1;31mCub3D\033[0;33m.\033[0m"
 				$(RM) $(NAME)
 
 start_message:
