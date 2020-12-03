@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 03:29:49 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/01 12:59:46 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:43:03 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ char			wall_dir(double f, t_point p_pos, t_point wall, t_data *data);
 double			wall_dir_return(int y, int x, t_point wall, t_point p_pos);
 t_point			change_wall_pos(t_block wall);
 t_point			wall_inter(t_block wall, t_point p, t_point a);
+void			ft_putstr(char *str);
 #endif

@@ -6,13 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:52:24 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 21:54:02 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:58:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int				ft_strchr(char *buffer, char chr)
+static int		ft_strchr(char *buffer, char chr)
 {
 	int		pos;
 

@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 23:45:30 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 22:12:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:57:10 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,22 @@ t_point		point(double x, double y)
 	p.x = x;
 	p.y = y;
 	return (p);
+}
+
+int			ft_strlen(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void		ft_putstr(char *str)
+{
+	if (str)
+		write(1, str, ft_strlen(str));
 }

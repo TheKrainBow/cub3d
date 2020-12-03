@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:52:31 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 21:53:59 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:45:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ char	*ft_strdup(const char *s1);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 int		get_next_line(int fd, char **line);
-int		ft_strlen(const char *str);
+int		ft_strlen_g(const char *str);
 
 #endif

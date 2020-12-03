@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 03:11:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 21:45:23 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:48:45 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	if (start >= (unsigned int)ft_strlen(s))
+	if (start >= (unsigned int)ft_strlen((char *)s))
 		return (ft_strdup(""));
 	if (!(dest = malloc((len + 1) * sizeof(char))))
 		return (0);

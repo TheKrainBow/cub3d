@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 04:35:22 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 22:12:52 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:56:17 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,8 @@ char		game(t_point p, t_data *data);
 void		my_free(void *ptr);
 char		*ft_strchr(char *s, int c);
 void		exit_game(t_data *data);
+int			ft_strlen(char *str);
+void		ft_putstr(char *str);
+void		update(t_data *data);
 
 #endif

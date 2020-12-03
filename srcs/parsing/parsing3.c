@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:22:00 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 23:07:51 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:44:36 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	reso(char *line, t_data *data)
 	char	*tmp;
 
 	line++;
+	if (data->pars.r != 0)
+		aff_err("Multiple definition of resolution.\n", data);
 	line = ft_strtrim(line, " ");
 	tmp = line;
 	if (!is_nb(*line))
@@ -68,13 +70,13 @@ void	fill_texture(char *line, int n, t_data *data)
 
 void	texture(char *line, t_data *data)
 {
-	if (*line == 'E')
+	if (*line == 'W')
 		fill_texture(line, 0, data);
-	else if (*line == 'N')
-		fill_texture(line, 1, data);
-	else if (*line == 'W')
-		fill_texture(line, 2, data);
 	else if (*line == 'S' && *(line + 1) == 'O')
+		fill_texture(line, 1, data);
+	else if (*line == 'E')
+		fill_texture(line, 2, data);
+	else if (*line == 'N')
 		fill_texture(line, 3, data);
 	else if (*line == 'S')
 		fill_texture(line, 4, data);

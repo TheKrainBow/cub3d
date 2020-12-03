@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:52:29 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 23:40:17 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:58:23 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-int		ft_strlen(const char *str)
+int				ft_strlen_g(const char *str)
 {
 	int	len;
 
@@ -45,10 +45,10 @@ char			*ft_strdup(const char *s1)
 	char	*result;
 	int		i;
 
-	if (!(result = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+	if (!(result = (char *)malloc(sizeof(char) * (ft_strlen_g(s1) + 1))))
 		return (NULL);
 	i = 0;
-	while (i++ < ft_strlen(s1))
+	while (i++ < ft_strlen_g(s1))
 		result[i - 1] = s1[i - 1];
 	result[i - 1] = 0;
 	return (result);
@@ -62,9 +62,9 @@ char			*ft_strjoin(const char *s1, const char *s2)
 
 	size = 0;
 	if (s1)
-		size += ft_strlen(s1);
+		size += ft_strlen_g(s1);
 	if (s2)
-		size += ft_strlen(s2);
+		size += ft_strlen_g(s2);
 	if (!(result = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	s = result;
