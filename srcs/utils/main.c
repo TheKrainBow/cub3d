@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:30:33 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 22:45:38 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 01:02:06 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int			main(int ac, char **av)
 	else if (ac == 3)
 		start_save(av, &data);
 	else
-		aff_err("Must have 2 or 3 arguments.\n", &data);
+		printf("Must have 2 or 3 arguments.\n");
 	return (0);
 }
