@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:03:50 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/03 16:34:46 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 20:39:18 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	color(char *line, t_data *data)
 void	aff_err(char *str, t_data *data)
 {
 	(void)data;
-	ft_putstr("Error.\n");
+	ft_putstr("Error\n");
 	ft_putstr(str);
 	mlx_loop_end(data->mlx);
 	exit(1);
