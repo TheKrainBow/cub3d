@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/02 23:16:21 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 20:43:43 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_pixel		get_pixel_color(t_point p, double y, t_block wall, t_data *data)
 		ratio_x *= -1;
 	ratio_y = (p.y - (data->player.h - y)) / (y * 2);
 	color = (int)(t.wth * ratio_x) + (int)(t.lth * ratio_y) * t.wth;
+	if (color > t.wth * t.lth)
+		printf("OOF\n");
 	return (fog_color(t.tab[color], data->distance[(int)p.x], data));
 }
 
