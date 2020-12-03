@@ -42,8 +42,8 @@ CC			=	@clang
 RM			=	@rm -f
 NAME		=	Cub3D
 
-LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address
-FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -g -D BUFFER_SIZE=4096
+LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm
+FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096
 
 .c.o:
 				$(CC) -c $< -o $(<:.c=.o) $(FLAGS)
@@ -53,6 +53,8 @@ $(NAME):		start_message $(OBJS) start_link
 				@echo "\033[1;31mCub3D\033[0m is ready to use!"
 
 all:			$(NAME)
+
+bonus:			all
 
 clean:
 				@echo "\033[0;33mCleaning \033[1;31mCub3D\033[0;33m's objects\033[0m"
