@@ -38,12 +38,12 @@ INCLUDES	=	-Iincludes								\
 SRCS		=	$(SRCS_GNL) $(SRCS_ALGO) $(SRCS_DRAW) $(SRCS_INIT) $(SRCS_PARS) $(SRCS_UTIL)
 OBJS		=	$(SRCS:.c=.o)
 
-CC			=	@clang
+CC			=	clang
 RM			=	@rm -f
 NAME		=	Cub3D
 
-LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm
-FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096
+LD_FLAGS	=	-Lmlx -lbsd -lmlx -lXext -lX11 -lm -g -fsanitize=address
+FLAGS		=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096 -g
 
 .c.o:
 				$(CC) -c $< -o $(<:.c=.o) $(FLAGS)
@@ -54,7 +54,7 @@ $(NAME):		start_message $(OBJS) start_link
 
 all:			$(NAME)
 
-bonus:			all
+bonus:			re
 
 clean:
 				@echo "\033[0;33mCleaning \033[1;31mCub3D\033[0;33m's objects\033[0m"
@@ -67,10 +67,10 @@ fclean:			clean
 start_message:
 				@clear
 				@echo "\033[0;31mMaking \033[1;31mCub3D"
-				@echo "\033[0;32mCompiling objects\033[0m"
+				@echo "\033[1;32mCompiling objects\033[0;32m"
 
 start_link:
-				@echo "\033[0;32mLinking all objects\033[0m"
+				@echo "\033[1;32mLinking all objects\033[0;32m"
 
 re:				fclean all
 
