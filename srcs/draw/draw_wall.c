@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:10:15 by magostin          #+#    #+#             */
-/*   Updated: 2020/12/03 20:54:50 by magostin         ###   ########.fr       */
+/*   Updated: 2020/12/03 21:09:35 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		draw_wall(int x, t_block wall, t_data *data)
 
 	f = fix_angle(xtoa(x, data));
 	data->distance[x] = wall.dist;
-	y = ((data->r.x / 2 - data->fov)) / (wall.dist * cos(
+	y = ((data->r.x / 2)) / (wall.dist * cos(
 	ator(fix_angle(f - data->player.angle))));
 	draw_ceilling(&i, x, y, data);
 	while (++i >= data->player.h - y && i < (int)(data->player.h) + y)
